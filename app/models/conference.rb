@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/ClassLength
 ##
 # This class represents a conference
 class Conference < ActiveRecord::Base
@@ -1064,3 +1065,4 @@ class Conference < ActiveRecord::Base
     result
   end
 end
+# rubocop:enable Metrics/ClassLength
