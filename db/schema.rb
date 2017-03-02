@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170213145807) do
+ActiveRecord::Schema.define(version: 20170302145716) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -292,6 +292,7 @@ ActiveRecord::Schema.define(version: 20170213145807) do
     t.datetime "voting_start_date"
     t.datetime "voting_end_date"
     t.integer  "selected_schedule_id"
+    t.integer  "schedule_interval",    default: 15,    null: false
   end
 
   add_index "programs", ["selected_schedule_id"], name: "index_programs_on_selected_schedule_id", using: :btree
