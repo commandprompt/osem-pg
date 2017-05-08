@@ -37,6 +37,7 @@ FactoryGirl.define do
         create_list(:ticket, 3, conference: conference)
         create_list(:room, 3, venue: conference.venue)
         create_list(:lodging, 4, conference: conference)
+        create_list(:activity, 4, conference: conference)
 
         create_list(:sponsorship_level, 3, conference: conference)
         create(:sponsor, sponsorship_level: conference.sponsorship_levels.first, conference: conference)

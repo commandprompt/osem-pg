@@ -52,6 +52,8 @@
     - if @conference.venue and @conference.splashpage.include_venue
       %section#venue
         = render 'venue'
+        - if @conference.activities.any? and @conference.splashpage.include_activities
+          = render 'activity'
 
     - if @conference.lodgings.any? and @conference.splashpage.include_lodgings
       %section#lodging

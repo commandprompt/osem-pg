@@ -93,6 +93,30 @@
     }
   }
 
+  #activity {
+    @include breakpoint(xs) {
+      .img-activity{
+        max-width: 280px;
+      }
+    }
+    @include breakpoint(sm) {
+      .img-activity{
+        max-width: 200px;
+      }
+    }
+    @include breakpoint(sm) {
+      .img-activity{
+        max-width: 260px;
+      }
+    }
+    @include breakpoint(lg) {
+      .img-activity{
+        max-width: 300px;
+        max-height: 200px;
+      }
+    }
+  }
+
   #sponsors {
     .img-sponsor {
       max-height: 100px;

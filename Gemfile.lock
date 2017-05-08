@@ -277,7 +277,6 @@ GEM
     multi_json (1.11.2)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
-    mysql2 (0.4.2)
     netrc (0.11.0)
     nio4r (1.2.1)
     nokogiri (1.7.1)
@@ -317,6 +316,7 @@ GEM
     parser (2.3.0.3)
       ast (~> 2.2)
     pdf-core (0.2.5)
+    pg (0.20.0)
     phantomjs (2.1.1.0)
     piwik_analytics (1.0.2)
       actionpack
@@ -586,13 +586,13 @@ DEPENDENCIES
   mina
   mini_magick
   money-rails
-  mysql2
   omniauth
   omniauth-facebook
   omniauth-github
   omniauth-google-oauth2
   omniauth-openid
   paper_trail
+  pg
   phantomjs
   piwik_analytics (~> 1.0.1)
   poltergeist
@@ -637,4 +637,5 @@ DEPENDENCIES
   whenever
 
 BUNDLED WITH
-   1.14.3
+   1.14.6
+

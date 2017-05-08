@@ -32,6 +32,8 @@ class PictureUploader < CarrierWave::Uploader::Base
       'logos'
     when 'lodgings'
       'photos'
+    when 'activities'
+      'photos'
     when 'sponsors'
       'logos'
     when 'venues'

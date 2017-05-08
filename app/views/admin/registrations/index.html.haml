@@ -25,8 +25,9 @@
             %th ID#
             %th Name
             %th E-Mail
-            %th Arrival
-            %th Departure
+            - if @conference.require_itinerary
+              %th Arrival
+              %th Departure
             - if @conference.questions.any?
               %th Questions
             %th Actions
@@ -43,16 +44,17 @@
                     = role.name.titleize
               %td
                 = registration.email
-              %td
-                - if registration.arrival
-                  = registration.arrival.strftime('%d %b %H:%M')
-                - else
-                  n/a
-              %td
-                - if registration.departure
-                  = registration.departure.strftime('%d %b %H:%M')
-                - else
-                  n/a
+              -if @conference.require_itinerary
+                %td
+                  - if registration.arrival
+                    = registration.arrival.strftime('%d %b %H:%M')
+                  - else
+                    n/a
+                %td
+                  - if registration.departure
+                    = registration.departure.strftime('%d %b %H:%M')
+                  - else
+                    n/a
               -if @conference.questions.any?
                 %td
                   = link_to 'Questions','#', class: 'btn btn-success question-btn', 'data-id' => index, 'data-name' => registration.name

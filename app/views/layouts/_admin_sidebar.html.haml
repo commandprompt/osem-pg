@@ -59,6 +59,9 @@
         - if can? :update, @conference.lodgings.build
           %li{ class: active_nav_li(admin_conference_lodgings_path(@conference.short_title)) }
             = link_to 'Lodgings', admin_conference_lodgings_path(@conference.short_title)
+        - if can? :update, @conference.activities.build
+          %li{ class: active_nav_li(admin_conference_activities_path(@conference.short_title)) }
+            = link_to 'Activities', admin_conference_activities_path(@conference.short_title)
   - if can? :show, @conference.program
     %li{class: "#{active_nav_li(admin_conference_program_path(@conference.short_title))}"}
       = link_to admin_conference_program_path(@conference.short_title) do

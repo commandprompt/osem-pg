@@ -118,6 +118,12 @@
   = link_if_alive version, lodging.name,
           admin_conference_lodgings_path(conference_id: Conference.find(version.conference_id).short_title)
 
+- when 'Activity'
+  = 'activities'
+  - activity = current_or_last_object_state(version.item_type, version.item_id)
+  = link_if_alive version, activity.name,
+          admin_conference_activities_path(conference_id: Conference.find(version.conference_id).short_title)
+
 - when 'Room'
   = 'room'
   - room = current_or_last_object_state(version.item_type, version.item_id)

@@ -1,0 +1,28 @@
+.container
+  .row
+    .col-md-12.text-center
+      %h2
+        Things to do 
+        - if @conference.venue
+          in
+          = @conference.venue.city
+      %p.lead
+  - @conference.activities.each_slice(3) do |slice|
+    .row.row-centered
+      - slice.each do |activity|
+        .col-md-4.col-sm-4.ticket.col-centered.col-top
+          .thumbnail
+            - unless activity.picture?
+              %p.text-center
+                %i.fa.fa-map-marker.fa-5x
+            - else
+              -if activity.website_link.present?
+                = link_to(activity.website_link, class: 'thumbnail') do
+                  = image_tag activity.picture.large.url, class: 'img-responsive img-activity'
+              - else
+                = image_tag activity.picture.large.url, class: 'img-responsive img-activity'
+            .caption
+              %h3.text-center
+                = activity.name
+              -if activity.description.present?
+                = markdown(activity.description)

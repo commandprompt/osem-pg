@@ -170,6 +170,7 @@ class Ability
     can :manage, Commercial, commercialable_type: 'Venue',
                              commercialable_id: Venue.where(conference_id: conf_ids_for_organizer).pluck(:id)
     can :manage, Lodging, conference_id: conf_ids_for_organizer
+    can :manage, Activity, conference_id: conf_ids_for_organizer
     can :manage, Room, venue: { conference_id: conf_ids_for_organizer}
     can :manage, Sponsor, conference_id: conf_ids_for_organizer
     can :manage, SponsorshipLevel, conference_id: conf_ids_for_organizer
