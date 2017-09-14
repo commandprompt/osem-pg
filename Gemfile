@@ -7,7 +7,7 @@ end
 
 # as web framework
 gem 'rails', '~> 4.2'
-
+gem 'comfortable_mexican_sofa', '~> 1.12.0'
 gem 'braintree'
 gem 'gon', '~> 5.1.2'
 # enables serving assets in production and setting your logger to standard out
@@ -88,7 +88,7 @@ gem 'pdfjs_viewer-rails'#, :git => 'https://github.com/TinderBox/pdfjs_viewer-ra
 
 # as the JavaScript library
 gem 'jquery-rails'
-gem 'jquery-ui-rails', '~> 4.2.1'
+gem 'jquery-ui-rails', '~> 5.0.0'
 
 # for languages validation
 gem 'iso-639'

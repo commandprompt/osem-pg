@@ -1,5 +1,7 @@
 Osem::Application.routes.draw do
 
+  comfy_route :cms_admin, :path => '/cmsadmin'
+  comfy_route :cms, :path => '/site', :sitemap => false
   if ENV['OSEM_ICHAIN_ENABLED'] == 'true'
     devise_for :users, controllers: { registrations: :registrations }
   else
@@ -179,4 +181,5 @@ Osem::Application.routes.draw do
   get '/2017' => 'conferences#show'
   root to: 'conferences#index', via: [:get, :options]
   #root to: 'conferences#redirect_to_current'
+
 end

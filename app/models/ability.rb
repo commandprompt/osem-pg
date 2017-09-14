@@ -13,9 +13,8 @@ class Ability
     # user.is_attendee_of? Conference
     # The following is wrong because a user will only have 'cfp' role for a specific conference
     # user.is_cfp? # This is always false
-
+  
     user ||= User.new
-
     # This is what sets up the different abilities
     if user.new_record?
       not_signed_in
@@ -120,6 +119,10 @@ class Ability
     cannot [:edit, :update, :destroy], Question, global: true
     # for admins
     can :manage, :all if user.is_admin
+    
+    alias_action :index, :show, :to => :read
+    alias_action :create, :update, :to => :manage
+    can [:read, :manage], "Cms::Site" if user.is_admin
 
     cannot :revert_object, PaperTrail::Version do |version|
       (version.event == 'create' && %w(Conference User Event).include?(version.item_type))
