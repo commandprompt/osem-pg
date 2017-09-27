@@ -7,7 +7,11 @@ end
 
 # as web framework
 gem 'rails', '~> 4.2'
-
+gem 'refinerycms', '~> 3.0.0'
+# gem 'refinerycms-authentication-devise', '~> 1.0'
+gem 'refinerycms-blog', git: 'https://github.com/refinery/refinerycms-blog', branch: 'master'
+gem 'refinerycms-wymeditor', '>= 1.0.6'
+# gem "refinerycms-news", '~> 2.1.0'
 gem 'braintree'
 gem 'gon', '~> 5.1.2'
 # enables serving assets in production and setting your logger to standard out
@@ -66,7 +70,7 @@ gem 'unobtrusive_flash', '>=3'
 gem 'transitions', :require => %w( transitions active_record/transitions )
 
 # for comments
-gem 'awesome_nested_set', '~> 3.0.0.rc.5'
+gem 'awesome_nested_set', '~> 3.0.0'
 gem 'acts_as_commentable_with_threading'
 
 # as templating language
@@ -84,14 +88,17 @@ gem 'autoprefixer-rails'
 gem 'formtastic-bootstrap'
 gem 'formtastic', '~> 3.1.1'
 gem 'cocoon'
-gem 'pdfjs_viewer-rails'#, :git => 'https://github.com/TinderBox/pdfjs_viewer-rails.git', :branch => 'pdfjs-1.5.188'
+# gem 'pdfjs_viewer-rails'#, :git => 'https://github.com/TinderBox/pdfjs_viewer-rails.git', :branch => 'pdfjs-1.5.188'
 
 # as the JavaScript library
 gem 'jquery-rails'
-gem 'jquery-ui-rails', '~> 4.2.1'
+gem 'jquery-ui-rails', '~> 5.0.0'
 
 # for languages validation
 gem 'iso-639'
+
+#website pagination
+gem 'will_paginate-bootstrap'
 
 # frontend javascripts
 source 'https://rails-assets.org' do
@@ -217,7 +224,9 @@ group :development do
   # to silence rack assests messages
   gem 'quiet_assets'
   # as database
+  group :development, :test do
   gem 'sqlite3'
+end
   # to open mails
   gem 'letter_opener'
   # to open mails in browser

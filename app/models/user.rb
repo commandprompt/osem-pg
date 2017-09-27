@@ -215,6 +215,24 @@ class User < ActiveRecord::Base
     end
   end
 
+
+  def active_plugins
+    Refinery::Plugins.registered
+    # @active_plugins ||= Refinery::Plugins.new(
+    #   Refinery::Plugins.registered.select do |plugin|
+    #     has_role?(:admin)
+    #   end
+    # )
+  end
+
+  def has_plugin?(name)
+    active_plugins.names.include?(name)
+  end
+
+  def landing_url
+    active_plugins.in_menu.first_url_in_menu
+  end
+
   private
 
   def setup_role

@@ -1,0 +1,1 @@
+Refinery::Blog::PostsController.class_eval do layout 'website' end 

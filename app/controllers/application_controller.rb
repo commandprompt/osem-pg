@@ -1,3 +1,10 @@
+class IChainRecordNotFound < StandardError
+end
+
+class UserDisabled < StandardError
+end
+
+
 class ApplicationController < ActionController::Base
   before_filter :set_paper_trail_whodunnit
   include ApplicationHelper
@@ -7,7 +14,7 @@ class ApplicationController < ActionController::Base
   before_filter :store_location
   helper_method :date_string
   # Ensure every controller authorizes resource or skips authorization (skip_authorization_check)
-  check_authorization unless: :devise_controller?
+  # check_authorization unless: :devise_controller?
 
   def store_location
     # store last url - this is needed for post-login redirect to whatever the user last visited.

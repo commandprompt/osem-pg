@@ -1,0 +1,5 @@
+%nav.navbar.navbar-fixed-top.navbar-solid.navbar-custom{:role=>"navigation", :id=>'site-nav'}
+  .container
+    .navbar-header
+      = link_to Refinery::Core.site_name, refinery.root_path, {class:'navbar-brand' }
+    = navigation_menu.to_html

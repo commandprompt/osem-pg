@@ -1,0 +1,59 @@
+// // This is default size of refinery logo. Arghhh
+// $sb_ref_logo: 29px;
+// $sb_lineheight: 18px;
+// $sb_height: $sb_lineheight * 4;
+
+// #header { height: $sb_height; }
+
+// // take care of menu item hover-selection
+// .navbar .nav > li > a { padding: $sb_lineheight; }
+
+// ///////////////////////////////////////////////////////////////////////////////
+// //  Refinery admin menu: images taken from app/assets/images/admin_sprite.png
+// ///////////////////////////////////////////////////////////////////////////////
+// ul#main-menu-right > li > a {
+//   &:hover { background-color: transparent; }
+//   &#site_bar_refinery_cms_logo {
+//     line-height: $sb_ref_logo; height: $sb_ref_logo; 
+//     margin-top: $sb_ref_logo / 3; padding: 0; overflow: hidden; 
+//     img { line-height: $sb_ref_logo; }
+//     &:hover > img { margin-top: -$sb_ref_logo - 2px; } 
+//   }
+// }
+
+// // control buttons
+// @mixin admin_sprite($num,$size:24px) {
+//   line-height: $size; height: $size; overflow: hidden; padding: 0; 
+//   margin: $sb_ref_logo / 2; margin-left: $sb_ref_logo / 1.5; margin-right: 0;
+//   img { margin-top: -2*$size*$num - 24px; } 
+//   &:hover > img { margin-top: -2*$size*$num; }  
+// }
+// a#adminsite { @include admin_sprite (0); }
+// a#logout { @include admin_sprite (1); }'
+
+.icon-rss {
+  color: darkorange;
+}
+
+.blog-header {
+  min-height: 250px;
+  margin-top: 60px;
+  margin-bottom: 15px;
+  background-color: whitesmoke;
+  background-size: cover;
+  color: whitesmoke;
+  // display: table-cell;
+  // .v-align {
+  //   display: inline-block;
+  // }
+  h1 {
+    font-size: 64px
+  }
+  .details {
+    margin-top: 15px;
+  }
+}
+
+.blog-body {
+  // background-color: whitesmoke;
+}

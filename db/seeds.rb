@@ -33,5 +33,11 @@ questions_yes_no.each do |i|
   q.save!
 end
 
-CodeType.find_or_create_by!(name: 'Discount')
-CodeType.find_or_create_by!(name: 'Access')
+# CodeType.find_or_create_by!(name: 'Discount')
+# CodeType.find_or_create_by!(name: 'Access')
+
+# Added by Refinery CMS Pages extension
+Refinery::Pages::Engine.load_seed
+
+# Added by Refinery CMS Blog engine
+Refinery::Blog::Engine.load_seed

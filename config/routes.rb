@@ -185,6 +185,9 @@ Osem::Application.routes.draw do
 
   get '/conferences' => 'conferences#index'
   get '/2017' => 'conferences#show'
-  root to: 'conferences#index', via: [:get, :options]
+  # root to: 'conferences#index', via: [:get, :options]
   #root to: 'conferences#redirect_to_current'
+
+  mount Refinery::Core::Engine, at: Refinery::Core.mounted_path
+
 end

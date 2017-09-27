@@ -1,0 +1,12 @@
+%html{:xmlns => "http://www.w3.org/1999/html"}
+  %body
+    = render "/refinery/html_tag"
+    - site_bar = render('/refinery/site_bar', :head => true)
+    = render "/refinery/head"
+    = render "/refinery/javascripts"
+    = site_bar
+    = render "/refinery/header"
+    .container
+      = yield
+    %footer.navbar-static-bottom
+      = render "/refinery/footer"
