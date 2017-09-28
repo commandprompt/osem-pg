@@ -4,7 +4,7 @@
   = yield(:side_body_append)
 
 - content_for :body_content_title do
-  Blog
+  = "#{t('.posts_tagged')} “#{h(@tag_name.titleize)}”".html_safe
 - content_for :body do
   = raw @page.content_for(Refinery::Pages.default_parts.first[:slug].to_sym) if Refinery::Pages.default_parts.any?
   - if @posts.any?
@@ -17,12 +17,11 @@
         .card
           .card-block
             %h4.card-title Blog Search
-            = form_tag refinery.search_root_path, method: 'get' do
-              .input-group
-                %input.form-control{name: "query", type: "search"}/
-                %span.input-group-btn
-                  %button.btn.btn-default{type: "submit"}
-                    Go!
+            .input-group
+              %input.form-control{:type => "text"}/
+              %span.input-group-btn
+                %button.btn.btn-default{:type => "button"}
+                  Go!
           / /.input-group
           / Blog Categories Well
           - if @categories.any?
@@ -36,13 +35,6 @@
                       %span.badge
                         =category.post_count
                       &nbsp;
-          / Tags well
-          - if @tags.any?
-            .card-block
-              %h4.card-title Tags
-              %nav#tags
-                - tag_cloud(@tags, %w(tag1 tag2 tag3 tag4)) do |tag, css_class|
-                  = link_to tag.name, refinery.blog_tagged_posts_path(tag.id, tag.name.parameterize), class: 'label label-default'
 
         / Side Widget Well
         - if @posts.many?

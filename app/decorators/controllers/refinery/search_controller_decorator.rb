@@ -1,0 +1,1 @@
+Refinery::Search::SearchController.class_eval do layout 'website' end

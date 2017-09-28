@@ -1,5 +1,5 @@
 %html{:xmlns => "http://www.w3.org/1999/html"}
-  %body
+  %body.site-body
     = render "/refinery/html_tag"
     - site_bar = render('/refinery/site_bar', :head => true)
     = render "/refinery/head"
@@ -8,5 +8,7 @@
     = render "/refinery/header"
     .container
       = yield
-    %footer.navbar-static-bottom
-      = render "/refinery/footer"
+    %footer.navbar-static-bottom.site-footer
+      .container.text-center
+        .col-md-12
+          = render "/refinery/footer"
