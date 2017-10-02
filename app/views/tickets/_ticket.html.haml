@@ -8,10 +8,10 @@
           0
     - else
       - options = ""
-      - (1..ticket.purchase_quantity_available).each do |i|
+      - (0..ticket.purchase_quantity_available).each do |i|
         - options = options + "<option>" + i.to_s + "</option>"
       %div.styled-select.green.semi-square  
-        = select_tag("tickets[][#{ticket.id}]", raw(options), include_blank: true, class: "form-control quantity", 'data-id' => ticket.id) 
+        = select_tag("tickets[][#{ticket.id}]", raw(options), class: "form-control quantity", 'data-id' => ticket.id) 
   %td.col-sm-8.col-md-6
     .media
       .media-body
@@ -28,10 +28,10 @@
                     %tr
                       %td
                         - options = ""
-                        - (1..event.purchase_quantity_available).each do |i|
+                        - (0..event.purchase_quantity_available).each do |i|
                           - options = options + "<option>" + i.to_s + "</option>"
                         %div.styled-select.green.semi-square  
-                          = select_tag("chosen_events[#{ticket.id}][#{event.id}]", raw(options), include_blank: true,
+                          = select_tag("chosen_events[#{ticket.id}][#{event.id}]", raw(options),
                               onchange: "update_event(this, #{ticket.id});") 
                       %td
                         %a{ href: '#', data: { toggle: 'modal', target: "#modal_#{event.id}" } }
