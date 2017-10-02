@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170820181840) do
+ActiveRecord::Schema.define(version: 20170927004003) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -152,6 +152,7 @@ ActiveRecord::Schema.define(version: 20170820181840) do
     t.boolean  "use_pg_flow",                default: true
     t.string   "default_currency",           default: "USD"
     t.string   "braintree_merchant_account"
+    t.integer  "ticket_layout",              default: 0
   end
 
   create_table "conferences_codes", id: false, force: :cascade do |t|
@@ -388,6 +389,21 @@ ActiveRecord::Schema.define(version: 20170820181840) do
     t.datetime "updated_at",                     null: false
   end
 
+  create_table "physical_tickets", force: :cascade do |t|
+    t.integer  "ticket_purchase_id", null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "token"
+    t.integer  "user_id",            null: false
+    t.integer  "event_id"
+    t.integer  "registration_id",    null: false
+    t.string   "pending_assignment"
+  end
+
+  add_index "physical_tickets", ["registration_id"], name: "index_physical_tickets_on_registration_id", using: :btree
+  add_index "physical_tickets", ["token"], name: "index_physical_tickets_on_token", unique: true, using: :btree
+  add_index "physical_tickets", ["user_id"], name: "index_physical_tickets_on_user_id", using: :btree
+
   create_table "policies", force: :cascade do |t|
     t.string   "title"
     t.integer  "conference_id"
@@ -564,24 +580,24 @@ ActiveRecord::Schema.define(version: 20170820181840) do
   create_table "ticket_purchases", force: :cascade do |t|
     t.integer  "ticket_id"
     t.integer  "conference_id"
-    t.boolean  "paid",          default: false
+    t.boolean  "paid",                  default: false
     t.datetime "created_at"
-    t.integer  "quantity",      default: 1
+    t.integer  "quantity",              default: 1
     t.integer  "user_id"
     t.integer  "payment_id"
     t.integer  "code_id"
     t.integer  "event_id"
+    t.string   "pending_event_tickets"
   end
 
   add_index "ticket_purchases", ["conference_id", "code_id"], name: "index_ticket_purchases_on_conference_id_and_code_id", using: :btree
   add_index "ticket_purchases", ["event_id"], name: "index_ticket_purchases_on_event_id", using: :btree
 
-  create_table "ticket_purchases_attendees", force: :cascade do |t|
-    t.integer "ticket_purchase_id"
-    t.integer "attendee_id"
+  create_table "ticket_scannings", force: :cascade do |t|
+    t.integer  "physical_ticket_id", null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
   end
-
-  add_index "ticket_purchases_attendees", ["ticket_purchase_id", "attendee_id"], name: "ticket_purchases_attendees_idx", using: :btree
 
   create_table "tickets", force: :cascade do |t|
     t.integer "conference_id"
@@ -750,10 +766,11 @@ ActiveRecord::Schema.define(version: 20170820181840) do
   add_foreign_key "conferences_policies", "conferences"
   add_foreign_key "conferences_policies", "policies"
   add_foreign_key "events", "tickets"
+  add_foreign_key "physical_tickets", "events"
+  add_foreign_key "physical_tickets", "registrations"
+  add_foreign_key "physical_tickets", "users"
   add_foreign_key "policies", "conferences"
   add_foreign_key "sponsorship_infos", "conferences"
   add_foreign_key "ticket_purchases", "codes"
   add_foreign_key "ticket_purchases", "events"
-  add_foreign_key "ticket_purchases_attendees", "ticket_purchases"
-  add_foreign_key "ticket_purchases_attendees", "users", column: "attendee_id"
 end

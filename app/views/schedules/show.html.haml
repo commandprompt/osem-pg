@@ -36,17 +36,10 @@
           %span.track
             %span.label{ style: "background-color: #{color}"}
               = track.name
-      - @dates.each do |date|
-        %div{ class: "tab-pane #{ 'active' if @day == date }", id: "#{ date }" }
 
-          .visible-xs-inline
-            = render partial: 'carousel', locals: { date: date, hrs_per_slide: 1 }
-
-          .visible-sm-inline
-            = render partial: 'carousel', locals: { date: date, hrs_per_slide: 2 }
-
-          .visible-md-inline.visible-lg-inline
-            = render partial: 'carousel', locals: { date: date, hrs_per_slide: 3 }
+        - @dates.each do |date|
+          .tab-pane{ class: "#{ (@dates.first == date) ? 'active' : '' }", id: "#{date}" }
+            = render partial: 'day_tab', locals: { date: date }
 
 :javascript
   function filter_events(trackid) {

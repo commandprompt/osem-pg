@@ -11,3 +11,6 @@
 - if !@conference || @conference != conference
   - if conference.splashpage && conference.splashpage.public
     = link_to "View Conference", conference_path(conference.short_title), :class =>"btn btn-info"
+- if current_user && PhysicalTicket.user_tickets(conference, current_user).any?
+  = link_to "My Tickets", conference_physical_ticket_index_path(conference.short_title), class: 'btn btn-default'
+

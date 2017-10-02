@@ -100,6 +100,12 @@ class Ticket < ActiveRecord::Base
     events.where(ticket_id: id)
   end
 
+  # This will return the maximum number of tickets available for a select box maxing out at 10
+  # TODO: The max should be configurable at the ticket level
+  def purchase_quantity_available
+    10
+  end
+
   private
 
   def tickets_of_conference_have_same_currency

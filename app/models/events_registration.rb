@@ -10,7 +10,6 @@ class EventsRegistration < ActiveRecord::Base
   delegate :email, to: :registration
 
   validates :event, :registration, presence: true
-  validates :event, uniqueness: { scope: :registration }
 
   private
 

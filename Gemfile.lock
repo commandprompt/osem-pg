@@ -83,6 +83,8 @@ GEM
     bootstrap-switch-rails (3.0.2)
     bootstrap3-datetimepicker-rails (3.0.3)
       momentjs-rails (>= 2.8.1)
+    braintree (2.76.0)
+      builder (>= 2.0.0)
     browser (0.6.0)
     builder (3.2.2)
     byebug (3.1.2)
@@ -113,6 +115,7 @@ GEM
     chart-js-rails (0.0.6)
       railties (> 3.1)
     chronic (0.10.2)
+    chunky_png (1.3.8)
     cliver (0.3.2)
     cloudinary (1.1.6)
       aws_cf_signer
@@ -198,6 +201,11 @@ GEM
     geocoder (1.2.2)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
+    gon (5.1.2)
+      actionpack (>= 2.3.0)
+      json
+      multi_json
+      request_store (>= 1.0.5)
     gravtastic (3.2.6)
     guard (2.6.0)
       formatador (>= 0.2.4)
@@ -342,6 +350,9 @@ GEM
     prawn (1.0.0)
       pdf-core (~> 0.2.2)
       ttfunk (~> 1.1.1)
+    prawn-qrcode (0.2.2.1)
+      prawn (>= 0.11.1)
+      rqrcode (>= 0.4.1)
     prawn_rails (0.0.11)
       prawn (>= 0.11.1)
       railties (>= 3.0.0)
@@ -425,6 +436,8 @@ GEM
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
     rolify (5.0.0)
+    rqrcode (0.10.1)
+      chunky_png (~> 1.0)
     rspec (3.0.0)
       rspec-core (~> 3.0.0)
       rspec-expectations (~> 3.0.0)
@@ -559,6 +572,7 @@ DEPENDENCIES
   bootstrap-social-rails
   bootstrap-switch-rails (~> 3.0.0)
   bootstrap3-datetimepicker-rails (~> 3.0.2)
+  braintree
   byebug
   cancancan
   capybara
@@ -582,6 +596,7 @@ DEPENDENCIES
   formtastic (~> 3.1.1)
   formtastic-bootstrap
   friendly_id (~> 5.1.0)
+  gon (~> 5.1.2)
   gravtastic
   guard-rspec (~> 4.2.8)
   haml-rails
@@ -609,6 +624,7 @@ DEPENDENCIES
   phantomjs
   piwik_analytics (~> 1.0.1)
   poltergeist
+  prawn-qrcode (~> 0.2.2.1)
   prawn_rails
   quiet_assets
   rails (~> 4.2)
@@ -629,6 +645,7 @@ DEPENDENCIES
   redcarpet
   responders (~> 2.0)
   rolify
+  rqrcode
   rspec-activemodel-mocks
   rspec-rails
   rubocop

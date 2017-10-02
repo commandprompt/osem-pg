@@ -1,11 +1,17 @@
 %tr
-  %td.col-sm-1.col-md-1{:align=>"right", :style=>"width: 5%"}
-    = hidden_field_tag("tickets[][#{ticket.id}]", 0,
-      type: 'number', min: 0, class: "form-control quantity", 'data-id' => ticket.id)
-    %div.pretty.success.smooth
-      = check_box_tag("cb[][#{ticket.id}]", "#{ticket.id}", false, class: "fa fa-check",
-        onchange: "update_quantity(this, #{ticket.id});")
-      = label_tag(nil, '<i class="fa fa-check"></i>'.html_safe)
+  %td.col-sm-1.col-md-1{:align=>"left", :style=>"width: 5%"}
+    - if ticket.ticketed_events.present?
+      = hidden_field_tag("tickets[][#{ticket.id}]", 0,
+        type: 'number', min: 0, class: "form-control quantity", 'data-id' => ticket.id)
+      %div.styled-span.green.semi-square   
+        %span{id: "ticket_label_#{ticket.id}"}
+          0
+    - else
+      - options = ""
+      - (1..ticket.purchase_quantity_available).each do |i|
+        - options = options + "<option>" + i.to_s + "</option>"
+      %div.styled-select.green.semi-square  
+        = select_tag("tickets[][#{ticket.id}]", raw(options), include_blank: true, class: "form-control quantity", 'data-id' => ticket.id) 
   %td.col-sm-8.col-md-6
     .media
       .media-body
@@ -21,10 +27,12 @@
                   - ticket.ticketed_events.each do |event|
                     %tr
                       %td
-                        %div.pretty.circle.success
-                          = radio_button_tag("chosen_events[][#{ticket.id}]", event.id, false,
-                            onchange: "update_event(this, #{ticket.id});")
-                          = label_tag(nil, '<i class="fa fa-check"></i>'.html_safe)
+                        - options = ""
+                        - (1..event.purchase_quantity_available).each do |i|
+                          - options = options + "<option>" + i.to_s + "</option>"
+                        %div.styled-select.green.semi-square  
+                          = select_tag("chosen_events[#{ticket.id}][#{event.id}]", raw(options), include_blank: true,
+                              onchange: "update_event(this, #{ticket.id});") 
                       %td
                         %a{ href: '#', data: { toggle: 'modal', target: "#modal_#{event.id}" } }
                           = event.title

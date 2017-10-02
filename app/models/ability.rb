@@ -64,6 +64,8 @@ class Ability
         event.program.cfp_open? && event.new_record?
       end
     end
+
+    can [:claim, :assign], PhysicalTicket
   end
 
   # Abilities for signed in users
@@ -83,6 +85,7 @@ class Ability
     can :index, Ticket
     can :manage, TicketPurchase, user_id: user.id
     can [:new, :create], Payment, user_id: user.id
+    can [:index, :show, :update], PhysicalTicket, user_id: user.id
 
     can [:create, :destroy], Subscription, user_id: user.id
 

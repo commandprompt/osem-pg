@@ -255,6 +255,12 @@ class Event < ActiveRecord::Base
     event_schedules.find_by(schedule_id: program.selected_schedule_id).try(:start_time)
   end
 
+  # This will return the maximum number of tickets available for a select box maxing out at 10
+  # TODO: The max should be configurable at the ticket level
+  def purchase_quantity_available
+    10
+  end
+
   private
 
   ##

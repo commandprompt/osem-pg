@@ -19,6 +19,8 @@ class TicketPurchase < ActiveRecord::Base
   delegate :price_cents, to: :ticket
   delegate :price_currency, to: :ticket
 
+  has_many :physical_tickets
+
   scope :paid, -> { where(paid: true) }
   scope :unpaid, -> { where(paid: false) }
   scope :by_conference, -> (conference) { where(conference_id: conference.id) }
@@ -35,11 +37,11 @@ class TicketPurchase < ActiveRecord::Base
     errors = []
     ActiveRecord::Base.transaction do
       conference.tickets.each do |ticket|
-        chosen_event_id = nil
+        chosen_event_list = nil 
         if chosen_events.present?
           chosen_events.each do |key, value|
             if key == ticket.id.to_s
-              chosen_event_id = value
+              chosen_event_list = value
             end
           end
         end
@@ -49,7 +51,7 @@ class TicketPurchase < ActiveRecord::Base
         if ticket.bought?(user) && ticket.unpaid?(user)
           purchase = update_quantity(conference, quantity, ticket, user)
         else
-          purchase = purchase_ticket(conference, quantity, ticket, user, code_id, chosen_event_id)
+          purchase = purchase_ticket(conference, quantity, ticket, user, code_id, chosen_event_list)
         end
 
         if purchase && !purchase.save
@@ -60,14 +62,16 @@ class TicketPurchase < ActiveRecord::Base
     errors.join('. ')
   end
 
-  def self.purchase_ticket(conference, quantity, ticket, user, code_id, event_id)
-
-    purchase = new(ticket_id: ticket.id,
-                   conference_id: conference.id,
-                   user_id: user.id,
-                   quantity: quantity,
-                   code_id: code_id,
-                   event_id: event_id) if quantity > 0
+  def self.purchase_ticket(conference, quantity, ticket, user, code_id, event_list)
+    if quantity > 0
+      purchase = new(ticket_id: ticket.id,
+                     conference_id: conference.id,
+                     user_id: user.id,
+                     quantity: quantity,
+                     code_id: code_id,
+                     pending_event_tickets: event_list)
+      purchase.pay(nil, user) if ticket.price_cents.zero?
+    end
     purchase
   end
 
@@ -79,6 +83,27 @@ class TicketPurchase < ActiveRecord::Base
 
     purchase.quantity = quantity if quantity > 0
     purchase
+  end
+
+  def pay(payment, user)
+    if self.pending_event_tickets.present?
+      pending_tkts = eval(self.pending_event_tickets)
+    end
+    update_attributes(paid: true, payment: payment, pending_event_tickets: nil)
+    PhysicalTicket.transaction do
+      if pending_tkts.present?
+        pending_tkts.each do |evt, qty|
+          if qty.present?
+            for i in 1..qty.to_i
+              physical_tickets.assign(self, user, nil, evt.to_i)
+            end
+          end
+        end      
+      else
+        quantity.times { physical_tickets.assign(self, user, nil, nil) }
+      end
+    end
+    Mailbot.ticket_confirmation_mail(self).deliver_later
   end
 
   def self.get_code_usage(conference, code)
