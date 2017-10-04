@@ -8,7 +8,7 @@
         %span.icon-bar
         %span.icon-bar
       /- if content_for? :splash_nav
-      = link_to image_tag(ENV['OSEM_NAVBAR_LOGO'].presence || 'brand.png'), root_path, class: 'navbar-brand', title: 'Open Source Event Manager'
+      = link_to image_tag(ENV['OSEM_NAVBAR_LOGO'].presence || 'brand.png'), root_path, class: 'navbar-brand', title: 'PGConf'
       /-else
       /  = link_to (ENV['OSEM_NAME'] || 'OSEM'), root_path, class: 'navbar-brand', title: 'Open Source Event Manager'
     .collapse.navbar-collapse
@@ -89,6 +89,46 @@
                   %li.hidden-lg
                     = link_to('Sign In', new_user_session_path)
 
+- content_for :nav_extended do
+  - if @conference
+    #inside_header
+      .content_row
+        .row
+          .col-md-2
+            = image_tag(@conference.picture_url, class: 'img-responsive img-center', id: 'splash-logo') if @conference.picture?
+          .col-md-8
+            .row
+              .col-md-8
+                %h2
+                  = @conference.title
+                %h3
+                  - if @conference.venue
+                    = "#{@conference.venue.city} / #{@conference.venue.country_name}"
+                  - if @conference.start_date && @conference.end_date
+                    %br
+                    = date_string(@conference.start_date, @conference.end_date)
+    #inside_nav
+      .content_row
+        .row
+          %ul
+            %li
+              = link_to('Home', conference_path(@conference.short_title))
+            - if @conference.tickets.exists?
+              %li
+                = link_to('Tickets', conference_tickets_path(@conference.short_title))
+            - if @conference.program and @conference.program.schedule_public
+              %li
+                = link_to('Schedule', events_conference_schedule_path(@conference.short_title))
+            - if @conference.sponsors.exists?
+              %li
+                = link_to('Sponsors', conference_path(@conference.short_title, :anchor => "sponsors"))
+            - if @conference.program and @conference.program.cfp_open?
+              %li
+                = link_to('Call For Papers', conference_path(@conference.short_title, :anchor => "callforpapers"))
+            - if @conference.venue
+              %li
+                = link_to('Venue', conference_path(@conference.short_title, :anchor => "venue"))
+
 - if content_for? :splash_nav
   %nav.navbar.navbar-fixed-top.navbar-custom{:role=>"navigation", :id=>'site-nav'}
     = yield :nav_base
@@ -100,6 +140,7 @@
 - else
   %nav.navbar.navbar-static-top.navbar-solid{:role=>"navigation", :id=>'site-nav'}
     = yield :nav_base
+  = yield :nav_extended
 
 :javascript
   $(function () {
