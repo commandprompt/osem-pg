@@ -305,3 +305,17 @@ p.comment-body {
     margin: 0px auto;
     padding: 0 20px;
 }
+
+table.ticket {
+  table-layout: fixed;
+  width: 800px;
+}
+
+tr.ticket {
+  height: 220px;
+}
+
+td.ticket {
+  height: 220px;
+  width: 400px;
+}
