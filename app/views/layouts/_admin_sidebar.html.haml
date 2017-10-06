@@ -107,7 +107,7 @@
           %li{:class=> active_nav_li(admin_conference_questions_path(@conference.short_title))}
             = link_to 'Questions', admin_conference_questions_path(@conference.short_title)
 
-  - if (can? :manage, @conference.sponsorship_levels.build) || (can? :manage, @conference.sponsors.build) || (can? :manage, @conference.tickets.build)
+  - if (can? :manage, @conference.sponsorship_levels.build) || (can? :manage, @conference.sponsorships.build) || (can? :manage, @conference.tickets.build)
     %li
       %a
         %span.fa.fa-usd
