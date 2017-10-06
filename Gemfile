@@ -237,6 +237,8 @@ end
   gem 'mina'
   # as debugger on error pages
   gem 'web-console', '~> 2.0'
+  # to dump CMS cofiguration
+  gem 'seed_dump'
 end
 
 group :test do
