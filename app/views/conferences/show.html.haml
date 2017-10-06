@@ -33,7 +33,7 @@
             .col-md-8.col-md-offset-2
               %h3.text-center
                 = markdown(@conference.description)
-    - if @conference.sponsors.any? and @conference.splashpage.include_sponsors
+    - if @conference.sponsorships.any? and @conference.splashpage.include_sponsors
       %section#sponsors
         = render 'sponsors'
 

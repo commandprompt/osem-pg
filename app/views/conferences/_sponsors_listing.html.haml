@@ -1,5 +1,5 @@
 - @conference.sponsorship_levels.each do |sponsorship_level|
-  - if sponsorship_level.sponsors.any?
+  - if sponsorship_level.sponsorships.any?
     .row.row-centered
       -if sponsorship_level.position == 1
         %h3.text-center
@@ -8,7 +8,7 @@
         %h4.text-center
           %strong #{sponsorship_level.title}
 
-      - sponsorship_level.sponsors.each_slice(3) do |slice|
+      - sponsorship_level.sponsorships.each_slice(3) do |slice|
         - slice.each do |sponsor|
           .col-md-4.col-sm-4.col-centered.col-top
             %a{ href: '#', data: { toggle: 'modal', target: "#modal_#{sponsor.id}" } }

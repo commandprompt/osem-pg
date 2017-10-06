@@ -28,7 +28,7 @@
           .col-md-2.col-xs-12
             - if conference.splashpage
               - if conference.splashpage.include_sponsors && !conference.ended?
-                = link_to "Sponsor!", conference_sponsors_path(conference.short_title), :class =>"btn btn-warning btn-block pull-left"
+                = link_to "Sponsor!", conference_sponsorships_path(conference.short_title), :class =>"btn btn-warning btn-block pull-left"
           .col-md-10.col-xs-12
             .btn-group.pull-right.hidden-xs
               = render partial: 'conference_button_bar', locals: { conference: conference }

@@ -180,7 +180,7 @@ class Ability
     can :manage, Lodging, conference_id: conf_ids_for_organizer
     can :manage, Activity, conference_id: conf_ids_for_organizer
     can :manage, Room, venue: { conference_id: conf_ids_for_organizer}
-    can :manage, Sponsor, conference_id: conf_ids_for_organizer
+    can :manage, Sponsorship, conference_id: conf_ids_for_organizer
     can :manage, SponsorshipLevel, conference_id: conf_ids_for_organizer
     can :manage, SponsorshipInfo, conference_id: conf_ids_for_organizer
     can :manage, Ticket, conference_id: conf_ids_for_organizer
@@ -196,6 +196,8 @@ class Ability
     can [:index, :revert_object, :revert_attribute], PaperTrail::Version do |version|
       version.item_type == 'User' || (conf_ids_for_organizer.include? version.conference_id)
     end
+
+    can :manage, Sponsor
   end
 
   def signed_in_with_cfp_role(user)

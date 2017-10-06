@@ -28,6 +28,7 @@ Osem::Application.routes.draw do
         patch :toggle_confirmation
       end
     end
+    resources :sponsors
     resources :comments, only: [:index]
     resources :conferences do
       resource :contact, except: [:index, :new, :create, :show, :destroy]
@@ -82,7 +83,7 @@ Osem::Application.routes.draw do
           patch :down
         end
       end
-      resources :sponsors, except: [:show]
+      resources :sponsorships, except: [:show]
       resources :lodgings, except: [:show]
       resources :activities, except: [:show]
       resources :targets, except: [:show]
@@ -155,7 +156,7 @@ Osem::Application.routes.draw do
     end
 
     resource :subscriptions, only: [:create, :destroy]
-    resource :sponsors, only: [:show]
+    resource :sponsorships, only: [:show]
 
     resource :schedule, only: [:show] do
       member do

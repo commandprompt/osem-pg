@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170927004003) do
+ActiveRecord::Schema.define(version: 20171006065005) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -150,9 +150,9 @@ ActiveRecord::Schema.define(version: 20170927004003) do
     t.string   "background_file_name"
     t.boolean  "require_itinerary"
     t.boolean  "use_pg_flow",                default: true
+    t.integer  "ticket_layout",              default: 0
     t.string   "default_currency",           default: "USD"
     t.string   "braintree_merchant_account"
-    t.integer  "ticket_layout",              default: 0
   end
 
   create_table "conferences_codes", id: false, force: :cascade do |t|
@@ -535,8 +535,6 @@ ActiveRecord::Schema.define(version: 20170927004003) do
     t.text     "description"
     t.string   "website_url"
     t.string   "logo_file_name"
-    t.integer  "sponsorship_level_id"
-    t.integer  "conference_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "picture"
@@ -560,6 +558,16 @@ ActiveRecord::Schema.define(version: 20170927004003) do
     t.integer  "position"
   end
 
+  create_table "sponsorships", force: :cascade do |t|
+    t.integer  "conference_id",        null: false
+    t.integer  "sponsor_id",           null: false
+    t.integer  "sponsorship_level_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sponsorships", ["conference_id", "sponsor_id"], name: "index_sponsorships_on_conference_id_and_sponsor_id", unique: true, using: :btree
+
   create_table "subscriptions", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "conference_id"
@@ -580,14 +588,13 @@ ActiveRecord::Schema.define(version: 20170927004003) do
   create_table "ticket_purchases", force: :cascade do |t|
     t.integer  "ticket_id"
     t.integer  "conference_id"
-    t.boolean  "paid",                  default: false
+    t.boolean  "paid",          default: false
     t.datetime "created_at"
-    t.integer  "quantity",              default: 1
+    t.integer  "quantity",      default: 1
     t.integer  "user_id"
     t.integer  "payment_id"
     t.integer  "code_id"
     t.integer  "event_id"
-    t.string   "pending_event_tickets"
   end
 
   add_index "ticket_purchases", ["conference_id", "code_id"], name: "index_ticket_purchases_on_conference_id_and_code_id", using: :btree
@@ -771,6 +778,9 @@ ActiveRecord::Schema.define(version: 20170927004003) do
   add_foreign_key "physical_tickets", "users"
   add_foreign_key "policies", "conferences"
   add_foreign_key "sponsorship_infos", "conferences"
+  add_foreign_key "sponsorships", "conferences"
+  add_foreign_key "sponsorships", "sponsors"
+  add_foreign_key "sponsorships", "sponsorship_levels"
   add_foreign_key "ticket_purchases", "codes"
   add_foreign_key "ticket_purchases", "events"
 end

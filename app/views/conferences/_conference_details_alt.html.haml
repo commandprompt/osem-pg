@@ -33,11 +33,11 @@
         .col-md-4.visible-xs.grey
           - if conference.splashpage
             - if conference.splashpage.include_sponsors && !conference.ended?
-              = link_to "Become a sponsor!", conference_sponsors_path(conference.short_title), class: 'btn btn-warning btn-block btn-outline'
+              = link_to "Become a sponsor!", conference_sponsorships_path(conference.short_title), class: 'btn btn-warning btn-block btn-outline'
         .col-md-4.hidden-xs.padded
           - if conference.splashpage
             - if conference.splashpage.include_sponsors && !conference.ended?
-              = link_to "Become a sponsor!", conference_sponsors_path(conference.short_title), class: 'btn btn-warning btn-block btn-outline'
+              = link_to "Become a sponsor!", conference_sponsorships_path(conference.short_title), class: 'btn btn-warning btn-block btn-outline'
         .col-md-8.grey.padded
           .btn-group.pull-right.hidden-xs
             = render partial: 'conference_button_bar', locals: { conference: conference }

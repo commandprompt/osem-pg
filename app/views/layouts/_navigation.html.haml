@@ -119,7 +119,7 @@
             - if @conference.program and @conference.program.schedule_public
               %li
                 = link_to('Schedule', events_conference_schedule_path(@conference.short_title))
-            - if @conference.sponsors.exists?
+            - if @conference.sponsorships.exists?
               %li
                 = link_to('Sponsors', conference_path(@conference.short_title, :anchor => "sponsors"))
             - if @conference.program and @conference.program.cfp_open?

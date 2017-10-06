@@ -12,7 +12,7 @@
       .col-md-12
         %h4
           %p.text-muted.text-center
-            = link_to "Become a Sponsor!", conference_sponsors_path(@conference.short_title), class: 'btn btn-warning btn-outline'
+            = link_to "Become a Sponsor!", conference_sponsorships_path(@conference.short_title), class: 'btn btn-warning btn-outline'
 
   = render 'conferences/sponsors_listing'
 

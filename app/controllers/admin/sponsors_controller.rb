@@ -1,23 +1,16 @@
 module Admin
   class SponsorsController < Admin::BaseController
-    load_and_authorize_resource :conference, find_by: :short_title
-    load_and_authorize_resource :sponsor, through: :conference
-    before_action :sponsorship_level_required, only: [:index, :new]
+    load_and_authorize_resource
 
     def index
-      authorize! :index, Sponsor.new(conference_id: @conference.id)
+      authorize! :index, Sponsor.new
     end
 
     def edit; end
 
-    def new
-      @sponsor = @conference.sponsors.new
-    end
-
     def create
-      @sponsor = @conference.sponsors.new(sponsor_params)
       if @sponsor.save
-        redirect_to admin_conference_sponsors_path(conference_id: @conference.short_title),
+        redirect_to admin_sponsors_path,
                     notice: 'Sponsor successfully created.'
       else
         flash[:error] = "Creating sponsor failed: #{@sponsor.errors.full_messages.join('. ')}."
@@ -27,8 +20,7 @@ module Admin
 
     def update
       if @sponsor.update_attributes(sponsor_params)
-        redirect_to admin_conference_sponsors_path(
-                    conference_id: @conference.short_title),
+        redirect_to admin_sponsors_path,
                     notice: 'Sponsor successfully updated.'
       else
         flash[:error] = "Update sponsor failed: #{@sponsor.errors.full_messages.join('. ')}."
@@ -38,10 +30,10 @@ module Admin
 
     def destroy
       if @sponsor.destroy
-        redirect_to admin_conference_sponsors_path(conference_id: @conference.short_title),
+        redirect_to admin_sponsors_path,
                     notice: 'Sponsor successfully deleted.'
       else
-        redirect_to admin_conference_sponsors_path(conference_id: @conference.short_title),
+        redirect_to admin_sponsors_path,
                     error: 'Deleting sponsor failed! ' \
                     "#{@sponsor.errors.full_messages.join('. ')}."
       end
@@ -50,13 +42,7 @@ module Admin
     private
 
     def sponsor_params
-      params.require(:sponsor).permit(:name, :description, :website_url, :picture, :picture_cache, :sponsorship_level_id, :conference_id)
-    end
-
-    def sponsorship_level_required
-      return unless @conference.sponsorship_levels.empty?
-      redirect_to admin_conference_sponsorship_levels_path(conference_id: @conference.short_title),
-                  alert: 'You need to create atleast one sponsorship level to add a sponsor'
+      params.require(:sponsor).permit(:name, :description, :website_url, :picture, :picture_cache)
     end
   end
 end

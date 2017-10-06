@@ -51,7 +51,7 @@
             .p
               please setup sponsorship information for this conference
 
-    - if @conference.sponsors.any? and @conference.splashpage.include_sponsors
+    - if @conference.sponsorships.any? and @conference.splashpage.include_sponsors
       %section#sponsors
         .container
           = render 'conferences/sponsors_listing'
