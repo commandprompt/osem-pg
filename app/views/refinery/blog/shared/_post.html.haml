@@ -12,7 +12,7 @@
       .card-text
         - if post.custom_teaser.present?
           = blog_post_teaser(post)
-          = link_to refinery.blog_post_path(post), class: 'btn btn-primary' do
+          = link_to refinery.blog_post_path(post), class: 'btn btn-primary btn-outline btn-sm' do
             = t('read_more', scope: 'refinery.blog.shared.posts')
             %span.fa.fa-chevron-right
         - else

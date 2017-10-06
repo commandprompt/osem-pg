@@ -15,14 +15,6 @@
       .col-md-4
         / Blog Search Well
         .card
-          .card-block
-            %h4.card-title Blog Search
-            .input-group
-              %input.form-control{:type => "text"}/
-              %span.input-group-btn
-                %button.btn.btn-default{:type => "button"}
-                  Go!
-          / /.input-group
           / Blog Categories Well
           - if @categories.any?
             .card-block

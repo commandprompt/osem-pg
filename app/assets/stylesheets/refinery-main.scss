@@ -1,39 +1,7 @@
-// // This is default size of refinery logo. Arghhh
-// $sb_ref_logo: 29px;
-// $sb_lineheight: 18px;
-// $sb_height: $sb_lineheight * 4;
-
-// #header { height: $sb_height; }
-
-// // take care of menu item hover-selection
-// .navbar .nav > li > a { padding: $sb_lineheight; }
-
-// ///////////////////////////////////////////////////////////////////////////////
-// //  Refinery admin menu: images taken from app/assets/images/admin_sprite.png
-// ///////////////////////////////////////////////////////////////////////////////
-// ul#main-menu-right > li > a {
-//   &:hover { background-color: transparent; }
-//   &#site_bar_refinery_cms_logo {
-//     line-height: $sb_ref_logo; height: $sb_ref_logo; 
-//     margin-top: $sb_ref_logo / 3; padding: 0; overflow: hidden; 
-//     img { line-height: $sb_ref_logo; }
-//     &:hover > img { margin-top: -$sb_ref_logo - 2px; } 
-//   }
-// }
-
-// // control buttons
-// @mixin admin_sprite($num,$size:24px) {
-//   line-height: $size; height: $size; overflow: hidden; padding: 0; 
-//   margin: $sb_ref_logo / 2; margin-left: $sb_ref_logo / 1.5; margin-right: 0;
-//   img { margin-top: -2*$size*$num - 24px; } 
-//   &:hover > img { margin-top: -2*$size*$num; }  
-// }
-// a#adminsite { @include admin_sprite (0); }
-// a#logout { @include admin_sprite (1); }'
-
 .icon-rss {
   color: darkorange;
 }
+
 .fullwidth {
   width: 100vw;
   position: relative;
@@ -41,6 +9,9 @@
   right: 50%;
   margin-left: -50vw;
   margin-right: -50vw;
+  .row {
+    margin: 0px;
+  }
 }
 
 .blog-head {
@@ -48,7 +19,8 @@
   padding-bottom: 20px;
   background: whitesmoke;
 }
-.blog-header {
+
+.blog-banner {
   min-height: 300px;
   max-height: 500px;
   // margin-top: 60px;
@@ -56,13 +28,13 @@
 
   background-color: whitesmoke;
   background-size: cover;
-  color: whitesmoke;
-  h1 {
-    font-size: 64px
-  }
-  .details {
-    margin-top: 15px;
-  }
+  // color: whitesmoke;
+  // h1 {
+  //   font-size: 64px
+  // }
+  // .details {
+  //   margin-top: 15px;
+  // }
 }
 
 .blog-body {
@@ -73,7 +45,7 @@
    position:absolute;
    bottom:0;
    width:100%;
-   height:40px;   /* Height of the footer */
+   height:40px;
 
   background-color: whitesmoke;
   p {
@@ -86,4 +58,32 @@
 .site-body {
   margin-top: 50px;
   margin-bottom: 40px;
+  overflow-x: hidden;
+}
+
+.home-banner {
+  // background-image: url('https://privatelenderlink.com/wp-content/uploads/new-york-skyline-statue-liberty-morning.jpg');
+  // background: linear-gradient(0deg,rgba(255,0,150,0.3),rgba(255,0,10,0.3));
+  height: 450px;
+  // background-repeat: no-repeat;
+  // background-size: cover;
+
+  border-bottom-color: #eeeeee;
+  border-bottom-style: solid;
+  margin-bottom: 30px;
+
+  color: whitesmoke;
+  // h1, h2, h3, h4, h5 {
+  //   color: whitesmoke;
+  // }
+
+
+  .row {
+    padding-top: 60px;
+  }
+
+}
+
+.huge {
+  font-size: 60px !important;
 }

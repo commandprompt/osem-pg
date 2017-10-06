@@ -2,7 +2,7 @@
   #flash{:class => "flash flash_#{key}"}
     = value
 %article
-  .row.blog-header.fullwidth
+  .row.blog-banner.hidden.fullwidth
   .row.blog-head.fullwidth
     .col-md-12
       %header.text-center
@@ -23,9 +23,10 @@
     .col-md-12
       = render 'nav' if next_or_previous?(@post)
 
-- content_for :javascripts do
-  :javascript
-    $(window).load(function () {
-      $('.blog-header').css('background-image', 'url(#{@post.image.url})');
-    });
+- unless @post.image.blank?
+  - content_for :javascripts do
+    :javascript
+      $(window).load(function () {
+        $('.blog-banner').removeClass('hidden').css('background-image', 'url(#{@post.image.url})');
+      });
 

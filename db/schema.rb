@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170927150412) do
+ActiveRecord::Schema.define(version: 20171002102262) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -601,6 +601,34 @@ ActiveRecord::Schema.define(version: 20170927150412) do
     t.string   "image_title"
     t.string   "image_alt"
   end
+
+  create_table "refinery_news_item_translations", force: :cascade do |t|
+    t.integer  "refinery_news_item_id", null: false
+    t.string   "locale",                null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.string   "title"
+    t.text     "body"
+    t.string   "source"
+    t.string   "slug"
+  end
+
+  add_index "refinery_news_item_translations", ["locale"], name: "index_refinery_news_item_translations_on_locale", using: :btree
+  add_index "refinery_news_item_translations", ["refinery_news_item_id"], name: "index_refinery_news_item_translations_fk", using: :btree
+
+  create_table "refinery_news_items", force: :cascade do |t|
+    t.string   "title"
+    t.text     "body"
+    t.datetime "publish_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "image_id"
+    t.datetime "expiration_date"
+    t.string   "source"
+    t.string   "slug"
+  end
+
+  add_index "refinery_news_items", ["id"], name: "index_refinery_news_items_on_id", using: :btree
 
   create_table "refinery_page_part_translations", force: :cascade do |t|
     t.integer  "refinery_page_part_id", null: false

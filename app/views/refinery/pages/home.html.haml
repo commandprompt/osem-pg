@@ -1,0 +1,45 @@
+- @current = Conference.all.limit(1)
+%section.home-banner.fullwidth
+  .row
+    %h3.text-center Don't miss the upcoming event
+    - if @current.any?
+      - @current.each_with_index do |conference, index|
+        .text-center
+          = render partial: 'conference_block', locals: { conference: conference }
+
+    - else
+      .col-md-8.col-md-offset-2
+        .panel.panel-default.conference-panel
+          .panel-heading
+            .row
+              .col-md-10.text-muted
+                %h3 Nothing to show...
+          .panel-body
+            .row.text-center.h2.text-muted
+              There are no upcoming conferences for the moment
+
+%section.news
+  .row
+    .col-md-9
+      - @items = Refinery::News::Item.latest(5)
+      = render partial: '/refinery/news/items/recent_posts'
+    .col-md-3
+      - @twitter_embed = ::Refinery::Setting.find_or_set(:twitter_embed, false)
+      - if @twitter_embed
+        = @twitter_embed.html_safe
+
+- content_for :javascripts do
+  %script{src: "//platform.twitter.com/widgets.js"}
+
+:javascript
+  $(function () {
+    $(document).ready(function() {
+      //override background if conference has one
+      var banner_bg = "#{::Refinery::Setting.find_or_set(:banner_background, '')}"
+      console.log(banner_bg)
+      if(banner_bg !== '') {
+        $('.home-banner').css('background', banner_bg);
+      }
+    });
+  });
+

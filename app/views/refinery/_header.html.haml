@@ -2,4 +2,11 @@
   .container
     .navbar-header
       = link_to Refinery::Core.site_name, refinery.root_path, {class:'navbar-brand' }
-    = navigation_menu.to_html
+    .collapse.navbar-collapse
+      = navigation_menu.to_html
+      = form_tag refinery.search_root_path, method: 'get', class: 'navbar-form navbar-right' do
+        .input-group
+          %input.form-control{name: "query", type: "search", placeholder: 'Search'}/
+          %span.input-group-btn
+            %button.btn.btn-default{type: "submit"}
+              Go!
