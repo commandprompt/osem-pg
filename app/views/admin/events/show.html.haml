@@ -2,8 +2,9 @@
   %ul.nav.nav-tabs
     %li.active
       = link_to "Proposal", "#proposal-content", "data-toggle"=>"tab"
-    %li
-      = link_to "History", "#history-content", "data-toggle"=>"tab"
+      - if @program.show_voting?
+        %li
+          = link_to "History", "#history-content", "data-toggle"=>"tab"
     %li
       %a{href: '#proposal-tasks', "data-toggle"=>"tab"}
         Tasks

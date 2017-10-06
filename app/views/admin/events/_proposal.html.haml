@@ -164,11 +164,14 @@
         %td
           %b Biographies
         %td
-          - @event.speakers.each do |speaker|
-            - unless speaker.biography.blank?
-              %b
-                = speaker.name
-              = markdown(speaker.biography)
+          - if @program.show_voting?
+            - @event.speakers.each do |speaker|
+              - unless speaker.biography.blank?
+                %b
+                  = speaker.name
+                = markdown(speaker.biography)
+          - else
+            %i Hidden
       %tr
         %td
           %b Submitted on
