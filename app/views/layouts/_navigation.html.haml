@@ -90,7 +90,7 @@
                     = link_to('Sign In', new_user_session_path)
 
 - content_for :nav_extended do
-  - if @conference
+  - if @conference and @conference.short_title
     #inside_header
       .content_row
         .row
