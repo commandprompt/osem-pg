@@ -1,22 +1,23 @@
-- @current = Conference.all.limit(1)
+- @current = Conference.where('end_date >= ?', Date.current).reorder(start_date: :asc)
 %section.home-banner.fullwidth
-  .row
-    %h3.text-center Don't miss the upcoming event
-    - if @current.any?
-      - @current.each_with_index do |conference, index|
-        .text-center
-          = render partial: 'conference_block', locals: { conference: conference }
+  - if @current.any?
+    .col-md-12.conferences
+      .row.tab-content
+        %h3.text-center Don't miss the upcoming event
+        - @current.each_with_index do |conference, index|
+          .tab-pane.fade.text-center{id: conference.short_title, class: ('in active' if index == 0)}
+            = render partial: 'conference_block', locals: { conference: conference }
+      .row
+        .col-md-6.col-md-offset-3
+          %ul.nav.nav-pills.center-pills.conf-nav
+            - @current.each_with_index do |conference, index|
+              %li{role: "presentation", class: ('active' if index == 0)}
+                %a{href: "##{conference.short_title}", data: {toggle: 'tab'}} #{conference.short_title}
 
-    - else
-      .col-md-8.col-md-offset-2
-        .panel.panel-default.conference-panel
-          .panel-heading
-            .row
-              .col-md-10.text-muted
-                %h3 Nothing to show...
-          .panel-body
-            .row.text-center.h2.text-muted
-              There are no upcoming conferences for the moment
+  - else
+    .row.conferences
+      .h4.text-center
+        There are no upcoming conferences for the moment
 
 %section.news
   .row

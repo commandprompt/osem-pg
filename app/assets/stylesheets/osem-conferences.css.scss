@@ -4,6 +4,12 @@
     margin-bottom: 20px;
 }
 
+.center-pills {
+  display: flex;
+  justify-content: center;
+}
+
+
 .conference-panel {
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 5px 0 rgba(0, 0, 0, 0.23);
     border: none;
@@ -36,6 +42,7 @@
 .conference-archive .panel-heading {
     background-color: #757575;
 }
+
 
 .conferences {
   section {
@@ -71,11 +78,6 @@
         background-color: #455a64;
         text-decoration: underline;
       }
-    }
-
-    .center-pills {
-      display: flex;
-      justify-content: center;
     }
 
     .conference-panel-alt {

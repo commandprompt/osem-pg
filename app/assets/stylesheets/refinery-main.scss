@@ -76,12 +76,46 @@
   // h1, h2, h3, h4, h5 {
   //   color: whitesmoke;
   // }
-
-
-  .row {
-    padding-top: 60px;
+  a.conference-link {
+    border-radius: 4px;
+    padding: 6px;
+    text-decoration: none;
+    color: white;
   }
 
+  a.conference-link:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+
+
+  .conferences {
+    padding-top: 40px;
+    .tab-content {
+      min-height: 220px;
+    }
+  }
+
+  .conf-nav {
+    padding-top: 20px;
+
+    li > a{
+      color: white;
+    }
+
+    li > a:hover{
+     background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    // li.active {
+    //   background-color: transparent;
+    // }
+
+    li.active > a{
+      font-weight: 800;
+      background-color: transparent;
+      text-decoration: underline;
+    }
+  }
 }
 
 .huge {
