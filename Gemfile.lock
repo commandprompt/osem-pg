@@ -31,18 +31,6 @@ GIT
       refinerycms-settings (~> 3.0.0)
       seo_meta (~> 2.0.0.rc.1)
 
-GIT
-  remote: https://github.com/refinery/refinerycms-news
-  revision: 508672dba3edcd61aa2af93cc407b42e614186e3
-  branch: master
-  specs:
-    refinerycms-news (3.0.0)
-      acts_as_indexed (~> 0.8.0)
-      friendly_id (~> 5.1, < 5.3)
-      globalize (>= 4.0.0, < 5.2)
-      refinerycms-core (~> 3.0.0)
-      refinerycms-settings (~> 3.0.0)
-
 PATH
   remote: vendor/extensions
   specs:
@@ -784,7 +772,6 @@ DEPENDENCIES
   refinerycms (~> 3.0.0)
   refinerycms-blog!
   refinerycms-dynamicfields!
-  refinerycms-news!
   refinerycms-search!
   refinerycms-sponsors!
   refinerycms-team_members!

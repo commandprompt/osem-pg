@@ -1,5 +1,4 @@
-/- @current = Conference.where('end_date >= ?', Date.current).reorder(start_date: :asc)
-- @current = Conference.all.limit(5)
+- @current = Conference.where('end_date >= ?', Date.current).reorder(start_date: :asc)
 %section.home-banner.fullwidth
   - if @current.any?
     .col-md-12.conferences
@@ -23,8 +22,8 @@
 %section.news
   .row
     .col-md-9
-      - @items = Refinery::News::Item.latest(5)
-      = render partial: '/refinery/news/items/recent_posts'
+      - @items = Refinery::Blog::Post.recent(5)
+      = render partial: '/refinery/blog/posts/recent_posts'
     .col-md-3
       - @twitter_embed = ::Refinery::Setting.find_or_set(:twitter_embed, false)
       - if @twitter_embed
