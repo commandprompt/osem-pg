@@ -35,7 +35,7 @@ Refinery::Core.configure do |config|
   # config.google_analytics_page_code = "UA-xxxxxx-x"
 
   # Enable/disable authenticity token on frontend
-  # config.authenticity_token_on_frontend = false
+  config.authenticity_token_on_frontend = true
 
   # Should set this if concerned about DOS attacks. See
   # http://markevans.github.com/dragonfly/file.Configuration.html#Configuration

@@ -47,3 +47,12 @@ Refinery::Search::Engine.load_seed
 
 # Added by Refinery CMS News engine
 Refinery::News::Engine.load_seed
+
+# Added by Refinery CMS Dynamicfields extension
+Refinery::Dynamicfields::Engine.load_seed
+
+# Added by Refinery CMS TeamMembers extension
+Refinery::TeamMembers::Engine.load_seed
+
+# Added by Refinery CMS Sponsors extension
+Refinery::Sponsors::Engine.load_seed

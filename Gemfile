@@ -12,6 +12,7 @@ gem 'refinerycms', '~> 3.0.0'
 gem 'refinerycms-search', github: 'refinery/refinerycms-search', branch: 'master'
 gem 'refinerycms-blog', git: 'https://github.com/refinery/refinerycms-blog', branch: 'master'
 gem "refinerycms-news", git: 'https://github.com/refinery/refinerycms-news', branch: 'master'
+gem 'refinerycms-dynamicfields', :git => 'https://github.com/jfalameda/refinerycms-dynamicfields.git'
 gem 'refinerycms-wymeditor', '>= 1.0.6'
 # gem "refinerycms-news", '~> 2.1.0'
 gem 'braintree'
@@ -272,3 +273,7 @@ end
 group :production do
   gem 'exception_notification'
 end
+
+gem 'refinerycms-team_members', path: 'vendor/extensions'
+gem 'refinerycms-sponsors', path: 'vendor/extensions'
+

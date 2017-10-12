@@ -1,0 +1,73 @@
+- content_for :body_content_title do
+  &nbsp;
+
+%section.about-section.description
+  = render '/refinery/content_page'
+%section.about-section.team
+  .h2.text-center
+    Our Team
+  - @team_members = Refinery::TeamMembers::TeamMember.order('position ASC')
+  - @team_members.each_slice(3) do |slice|
+    .row.row-centered
+      - slice.each do |team_member|
+        .col-md-4.col-centered.col-top.team-member.text-center
+          %figure.member-photo
+            -unless team_member.photo.blank?
+              =image_fu team_member.photo, '200x200'
+          .team-detail
+            %h4
+              =team_member.fullname
+            %span.text-muted
+              =team_member.role
+            .social
+              - if team_member.twitter.present?
+                = link_to "#{ team_member.twitter }" do
+                  %i.fa.fa-twitter.fa-lg
+              &nbsp;&nbsp;
+              - if team_member.linkedin.present?
+                = link_to "#{ team_member.linkedin }" do
+                  %i.fa.fa-linkedin.fa-lg
+            %span
+              =raw team_member.description
+
+%section.about-section.sponsors
+  .h2.text-center
+    Sponsors
+  .text-center
+    = raw get_field('sponsors_section_heading')
+
+  - @sponsors = Refinery::Sponsors::Sponsor.order('position ASC')
+  - @sponsors.each_slice(3) do |slice|
+    .row.row-centered
+      - slice.each do |sponsor|
+        .col-md-3.col-centered.col-top.text-center
+          %figure
+            -unless sponsor.logo.blank?
+              = link_to sponsor.url, target: '_blank' do
+                =image_fu sponsor.logo, '300x300'
+
+%section.about-section.contacts
+  .h2.text-center
+    Contacts
+  .row.row-centered
+    - twitter = get_field('contact_twitter')
+    - email = get_field('contact_email')
+    - tel = get_field('contact_phone')
+    - if twitter.present?
+      .col-md-4
+        %i.fa.fa-twitter.fa-4x
+        .h3
+          = link_to "@#{twitter}" ,"https://twitter.com/#{twitter}"
+
+    - if email.present?
+      .col-md-4
+        %i.fa.fa-envelope-o.fa-4x
+        .h3
+          = link_to email, "mailto:#{email}"
+
+    - if tel.present?
+      .col-md-4
+        %i.fa.fa-phone.fa-4x
+        .h3
+          = link_to tel ,"tel:#{tel}"
+

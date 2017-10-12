@@ -1,4 +1,5 @@
-- @current = Conference.where('end_date >= ?', Date.current).reorder(start_date: :asc)
+/- @current = Conference.where('end_date >= ?', Date.current).reorder(start_date: :asc)
+- @current = Conference.all.limit(5)
 %section.home-banner.fullwidth
   - if @current.any?
     .col-md-12.conferences
@@ -6,7 +7,7 @@
         %h3.text-center Don't miss the upcoming event
         - @current.each_with_index do |conference, index|
           .tab-pane.fade.text-center{id: conference.short_title, class: ('in active' if index == 0)}
-            = render partial: 'conference_block', locals: { conference: conference }
+            = render partial: '/refinery/pages/shared/conference_block', locals: { conference: conference }
       .row
         .col-md-6.col-md-offset-3
           %ul.nav.nav-pills.center-pills.conf-nav

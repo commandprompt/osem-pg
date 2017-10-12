@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171002102262) do
+ActiveRecord::Schema.define(version: 20171010124327) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -577,6 +577,40 @@ ActiveRecord::Schema.define(version: 20171002102262) do
   add_index "refinery_blog_posts", ["id"], name: "index_refinery_blog_posts_on_id", using: :btree
   add_index "refinery_blog_posts", ["slug"], name: "index_refinery_blog_posts_on_slug", using: :btree
 
+  create_table "refinery_dynamicfields_dynamicfields", force: :cascade do |t|
+    t.string   "criteria",    default: "page_layout"
+    t.string   "page_layout"
+    t.string   "page_id"
+    t.string   "model_title"
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "refinery_dynamicfields_dynamicform_associations", force: :cascade do |t|
+    t.integer "dynamicfield_id"
+    t.integer "page_id"
+  end
+
+  create_table "refinery_dynamicfields_dynamicform_fields", force: :cascade do |t|
+    t.integer  "dynamicfield_id"
+    t.string   "field_id"
+    t.string   "field_label"
+    t.string   "field_type"
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "refinery_dynamicfields_dynamicform_values", force: :cascade do |t|
+    t.integer "dynamicform_field_id"
+    t.integer "dynamicform_association_id"
+    t.text    "text_value"
+    t.integer "resource_id"
+    t.integer "image_id"
+    t.string  "string_value"
+  end
+
   create_table "refinery_image_translations", force: :cascade do |t|
     t.integer  "refinery_image_id", null: false
     t.string   "locale",            null: false
@@ -729,6 +763,30 @@ ActiveRecord::Schema.define(version: 20171002102262) do
   end
 
   add_index "refinery_settings", ["name"], name: "index_refinery_settings_on_name", using: :btree
+
+  create_table "refinery_sponsors", force: :cascade do |t|
+    t.string   "name"
+    t.string   "url"
+    t.integer  "logo_id"
+    t.text     "description"
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "refinery_team_members", force: :cascade do |t|
+    t.string   "firstname"
+    t.string   "middlename"
+    t.string   "lastname"
+    t.string   "role"
+    t.integer  "photo_id"
+    t.text     "description"
+    t.string   "twitter"
+    t.string   "linkedin"
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "registration_periods", force: :cascade do |t|
     t.integer  "conference_id"
