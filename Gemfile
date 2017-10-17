@@ -8,13 +8,10 @@ end
 # as web framework
 gem 'rails', '~> 4.2'
 gem 'refinerycms', '~> 3.0.0'
-# gem 'refinerycms-authentication-devise', '~> 1.0'
 gem 'refinerycms-search', github: 'refinery/refinerycms-search', branch: 'master'
 gem 'refinerycms-blog', git: 'https://github.com/refinery/refinerycms-blog', branch: 'master'
-# gem "refinerycms-news", git: 'https://github.com/refinery/refinerycms-news', branch: 'master'
 gem 'refinerycms-dynamicfields', :git => 'https://github.com/jfalameda/refinerycms-dynamicfields.git'
-gem 'refinerycms-wymeditor', '>= 1.0.6'
-# gem "refinerycms-news", '~> 2.1.0'
+gem 'refinerycms-tinymce', git: 'https://github.com/ghoppe/refinerycms-tinymce'
 gem 'braintree'
 gem 'gon', '~> 5.1.2'
 # enables serving assets in production and setting your logger to standard out

@@ -8,6 +8,13 @@ GIT
       refinerycms-core (~> 3.0)
 
 GIT
+  remote: https://github.com/ghoppe/refinerycms-tinymce
+  revision: 002d58a062f9ba407e5878a996fa248ccdab2775
+  specs:
+    refinerycms-tinymce (1.0.0)
+      refinerycms-core (~> 3.0, >= 3.0.0)
+
+GIT
   remote: https://github.com/jfalameda/refinerycms-dynamicfields.git
   revision: 63a4050e4aa82ee3272c1ad1f65797b1429190d9
   specs:
@@ -537,8 +544,6 @@ GEM
     refinerycms-settings (3.0.0)
       friendly_id (~> 5.0, >= 5.0.1)
       refinerycms-core (~> 3.0, >= 3.0.0)
-    refinerycms-wymeditor (1.1.0)
-      refinerycms-core (>= 3.0.0, < 5.0)
     request_store (1.1.0)
     responders (2.1.1)
       railties (>= 4.2.0, < 5.1)
@@ -775,7 +780,7 @@ DEPENDENCIES
   refinerycms-search!
   refinerycms-sponsors!
   refinerycms-team_members!
-  refinerycms-wymeditor (>= 1.0.6)
+  refinerycms-tinymce!
   responders (~> 2.0)
   rolify
   rqrcode
