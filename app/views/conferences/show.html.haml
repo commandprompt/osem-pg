@@ -117,6 +117,8 @@
         if("#{@conference.background_url}" !== '') {
           $('#banner').css('background-image', 'url(#{@conference.background_url})');
         }
+
+        #{link_policies(@conference)}
       });
 
       $('.navbar-toggle').click(function(){
@@ -125,5 +127,6 @@
           $('#site-nav').toggleClass('navbar-solid expanded');
         }
       });
+
     });
 

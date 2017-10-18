@@ -39,10 +39,10 @@
             .policy
               - @conference.policies.each_slice(6) do |slice|
                 - slice.each do |policy|
-                  %a{ href: '#', data: { toggle: 'modal', target: "#modal_#{policy.id}" }, class: 'policy' }
+                  %a{ href: '#', data: { toggle: 'modal', target: "##{policy.code}" }, class: 'policy' }
                     = policy.title
 
-                  .modal.fade{ id: "modal_#{policy.id}" }
+                  .modal.fade{ id: "#{policy.code}" }
                     .modal-dialog
                       .modal-content
                         .modal-header
