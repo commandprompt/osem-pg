@@ -8,26 +8,27 @@
         = render :partial => "/refinery/blog/shared/post", collection: @posts
       / Blog Sidebar Widgets Column
       .col-md-4
-        / Blog Categories
-        .card
-          - if @categories.any?
-            .card-block
-              %h4.card-title Blog Categories
-              .row
-                .col-lg-6
-                  - @categories.each do |category|
-                    = link_to refinery.blog_category_path(category) do
-                      = category.title.titleize 
-                      %span.badge
-                        =category.post_count
-                      &nbsp;
-          / Tags
-          - if @tags.any?
-            .card-block
-              %h4.card-title Tags
-              %nav#tags
-                - tag_cloud(@tags, %w(tag1 tag2 tag3 tag4)) do |tag, css_class|
-                  = link_to tag.name, refinery.blog_tagged_posts_path(tag.id, tag.name.parameterize), class: 'label label-default'
+        / Blog Categories and Tags
+        - if @categories.any? || @tags.any?
+          .card
+            - if @categories.any?
+              .card-block
+                %h4.card-title Blog Categories
+                .row
+                  .col-lg-6
+                    - @categories.each do |category|
+                      = link_to refinery.blog_category_path(category) do
+                        = category.title.titleize 
+                        %span.badge
+                          =category.post_count
+                        &nbsp;
+            / Tags
+            - if @tags.any?
+              .card-block
+                %h4.card-title Tags
+                %nav#tags
+                  - tag_cloud(@tags, %w(tag1 tag2 tag3 tag4)) do |tag, css_class|
+                    = link_to tag.name, refinery.blog_tagged_posts_path(tag.id, tag.name.parameterize), class: 'label label-default'
 
         / Latest Posts
         - if @posts.many?
