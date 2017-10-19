@@ -16,7 +16,6 @@ class ApplicationController < ActionController::Base
   # Ensure every controller authorizes resource or skips authorization (skip_authorization_check)
   check_authorization unless: :devise_controller?
 
-
   def root_path
     '/'
   end

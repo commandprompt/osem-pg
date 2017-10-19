@@ -47,7 +47,7 @@
             = @conference.short_title
     -if Refinery
       %li
-        = link_to admin_root_path do
+        = link_to refinery.admin_root_path do
           %span.fa.fa-wrench
           Manage
           %span.notranslate
@@ -59,7 +59,7 @@
       Users
 - if can? :manage, Sponsor.new
   %li
-    = link_to(admin_sponsors_path) do
+    = link_to(main_app.admin_sponsors_path) do
       %span.fa.fa-users
       Sponsors
 - if can? :index, PaperTrail::Version.new(item_type: 'User')

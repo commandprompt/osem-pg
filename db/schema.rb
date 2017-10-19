@@ -150,9 +150,9 @@ ActiveRecord::Schema.define(version: 20171010124327) do
     t.string   "background_file_name"
     t.boolean  "require_itinerary"
     t.boolean  "use_pg_flow",                default: true
-    t.integer  "ticket_layout",              default: 0
     t.string   "default_currency",           default: "USD"
     t.string   "braintree_merchant_account"
+    t.integer  "ticket_layout",              default: 0
   end
 
   create_table "conferences_codes", id: false, force: :cascade do |t|
