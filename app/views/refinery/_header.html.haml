@@ -29,7 +29,7 @@
               = image_tag(current_user.avatar_url(version: 'small'), title: "Yo #{current_user.name}!", :alt => '')
               %b.caret
             %ul.dropdown-menu
-              = render 'layouts/refinery_user_menu'
+              = render 'layouts/user_menu'
 
         - else
           %li.dropdown.visible-desktop

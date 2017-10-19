@@ -24,7 +24,7 @@
       /   = t('created_at', scope: 'refinery.blog.shared.posts', when: l(post.published_at.to_date, format: :short))
       / = "Posted on" {time_ago_in_words(post.published_at)} ago | By "#{post.author.name}"
       %span.fa.fa-user
-      = "#{post.author.name}" if post.author.present?
+      = link_to "#{post.author.name}", refinery.blog_author_feed_url(post.author.id) if post.author.present?
       &nbsp;&nbsp;&nbsp;
       %span.fa.fa-clock-o
       = "#{post.published_at.strftime("%B %d, %Y")}"

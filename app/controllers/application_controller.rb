@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   before_filter :store_location
   helper_method :date_string
   # Ensure every controller authorizes resource or skips authorization (skip_authorization_check)
-  # check_authorization unless: :devise_controller?
+  check_authorization unless: :devise_controller?
 
 
   def root_path

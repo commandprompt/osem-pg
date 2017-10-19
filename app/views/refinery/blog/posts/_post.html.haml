@@ -8,7 +8,7 @@
       %header.text-center
         %h1= @post.title
         %section.details.h4
-          = "#{@post.author.name}" if @post.author.present?
+          = link_to "#{@post.author.name}", refinery.blog_author_feed_url(@post.author.id) if @post.author.present?
           &nbsp;&nbsp;
           = "|"
           &nbsp;&nbsp;
