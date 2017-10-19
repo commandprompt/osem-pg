@@ -23,7 +23,7 @@ end
 module Refinery
   module SiteBarHelper
     def display_site_bar?
-        current_user.is_admin && "#{controller_name}##{action_name}" !~ %r{preview#show}
+        current_user && current_user.is_admin && "#{controller_name}##{action_name}" !~ %r{preview#show}
     end
   end
 end
