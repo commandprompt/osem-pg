@@ -1,5 +1,5 @@
 <%= form_for [refinery, :blog_admin, @post] do |f| -%>
-  <%= render "/refinery/admin/error_messages",
+  <%= render '/refinery/admin/error_messages',
              :object => f.object,
              :include_object_name => true %>
 
@@ -12,7 +12,7 @@
   </div>
   <div class='field'>
     <%= f.label :featured_image -%>
-    <%= render :partial => "/refinery/admin/image_picker", :locals => {
+    <%= render :partial => '/refinery/admin/image_picker', :locals => {
           :f => f,
           :field => :image_id,
           :image => f.object.image,
@@ -23,10 +23,10 @@
     <div id='page-tabs' class='clearfix ui-tabs ui-widget ui-widget-content ui-corner-all'>
       <ul id='page_parts'>
         <li class='ui-state-default ui-state-active'>
-          <%= link_to t('body', :scope => 'activerecord.attributes.refinery/blog/post'), "#page_part_body" %>
+          <%= link_to t('body', :scope => 'activerecord.attributes.refinery/blog/post'), '#page_part_body' %>
         </li>
         <li class='ui-state-default'>
-          <%= link_to t('teaser', :scope => 'activerecord.attributes.refinery/blog/post'), "#page_part_teaser" %>
+          <%= link_to t('teaser', :scope => 'activerecord.attributes.refinery/blog/post'), '#page_part_teaser' %>
         </li>
         <% Refinery::Blog.tabs.each_with_index do |tab, tab_index| %>
           <li class='ui-state-default' id="custom_<%= tab.name %>_tab">
@@ -56,7 +56,7 @@
   <%= render '/refinery/admin/form_advanced_options_menu', :f => f %>
 
   <div id='more_options'>
-    <div class="hemisquare">
+    <div class='hemisquare'>
       <h3><%= t('title', :scope => 'refinery.blog.admin.submenu.categories') %></h3>
       <ul class='blog_categories'>
         <% @categories.each do |category| %>
@@ -78,7 +78,7 @@
           <%= f.label :custom_url, t('.custom_url') %>
           <%= refinery_help_tag t('.custom_url_help') %>
         </span>
-        <%= f.text_field :custom_url, :class => "widest" %>
+        <%= f.text_field :custom_url, :class => 'widest' %>
       </div>
 
       <div class='field'>
@@ -86,7 +86,7 @@
           <%= f.label :source_url_title, t('.source_url_title') %>
           <%= refinery_help_tag t('.source_url_title_help') %>
         </span>
-        <%= f.text_field :source_url_title, :class => "widest" %>
+        <%= f.text_field :source_url_title, :class => 'widest' %>
       </div>
 
       <div class='field'>
@@ -94,7 +94,7 @@
           <%= f.label :source_url, t('.source_url') %>
           <%= refinery_help_tag t('.source_url_help') %>
         </span>
-        <%= f.text_field :source_url, :class => "widest" %>
+        <%= f.text_field :source_url, :class => 'widest' %>
       </div>
 
       <div class='field'>
@@ -111,7 +111,7 @@
       <%= render '/seo_meta/form', :form => f %>
     </div>
   </div>
-  <%= render "/refinery/admin/form_actions",
+  <%= render '/refinery/admin/form_actions',
              :f => f,
              :continue_editing => true,
              :delete_title => t('delete', :scope => 'refinery.blog.admin.posts.post'),
@@ -121,7 +121,7 @@
                                                :data => {
                                                  :confirm => t('delete_translation_confirmation', :scope => 'refinery.blog.admin.posts.post')
                                                },
-                                               :class => "button confirm-delete") if Refinery::I18n.frontend_locales.many? && @post.translations.size > 1) %>
+                                               :class => 'button confirm-delete') if Refinery::I18n.frontend_locales.many? && @post.translations.size > 1) %>
 <% end -%>
 
 <% content_for :stylesheets, stylesheet_link_tag('refinery/blog/backend') %>

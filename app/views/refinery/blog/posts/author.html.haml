@@ -12,7 +12,7 @@
   - if @posts.any?
     .row
       .col-md-12
-        = render :partial => "/refinery/blog/shared/post", collection: @posts
+        = render :partial => '/refinery/blog/shared/post', collection: @posts
       / Blog Sidebar Widgets Column
     .row
       .col-md-12.text-center
@@ -23,5 +23,5 @@
   = raw @page.content_for(Refinery::Pages.default_parts.second[:slug].to_sym)
 - end if Refinery::Pages.default_parts.many?
 
-= render "/refinery/content_page"
+= render '/refinery/content_page'
 - content_for :stylesheets, stylesheet_link_tag('refinery/blog/frontend')

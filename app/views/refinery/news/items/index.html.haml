@@ -3,7 +3,7 @@
   - if @items.any?
     .row
       .col-md-9
-        = render partial: "/refinery/news/items/item", collection: @items
+        = render partial: '/refinery/news/items/item', collection: @items
       .col-md-3
         - @twitter_embed = ::Refinery::Setting.find_or_set(:twitter_embed, false)
         - if @twitter_embed
@@ -20,7 +20,7 @@
 - end if ::Refinery::Pages.default_parts.many?
 
 - content_for :javascripts do
-  %script{src: "//platform.twitter.com/widgets.js"}
+  %script{src: '//platform.twitter.com/widgets.js'}
 
 = render '/refinery/news/shared/body_content_right'
-= render "/refinery/content_page"
+= render '/refinery/content_page'

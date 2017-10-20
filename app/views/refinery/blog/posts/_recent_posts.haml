@@ -9,6 +9,6 @@
             .h4.media-hading
               = link_to item.title, refinery.blog_post_path(item)
               %span.small.text-muted
-                = " #{item.published_at.strftime("%B %d, %Y")}"
+                = item.published_at.strftime("%B %d, %Y")
             .text-muted
               = truncate(strip_tags(item.body), length: 350)

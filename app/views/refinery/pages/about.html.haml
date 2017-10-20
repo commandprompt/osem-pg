@@ -21,11 +21,11 @@
               =team_member.role
             .social
               - if team_member.twitter.present?
-                = link_to "#{ team_member.twitter }", target: '_blank' do
+                = link_to team_member.twitter, target: '_blank' do
                   %i.fa.fa-twitter.fa-lg
               &nbsp;&nbsp;
               - if team_member.linkedin.present?
-                = link_to "#{ team_member.linkedin }", target: '_blank' do
+                = link_to team_member.linkedin, target: '_blank' do
                   %i.fa.fa-linkedin.fa-lg
             %span
               =raw team_member.description
@@ -57,7 +57,7 @@
       .col-md-4
         %i.fa.fa-twitter.fa-4x
         .h3
-          = link_to "@#{twitter}" ,"https://twitter.com/#{twitter}"
+          = link_to "@#{twitter}" , twitter
 
     - if email.present?
       .col-md-4
