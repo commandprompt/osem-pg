@@ -23,22 +23,19 @@
 .blog-banner {
   min-height: 300px;
   max-height: 500px;
-  // margin-top: 60px;
   margin-bottom: 0px;
-
   background-color: whitesmoke;
   background-size: cover;
-  // color: whitesmoke;
-  // h1 {
-  //   font-size: 64px
-  // }
-  // .details {
-  //   margin-top: 15px;
-  // }
 }
 
 .blog-body {
   padding-top: 30px;
+}
+
+.site-body {
+  margin-top: 50px;
+  margin-bottom: 40px;
+  overflow-x: hidden;
 }
 
 .site-footer {
@@ -55,32 +52,22 @@
   }
 }
 
-.site-body {
-  margin-top: 50px;
-  margin-bottom: 40px;
-  overflow-x: hidden;
-}
-
 .home-banner {
-  // background-image: url('https://privatelenderlink.com/wp-content/uploads/new-york-skyline-statue-liberty-morning.jpg');
-  // background: linear-gradient(0deg,rgba(255,0,150,0.3),rgba(255,0,10,0.3));
   height: 450px;
-  // background-repeat: no-repeat;
-  // background-size: cover;
-
   border-bottom-color: #eeeeee;
   border-bottom-style: solid;
   margin-bottom: 30px;
 
   color: whitesmoke;
-  // h1, h2, h3, h4, h5 {
-  //   color: whitesmoke;
-  // }
+
   a.conference-link {
     border-radius: 4px;
-    padding: 6px;
+    padding: 10px;
     text-decoration: none;
     color: white;
+    border-style: solid;
+    border-width: 1px;
+    background-color: rgba(255, 255, 255, 0.1);
   }
 
   a.conference-link:hover {
@@ -100,10 +87,11 @@
 
     li > a{
       color: white;
+      background-color: rgba(255, 255, 255, 0.1);
     }
 
     li > a:hover{
-     background-color: rgba(255, 255, 255, 0.2);
+     background-color: rgba(255, 255, 255, 0.3);
     }
 
     // li.active {
@@ -112,8 +100,8 @@
 
     li.active > a{
       font-weight: 800;
-      background-color: transparent;
-      text-decoration: underline;
+      background-color: rgba(255, 255, 255, 0.4);
+      // text-decoration: underline;
     }
   }
 }
@@ -134,15 +122,16 @@
 
   .member-photo {
     box-sizing: border-box;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    border-radius: 50%;
+    // -webkit-border-radius: 50%;
+    // -moz-border-radius: 50%;
+    // border-radius: 50%;
     margin: 0 0 20px 0;
 
     img {
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     border-radius: 50%;
+    object-fit: cover;
     }
   }
 
@@ -159,9 +148,9 @@
       }
     }
 
-    a {
-      text-decoration: none;
-    }
+    // a {
+    //   text-decoration: none;
+    // }
 
     i {
       width: 35px;
@@ -170,10 +159,12 @@
       background-color: #ccc;
       text-align:center;
       padding-top: 10px;
+
       border-radius: 50%;
       -moz-border-radius: 50%;
       -webkit-border-radius: 50%;
       -o-border-radius: 50%;
+
       transition: all ease 0.3s;
       -moz-transition: all ease 0.3s;
       -webkit-transition: all ease 0.3s;
@@ -181,13 +172,13 @@
       -ms-transition: all ease 0.3s;
     }
 
-    i:hover {
-      transition: all ease 0.3s;
-      -moz-transition: all ease 0.3s;
-      -webkit-transition: all ease 0.3s;
-      -o-transition: all ease 0.3s;
-      -ms-transition: all ease 0.3s;
-    }
+    // i:hover {
+    //   transition: all ease 0.3s;
+    //   -moz-transition: all ease 0.3s;
+    //   -webkit-transition: all ease 0.3s;
+    //   -o-transition: all ease 0.3s;
+    //   -ms-transition: all ease 0.3s;
+    // }
 
     i.fa-twitter:hover {
       background-color: #1DA1F2;
@@ -214,4 +205,25 @@
 
 .about-section {
   margin-bottom: 60px;
+
+    .img-sponsor {
+      max-height: 100px;
+      margin: 2% auto;
+    }
+    .img-sponsor-1 {
+      max-height: 200px;
+    }
+    .img-sponsor-2 {
+      max-height: 150px;
+    }
+    .img-sponsor-3 {
+      max-height: 120px;
+    }
+
+    // @include breakpoint(xs) {
+    //   .img-sponsor, .img-sponsor-1, .img-sponsor-3, .img-sponsor-3{
+    //     max-height: unset;
+    //     max-width: 280px;
+    //   }
+    // }
 }

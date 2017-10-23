@@ -3,7 +3,7 @@
   - if @current.any?
     .col-md-12.conferences
       .row.tab-content
-        %h3.text-center Don't miss the upcoming event
+        %h3.text-center Don't miss the upcoming events
         - @current.each_with_index do |conference, index|
           .tab-pane.fade.text-center{id: conference.short_title, class: ('in active' if index == 0)}
             = render partial: '/refinery/pages/shared/conference_block', locals: { conference: conference }

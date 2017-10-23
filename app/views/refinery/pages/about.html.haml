@@ -41,10 +41,9 @@
     .row.row-centered
       - slice.each do |sponsor|
         .col-md-3.col-centered.col-top.text-center
-          %figure
-            -unless sponsor.logo.blank?
-              = link_to sponsor.url, target: '_blank' do
-                =image_fu sponsor.logo, '300x300'
+          -unless sponsor.logo.blank?
+            = link_to sponsor.url, target: '_blank' do
+              =image_fu sponsor.logo, 'x180', class: 'img-responsive img-sponsor img-sponsor-1'
 
 %section.about-section.contacts
   .h2.text-center

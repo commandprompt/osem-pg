@@ -1,8 +1,12 @@
-.huge
-  - if conference.splashpage && conference.splashpage.public
+
+- if conference.splashpage && conference.splashpage.public
+  .huge
     = link_to conference.title, main_app.conference_path(conference.short_title), class: 'conference-link'
-  - else
+- else
+  .huge
     = conference.title
+  .small
+    the details for this conference are not available yet
 .h4
   %span.fa.fa-calendar-o
   = date_string(conference.start_date, conference.end_date)
