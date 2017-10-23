@@ -14,7 +14,7 @@
           = u.input :last_name, as: :string
           = u.input :nickname, as: :string
           = u.input :affiliation, placeholder: 'Company/User Group/Organization', as: :string
-          = u.inout :title, as: :string
+          = u.input :title, as: :string
       = f.inputs 'Registration Information' do
         = render partial: 'conference_registrations/registration_info', locals: { f: f }
       = f.action :submit, button_html: { class: 'btn btn-primary' }
