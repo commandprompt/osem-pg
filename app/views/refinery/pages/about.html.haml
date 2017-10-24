@@ -11,7 +11,7 @@
     .row.row-centered
       - slice.each do |team_member|
         .col-md-4.col-centered.col-top.team-member.text-center
-          %figure.member-photo
+          .member-photo
             -unless team_member.photo.blank?
               =image_fu team_member.photo, '200x200'
           .team-detail
@@ -53,19 +53,19 @@
     - email = get_field('contact_email')
     - tel = get_field('contact_phone')
     - if twitter.present?
-      .col-md-4
+      .col-md-4.col-centered
         %i.fa.fa-twitter.fa-4x
         .h3
           = link_to "@#{twitter}" , twitter
 
     - if email.present?
-      .col-md-4
+      .col-md-4.col-centered
         %i.fa.fa-envelope-o.fa-4x
         .h3
           = link_to email, "mailto:#{email}"
 
     - if tel.present?
-      .col-md-4
+      .col-md-4.col-centered
         %i.fa.fa-phone.fa-4x
         .h3
           = link_to tel ,"tel:#{tel}"

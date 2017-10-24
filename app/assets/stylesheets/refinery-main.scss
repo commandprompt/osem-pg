@@ -121,17 +121,14 @@
   }
 
   .member-photo {
-    box-sizing: border-box;
-    // -webkit-border-radius: 50%;
-    // -moz-border-radius: 50%;
-    // border-radius: 50%;
     margin: 0 0 20px 0;
-
     img {
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     border-radius: 50%;
     object-fit: cover;
+    width: 200px;
+    height: 200px;
     }
   }
 
