@@ -3,17 +3,17 @@
 }
 
 
-/* Small devices (tablets, 768px and up) */
-@media (max-width: 768px) {
- .huge {
-    font-size: 40px !important;
-  }
-}
+// /* Small devices (tablets, 768px and up) */
+// @media (max-width: 768px) {
+//  .huge {
+//     font-size: 40px !important;
+//   }
+// }
 
 /* Medium devices (desktops, 992px and up) */
 @media (max-width: 992px) {
  .huge {
-    font-size: 50px !important;
+    font-size: 40px !important;
   }
 }
 
@@ -68,7 +68,7 @@
 
 
 .conference-buttons {
-  padding-top: 15px;
+  // padding-top: 15px;
   .btn-outline {
     border-color: inherit;
     border: 2px solid;
@@ -76,6 +76,10 @@
   .btn-default:hover, .btn-default:focus, .btn-default.focus, .btn-default:active, .btn-default.active, .open > .btn-default.dropdown-toggle {
     background-color: rgba(255, 255, 255, 0.5);
     color: white;
+  }
+  .btn-group {
+    margin-top: 15px;
+    margin-bottom: 15px;
   }
 }
 
