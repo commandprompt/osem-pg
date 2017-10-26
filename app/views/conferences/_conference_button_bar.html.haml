@@ -7,7 +7,7 @@
   = link_to "My Proposals", main_app.conference_program_proposals_path(conference.short_title), :class =>"btn btn-outline btn-default btn-round"
 - elsif can? :new, conference.program.events.new
   - unless conference.ended?
-    = link_to "Submit Proposal", new_conference_program_proposal_path(conference.short_title), :class =>"btn btn-outline btn-default btn-round"
+    = link_to "Submit Proposal", main_app.new_conference_program_proposal_path(conference.short_title), :class =>"btn btn-outline btn-default btn-round"
 - if conference.program and conference.program.schedule_public
   = link_to "Schedule", main_app.conference_schedule_path(conference.short_title), :class =>"btn btn-outline btn-default btn-round"
 
