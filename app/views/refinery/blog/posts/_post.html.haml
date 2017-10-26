@@ -1,32 +1,8 @@
-- flash.each do |key, value|
-  #flash{:class => "flash flash_#{key}"}
-    = value
-%article
-  .row.blog-banner.hidden.fullwidth
-  .row.blog-head.fullwidth
-    .col-md-12
-      %header.text-center
-        %h1= @post.title
-        %section.details.h4
-          = link_to @post.author.name, refinery.blog_author_feed_url(@post.author.id) if @post.author.present?
-          &nbsp;&nbsp;
-          = '|'
-          &nbsp;&nbsp;
-          = @post.published_at.strftime("%B %d, %Y")
+.row.blog-body
+  .col-md-12
+    = @post.body.html_safe
+    - if Refinery::Blog::Post::ShareThis.enabled?
+      %span.st_sharethis{:displaytext => 'ShareThis'}
+    = render '/refinery/draft_page_message' unless @post.nil? or @post.live?
 
-  .row.blog-body
-    .col-md-12
-      = @post.body.html_safe
-      - if Refinery::Blog::Post::ShareThis.enabled?
-        %span.st_sharethis{:displaytext => 'ShareThis'}
-      = render '/refinery/draft_page_message' unless @post.nil? or @post.live?
-    .col-md-12
-      = render 'nav' if next_or_previous?(@post)
-
-- unless @post.image.blank?
-  - content_for :javascripts do
-    :javascript
-      $(window).load(function () {
-        $('.blog-banner').removeClass('hidden').css('background-image', 'url(#{@post.image.url})');
-      });
 

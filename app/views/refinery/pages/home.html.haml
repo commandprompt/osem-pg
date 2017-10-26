@@ -1,25 +1,26 @@
 - @current = Conference.where('end_date >= ?', Date.current).reorder(start_date: :asc)
-%section.home-banner.fullwidth
+%section.home-banner
   - if @current.any?
-    .col-md-12.conferences
-      .row.tab-content
-        %h3.text-center Don't miss the upcoming events
-        - @current.each_with_index do |conference, index|
-          .tab-pane.fade.text-center{id: conference.short_title, class: ('in active' if index == 0)}
-            = render partial: '/refinery/pages/shared/conference_block', locals: { conference: conference }
+    .container.conferences
       .row
+        %h2.text-center The Postgres Conference Series
         .col-md-6.col-md-offset-3
           %ul.nav.nav-pills.center-pills.conf-nav
             - @current.each_with_index do |conference, index|
               %li{role: "presentation", class: ('active' if index == 0)}
                 %a{href: "##{conference.short_title}", data: {toggle: 'tab'}} #{conference.short_title}
 
+      .row.tab-content
+        - @current.each_with_index do |conference, index|
+          .tab-pane.fade.text-center{id: conference.short_title, class: ('in active' if index == 0)}
+            = render partial: '/refinery/pages/shared/conference_block', locals: { conference: conference }
+
   - else
     .row.conferences
       .h4.text-center
         There are no upcoming conferences for the moment
 
-%section.news
+%section.news.container
   .row
     .col-md-9
       - @items = Refinery::Blog::Post.recent(5)

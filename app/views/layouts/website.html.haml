@@ -1,13 +1,12 @@
 %html{:xmlns => "http://www.w3.org/1999/html"}
+  /FIXME: nest this in body, convert partial to a proper bootstrap css
+  = render('/refinery/site_bar', :head => true)
+  %head
+    = render "/refinery/head"
   %body.site-body
     = render "/refinery/html_tag"
-    - site_bar = render('/refinery/site_bar', :head => true)
-    = render "/refinery/head"
-    = render "/refinery/javascripts"
-    = site_bar
     = render "/refinery/header"
-    .container
-      = yield
+    = yield
     %footer.navbar-static-bottom.site-footer
       .container.text-center
         .col-md-12
