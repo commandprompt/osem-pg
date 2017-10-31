@@ -9,8 +9,7 @@ module Admin
     end
 
     def new
-      @code = Code.new(conference_id: @conference.id)
-      # authorize! :create, @code
+       @code = @conference.codes.new
     end
 
     def create
@@ -33,6 +32,11 @@ module Admin
         flash.now[:error] = "Update of promo code for #{@conference.short_title} failed. #{@code.errors.full_messages.join('. ')}"
         render :edit
       end
+    end
+
+    def destroy
+      @code.destroy
+      redirect_to admin_conference_codes_path(conference_id: @conference.short_title), notice: 'Promocode was successfully destroyed.'
     end
 
     # Update codes used for the conference
