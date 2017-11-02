@@ -18,7 +18,7 @@
             = post.body.html_safe
     .card-header.text-muted
       %span.fa.fa-user
-      = link_to post.author.name, refinery.blog_author_feed_url(post.author.id) if post.author.present?
+      = link_to post.author.name, refinery.blog_author_feed_url(post.author) if post.author.present?
       &nbsp;&nbsp;&nbsp;
       %span.fa.fa-clock-o
       = post.published_at.strftime("%B %d, %Y")

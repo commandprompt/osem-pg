@@ -27,6 +27,9 @@ class User < ActiveRecord::Base
   # add scope
   scope :comment_notifiable, ->(conference) {joins(:roles).where('roles.name IN (?)', [:organizer, :cfp]).where('roles.resource_type = ? AND roles.resource_id = ?', 'Conference', conference.id)}
 
+  extend FriendlyId
+  friendly_id :name, use: [:slugged, :history, :finders]
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
