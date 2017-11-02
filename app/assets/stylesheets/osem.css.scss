@@ -255,50 +255,6 @@ p.comment-body {
   display: none;
 }
 
-#inside_header {
-    margin-top: -20px;
-    padding-top: 20px;
-    border-bottom: 0;
-    background: repeating-linear-gradient(to bottom, #0E3E65, #0E3E65 5px, #1C5380 5px, #1C5380 6px, #0E3E65 6px, #0E3E65 10px );
-}
-
-#inside_header h2, #inside_header h3 {
-  color: #FFFFFF
-}
-
-#inside_nav {
-    padding-top: 10px;
-    padding-bottom: 10px;
-    margin: 0;
-    border-bottom: 0;
-    background: #336691;
-    transition: all 0.2s linear 0s;
-}
-
-#inside_nav li {
-  position: relative;
-  display: inline-block;
-  margin: 0;
-
-}
-
-#inside_nav li > a {
-  border-bottom: 3px solid transparent;
-  text-shadow: 1px 1px 3px #000;
-  color: #fff;
-  font-size: 14px;
-  font-weight: 500;
-  text-transform: uppercase;
-  text-decoration: none;
-  display: block;
-  padding: 10px;
-}
-
-#inside_nav a:hover {
-    outline: 0;
-    background-color: #1C5380;
-}
-
 .content_row {
     max-width: 910px;
     width: 100%;
