@@ -14,5 +14,5 @@
             = semantic_form_for('promo_code', url: conference_tickets_path(@conference.short_title), method: :get) do |f|
               = f.input :pcode, :label => false
               = f.actions do
-                = f.action :submit, label: 'Apply', :button_html => {class: 'btn btn-primary'}
+                = f.action :submit, label: 'Apply', :button_html => {class: 'btn btn-primary', id: 'apply_code'}
                 = f.action :cancel, label: 'Cancel', :button_html => {class: 'btn btn-danger', 'data-dismiss'=> 'modal', 'aria-hidden'=>'true'}
