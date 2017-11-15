@@ -9,11 +9,13 @@ module Admin
     end
 
     def new
-       @code = @conference.codes.new
+       @code = Code.new(conference_id: @conference.id)
+       authorize! :create, @code
     end
 
     def create
       @code = @conference.codes.new(code_params)
+      @code.conference_id = @conference.id
       authorize! :create, @code
 
       if @conference.save
