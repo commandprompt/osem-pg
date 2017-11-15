@@ -4,7 +4,7 @@ module RefineryAdminControllerAuthenticationDecorator
   protected
 
   def authenticate_refinery_user!
-    unless current_user.is_admin?
+    unless current_user.try(:is_admin?)
       session["return_to"] = request.path
       redirect_to root_path and return
     end
