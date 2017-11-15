@@ -146,8 +146,10 @@ class Event < ActiveRecord::Base
     if program.conference.email_settings.send_on_confirmed_without_registration? &&
         program.conference.email_settings.confirmed_without_registration_body  &&
         program.conference.email_settings.confirmed_without_registration_subject
-      if program.conference.registrations.where(user_id: submitter.id).first.nil?
-        Mailbot.confirm_reminder_mail(self).deliver_later
+      speakers.each do |speaker|
+        if program.conference.registrations.where(user_id: speaker.id).first.nil?
+          Mailbot.confirm_reminder_mail(self, speaker).deliver_later
+        end
       end
     end
   end
@@ -157,7 +159,9 @@ class Event < ActiveRecord::Base
         program.conference.email_settings.accepted_body &&
         program.conference.email_settings.accepted_subject &&
         !options[:send_mail].blank?
-      Mailbot.acceptance_mail(self).deliver_later
+      speakers.each do |recipient|
+        Mailbot.acceptance_mail(self, recipient).deliver_later
+      end
     end
   end
 
@@ -166,7 +170,9 @@ class Event < ActiveRecord::Base
         program.conference.email_settings.rejected_body &&
         program.conference.email_settings.rejected_subject &&
         !options[:send_mail].blank?
-      Mailbot.rejection_mail(self).deliver_later
+      speakers.each do |recipient|
+        Mailbot.rejection_mail(self, recipient).deliver_later
+      end
     end
   end
 
