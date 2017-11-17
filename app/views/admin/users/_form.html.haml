@@ -28,6 +28,7 @@
     = f.input :mobile
     = f.input :password
     = f.input :affiliation, :as => :string
+    = f.input :title, as: :string, label: 'Job Title'
     = f.input :biography, input_html: { rows: 10, data: { provide: 'markdown-editable' } },
       hint: markdown_hint
   = f.actions do
