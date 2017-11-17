@@ -108,7 +108,7 @@
                   %li.hidden-lg
                     = link_to('Sign In', new_user_session_path)
 
-- if content_for? :splash_nav
+- if content_for? :splash_base
   %nav.navbar.navbar-fixed-top.navbar-custom{:role=>"navigation", :id=>'site-nav'}
     = yield :nav_base
 
