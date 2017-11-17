@@ -48,8 +48,8 @@ class EmailSettings < ActiveRecord::Base
     h
   end
 
-  def expand_event_template(event, template)
-    values = get_values(event.program.conference, event.submitter, event)
+  def expand_event_template(event, user, template)
+    values = get_values(event.program.conference, user, event)
     parse_template(template, values)
   end
 

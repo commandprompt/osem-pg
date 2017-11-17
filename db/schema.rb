@@ -456,48 +456,6 @@ ActiveRecord::Schema.define(version: 20171102130500) do
     t.datetime "updated_at"
   end
 
-  create_table "refinery_authentication_devise_roles", force: :cascade do |t|
-    t.string "title"
-  end
-
-  create_table "refinery_authentication_devise_roles_users", id: false, force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "role_id"
-  end
-
-  add_index "refinery_authentication_devise_roles_users", ["role_id", "user_id"], name: "refinery_roles_users_role_id_user_id", using: :btree
-  add_index "refinery_authentication_devise_roles_users", ["user_id", "role_id"], name: "refinery_roles_users_user_id_role_id", using: :btree
-
-  create_table "refinery_authentication_devise_user_plugins", force: :cascade do |t|
-    t.integer "user_id"
-    t.string  "name"
-    t.integer "position"
-  end
-
-  add_index "refinery_authentication_devise_user_plugins", ["name"], name: "index_refinery_authentication_devise_user_plugins_on_name", using: :btree
-  add_index "refinery_authentication_devise_user_plugins", ["user_id", "name"], name: "refinery_user_plugins_user_id_name", unique: true, using: :btree
-
-  create_table "refinery_authentication_devise_users", force: :cascade do |t|
-    t.string   "username",               null: false
-    t.string   "email",                  null: false
-    t.string   "encrypted_password",     null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.integer  "sign_in_count"
-    t.datetime "remember_created_at"
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "slug"
-    t.string   "full_name"
-  end
-
-  add_index "refinery_authentication_devise_users", ["id"], name: "index_refinery_authentication_devise_users_on_id", using: :btree
-  add_index "refinery_authentication_devise_users", ["slug"], name: "index_refinery_authentication_devise_users_on_slug", using: :btree
-
   create_table "refinery_blog_categories", force: :cascade do |t|
     t.string   "title"
     t.datetime "created_at"
@@ -951,13 +909,14 @@ ActiveRecord::Schema.define(version: 20171102130500) do
   create_table "ticket_purchases", force: :cascade do |t|
     t.integer  "ticket_id"
     t.integer  "conference_id"
-    t.boolean  "paid",          default: false
+    t.boolean  "paid",                  default: false
     t.datetime "created_at"
-    t.integer  "quantity",      default: 1
+    t.integer  "quantity",              default: 1
     t.integer  "user_id"
     t.integer  "payment_id"
     t.integer  "code_id"
     t.integer  "event_id"
+    t.string   "pending_event_tickets"
   end
 
   add_index "ticket_purchases", ["conference_id", "code_id"], name: "index_ticket_purchases_on_conference_id_and_code_id", using: :btree
@@ -1026,6 +985,7 @@ ActiveRecord::Schema.define(version: 20171102130500) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "title"
+    t.string   "storytime_name"
     t.string   "slug"
   end
 
