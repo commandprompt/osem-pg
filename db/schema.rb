@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171006065005) do
+ActiveRecord::Schema.define(version: 20171112190404) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,32 @@ ActiveRecord::Schema.define(version: 20171006065005) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "benefit_responses", force: :cascade do |t|
+    t.integer  "conference_id"
+    t.integer  "sponsorship_id"
+    t.integer  "benefit_id"
+    t.text     "text_response"
+    t.string   "file_response"
+    t.boolean  "bool_response"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "benefit_responses", ["conference_id", "sponsorship_id", "benefit_id"], name: "conf_sponsorship_benefit_idx", unique: true, using: :btree
+
+  create_table "benefits", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "conference_id"
+    t.integer  "category"
+    t.integer  "value_type"
+    t.text     "description"
+    t.datetime "due_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "benefits", ["conference_id"], name: "index_benefits_on_conference_id", using: :btree
 
   create_table "campaigns", force: :cascade do |t|
     t.integer  "conference_id"
@@ -538,7 +564,17 @@ ActiveRecord::Schema.define(version: 20171006065005) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "picture"
+    t.string   "short_name"
   end
+
+  add_index "sponsors", ["short_name"], name: "index_sponsors_on_short_name", unique: true, using: :btree
+
+  create_table "sponsors_users", id: false, force: :cascade do |t|
+    t.integer "sponsor_id"
+    t.integer "user_id"
+  end
+
+  add_index "sponsors_users", ["user_id"], name: "index_sponsors_users_on_user_id", unique: true, using: :btree
 
   create_table "sponsorship_infos", force: :cascade do |t|
     t.text     "description"
@@ -546,6 +582,8 @@ ActiveRecord::Schema.define(version: 20171006065005) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.string   "prospectus"
+    t.string   "liaison_email"
+    t.string   "manual"
   end
 
   add_index "sponsorship_infos", ["conference_id"], name: "index_sponsorship_infos_on_conference_id", using: :btree
@@ -557,6 +595,18 @@ ActiveRecord::Schema.define(version: 20171006065005) do
     t.datetime "updated_at"
     t.integer  "position"
   end
+
+  create_table "sponsorship_levels_benefits", force: :cascade do |t|
+    t.integer  "sponsorship_level_id"
+    t.integer  "benefit_id"
+    t.integer  "code_type_id"
+    t.integer  "max_uses"
+    t.integer  "discount"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sponsorship_levels_benefits", ["sponsorship_level_id"], name: "index_sponsorship_levels_benefits_on_sponsorship_level_id", using: :btree
 
   create_table "sponsorships", force: :cascade do |t|
     t.integer  "conference_id",        null: false
@@ -588,13 +638,14 @@ ActiveRecord::Schema.define(version: 20171006065005) do
   create_table "ticket_purchases", force: :cascade do |t|
     t.integer  "ticket_id"
     t.integer  "conference_id"
-    t.boolean  "paid",          default: false
+    t.boolean  "paid",                  default: false
     t.datetime "created_at"
-    t.integer  "quantity",      default: 1
+    t.integer  "quantity",              default: 1
     t.integer  "user_id"
     t.integer  "payment_id"
     t.integer  "code_id"
     t.integer  "event_id"
+    t.string   "pending_event_tickets"
   end
 
   add_index "ticket_purchases", ["conference_id", "code_id"], name: "index_ticket_purchases_on_conference_id_and_code_id", using: :btree
@@ -763,6 +814,10 @@ ActiveRecord::Schema.define(version: 20171006065005) do
     t.datetime "updated_at"
   end
 
+  add_foreign_key "benefit_responses", "benefits"
+  add_foreign_key "benefit_responses", "conferences"
+  add_foreign_key "benefit_responses", "sponsorships"
+  add_foreign_key "benefits", "conferences"
   add_foreign_key "codes", "code_types"
   add_foreign_key "codes", "conferences"
   add_foreign_key "codes", "sponsors"
@@ -777,7 +832,11 @@ ActiveRecord::Schema.define(version: 20171006065005) do
   add_foreign_key "physical_tickets", "registrations"
   add_foreign_key "physical_tickets", "users"
   add_foreign_key "policies", "conferences"
+  add_foreign_key "sponsors_users", "sponsors"
+  add_foreign_key "sponsors_users", "users"
   add_foreign_key "sponsorship_infos", "conferences"
+  add_foreign_key "sponsorship_levels_benefits", "benefits"
+  add_foreign_key "sponsorship_levels_benefits", "sponsorship_levels"
   add_foreign_key "sponsorships", "conferences"
   add_foreign_key "sponsorships", "sponsors"
   add_foreign_key "sponsorships", "sponsorship_levels"

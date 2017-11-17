@@ -21,6 +21,15 @@ Osem::Application.routes.draw do
 
   resources :users, except: [:new, :index, :create, :destroy]
 
+  namespace :portal do
+    resources :sponsors, except: [:new, :create, :destroy] do
+      resources :conferences, except: [:new, :create, :destroy] do
+        resources :codes, only: [:show]
+        resources :benefit_responses
+      end
+    end
+  end
+
   namespace :admin do
     resources :users
     resources :users do
@@ -86,6 +95,8 @@ Osem::Application.routes.draw do
       resources :sponsorships, except: [:show]
       resources :lodgings, except: [:show]
       resources :activities, except: [:show]
+      resources :benefits, except: [:show]
+      resources :sponsorship_levels_benefits, except: [:show]
       resources :targets, except: [:show]
       resources :campaigns, except: [:show]
       resources :emails, only: [:show, :update, :index]
@@ -182,6 +193,7 @@ Osem::Application.routes.draw do
   end
 
   get '/admin' => redirect('/admin/conferences')
+  get '/portal' => redirect('/portal/sponsors')
 
   get '/conferences' => 'conferences#index'
   get '/2017' => 'conferences#show'

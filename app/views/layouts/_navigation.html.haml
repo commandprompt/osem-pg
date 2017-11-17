@@ -91,43 +91,44 @@
 
 - content_for :nav_extended do
   - if @conference and @conference.short_title
-    #inside_header
-      .content_row
-        .row
-          .col-md-2
-            = image_tag(@conference.picture_url, class: 'img-responsive img-center', id: 'splash-logo') if @conference.picture?
-          .col-md-8
-            .row
-              .col-md-8
-                %h2
-                  = @conference.title
-                %h3
-                  - if @conference.venue
-                    = "#{@conference.venue.city} / #{@conference.venue.country_name}"
-                  - if @conference.start_date && @conference.end_date
-                    %br
-                    = date_string(@conference.start_date, @conference.end_date)
-    #inside_nav
-      .content_row
-        .row
-          %ul
-            %li
-              = link_to('Home', conference_path(@conference.short_title))
-            - if @conference.tickets.exists?
+    - if controller.class.name.split("::").first!="Portal" and controller.class.name.split("::").first!="Admin"
+      #inside_header
+        .content_row
+          .row
+            .col-md-2
+              = image_tag(@conference.picture_url, class: 'img-responsive img-center', id: 'splash-logo') if @conference.picture?
+            .col-md-8
+              .row
+                .col-md-8
+                  %h2
+                    = @conference.title
+                  %h3
+                    - if @conference.venue
+                      = "#{@conference.venue.city} / #{@conference.venue.country_name}"
+                    - if @conference.start_date && @conference.end_date
+                      %br
+                      = date_string(@conference.start_date, @conference.end_date)
+      #inside_nav
+        .content_row
+          .row
+            %ul
               %li
-                = link_to('Tickets', conference_tickets_path(@conference.short_title))
-            - if @conference.program and @conference.program.schedule_public
-              %li
-                = link_to('Schedule', events_conference_schedule_path(@conference.short_title))
-            - if @conference.sponsorships.exists?
-              %li
-                = link_to('Sponsors', conference_path(@conference.short_title, :anchor => "sponsors"))
-            - if @conference.program and @conference.program.cfp_open?
-              %li
-                = link_to('Call For Papers', conference_path(@conference.short_title, :anchor => "callforpapers"))
-            - if @conference.venue
-              %li
-                = link_to('Venue', conference_path(@conference.short_title, :anchor => "venue"))
+                = link_to('Home', conference_path(@conference.short_title))
+              - if @conference.tickets.exists?
+                %li
+                  = link_to('Tickets', conference_tickets_path(@conference.short_title))
+              - if @conference.program and @conference.program.schedule_public
+                %li
+                  = link_to('Schedule', events_conference_schedule_path(@conference.short_title))
+              - if @conference.sponsorships.exists?
+                %li
+                  = link_to('Sponsors', conference_path(@conference.short_title, :anchor => "sponsors"))
+              - if @conference.program and @conference.program.cfp_open?
+                %li
+                  = link_to('Call For Papers', conference_path(@conference.short_title, :anchor => "callforpapers"))
+              - if @conference.venue
+                %li
+                  = link_to('Venue', conference_path(@conference.short_title, :anchor => "venue"))
 
 - if content_for? :splash_nav
   %nav.navbar.navbar-fixed-top.navbar-custom{:role=>"navigation", :id=>'site-nav'}

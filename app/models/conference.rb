@@ -23,6 +23,7 @@ class Conference < ActiveRecord::Base
   has_one :program, dependent: :destroy
   has_one :venue, dependent: :destroy
   has_many :physical_tickets, through: :ticket_purchases
+  has_many :sponsorship_levels_benefits, through: :sponsorship_levels
   has_many :ticket_purchases, dependent: :destroy
   has_many :payments, dependent: :destroy
   has_many :supporters, through: :ticket_purchases, source: :user
@@ -40,6 +41,7 @@ class Conference < ActiveRecord::Base
   has_many :campaigns, dependent: :destroy
   has_many :commercials, as: :commercialable, dependent: :destroy
   has_many :subscriptions, dependent: :destroy
+  has_many :benefits, dependent: :destroy
 
   accepts_nested_attributes_for :venue
   accepts_nested_attributes_for :tickets, allow_destroy: true

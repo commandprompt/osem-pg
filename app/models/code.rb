@@ -6,8 +6,15 @@ class Code < ActiveRecord::Base
   has_and_belongs_to_many :tickets, :join_table => :codes_tickets
   belongs_to :sponsor
 
+  has_many :ticket_purchases
+  has_many :code_users, -> { distinct }, through: :ticket_purchases, source: :user
+
   validates :name, :code_type_id, presence: true
   validates :max_uses, numericality: { greater_than_or_equal_to: 0 }
   validates :discount, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100}
+
+  def self.sponsor_codes(conference, sponsor)
+    Code.where(conference_id: conference.id, sponsor_id: sponsor.id)
+  end
 
 end
