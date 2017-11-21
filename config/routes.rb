@@ -65,6 +65,7 @@ Osem::Application.routes.draw do
           member do
             patch :toggle_attendance
             get :registrations
+            get :attendees
             post :comment
             patch :accept
             patch :confirm
