@@ -267,6 +267,10 @@ class Event < ActiveRecord::Base
     10
   end
 
+  def attendees
+    User.where(id: self.registrations.pluck(:id))
+  end
+
   private
 
   ##
