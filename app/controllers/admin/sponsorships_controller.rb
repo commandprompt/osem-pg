@@ -16,7 +16,7 @@ module Admin
 
     def create
       @sponsorship = @conference.sponsorships.new(sponsorship_params)
-      if @sponsorship.save
+      if Sponsorship.create_sponsorship(@sponsorship)
         redirect_to admin_conference_sponsorships_path(conference_id: @conference.short_title),
                     notice: 'Sponsorship successfully created.'
       else

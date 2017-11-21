@@ -56,6 +56,41 @@ class Sponsorship < ActiveRecord::Base
     SponsorshipLevelsBenefit.where(sponsorship_level_id: level_id).joins(:benefit).order('benefits.due_date')
   end
 
+  def self.create_sponsorship(sponsorship)
+    conference = Conference.find(sponsorship.conference_id)
+    sponsor = Sponsor.find(sponsorship.sponsor_id)
+
+    ActiveRecord::Base.transaction do
+      lpcs = SponsorshipLevelsBenefit.level_promo_codes(sponsorship)
+      lpcs.each do |lpc|
+        code = conference.codes.new
+        code.conference = conference
+        code.sponsor = sponsor
+        code.code_type_id = lpc.code_type_id
+
+        if lpc.discount.nil?
+          code.discount = 0
+        else
+          code.discount = lpc.discount
+        end
+
+        unless lpc.max_uses.nil?
+          code.max_uses = lpc.max_uses
+        end
+
+        if lpc.code_type_id == 2
+          code.name = "SPONSOR_" + conference.short_title.upcase + "_" + sponsor.short_name.upcase
+        else
+          code.name = conference.short_title.upcase + "_" + sponsor.short_name.upcase
+        end
+
+        code.save!
+        ConferencesCode.create :conference => conference, :code => code
+      end
+      sponsorship.save!
+    end
+  end
+
   private
 
   def check_code_usage(slb)
