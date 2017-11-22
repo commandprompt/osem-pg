@@ -129,6 +129,27 @@
               - if @conference.venue
                 %li
                   = link_to('Venue', conference_path(@conference.short_title, :anchor => "venue"))
+  - if controller.class.name.split("::").first=="Portal"
+    #inside_header
+      .content_row
+        .row
+          .col-md-2
+            #logo_container
+              = image_tag(@sponsor.picture.first.url, class: 'img-responsive img-center', id: 'splash-logo') if @sponsor.picture?
+          .col-md-1
+          .col-md-7
+            .row
+              .col-md-8
+                %center
+                  %h2
+                    = @sponsor.name
+                  %h3
+                    - if @sponsorship.blank?
+                      Sponsor Portal
+                    - else
+                      #{@conference.title}
+                      %br
+                      #{@sponsorship.title}
 
 - if content_for? :splash_nav
   %nav.navbar.navbar-fixed-top.navbar-custom{:role=>"navigation", :id=>'site-nav'}
