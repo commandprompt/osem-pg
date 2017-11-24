@@ -42,10 +42,10 @@ Refinery::Core.configure do |config|
   # config.dragonfly_secret = "20c426d757544e7bbabcc99606fd3fcad4a5e8dbc6344506"
 
   # Register extra javascript for backend
-  # config.register_javascript "prototype-rails"
+  config.register_javascript "refinery-admin-overrides"
 
   # Register extra stylesheet for backend (optional options)
-  # config.register_stylesheet "custom", :media => 'screen'
+  config.register_stylesheet "refinery-admin-overrides", :media => 'screen'
 
   # Specify a different backend path than the default of "refinery".
   # Make sure you clear the `tmp/cache` directory after changing this setting.
@@ -59,3 +59,5 @@ Refinery::Core.configure do |config|
   # Plugins in the list are placed, as ordered, before any plugins not in the list.
   # config.plugin_priority = %w(refinery_pages refinery_images)
 end
+
+Rails.application.config.assets.precompile += %w( refinerycms-extension.css refinerycms-extension.js )
