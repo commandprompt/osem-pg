@@ -31,12 +31,5 @@ module Portal
     def sponsor_params
       params.require(:sponsor).permit(:name, :description, :website_url, :picture, :picture_cache)
     end
-
-    def check_user_privs
-      return unless @sponsor.id != current_user.sponsor.id
-      redirect_to portal_sponsor_path(current_user.sponsor.short_name),
-                  alert: 'You are not permitted to view that page'
-    end
-
   end
 end

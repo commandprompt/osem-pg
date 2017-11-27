@@ -3,6 +3,8 @@ module Portal
     load_and_authorize_resource :sponsor, find_by: :short_name
     load_and_authorize_resource :conference, find_by: :short_title
 
+    before_action :check_user_privs
+
     def index
     end
 
