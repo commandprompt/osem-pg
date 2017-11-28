@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171102130500) do
+ActiveRecord::Schema.define(version: 20171127155628) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -730,6 +730,16 @@ ActiveRecord::Schema.define(version: 20171102130500) do
     t.integer  "position"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "sponsorship_level_id"
+  end
+
+  add_index "refinery_sponsors", ["sponsorship_level_id"], name: "index_refinery_sponsors_on_sponsorship_level_id", using: :btree
+
+  create_table "refinery_sponsors_sponsorship_levels", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "refinery_team_members", force: :cascade do |t|
@@ -1102,6 +1112,7 @@ ActiveRecord::Schema.define(version: 20171102130500) do
   add_foreign_key "physical_tickets", "registrations"
   add_foreign_key "physical_tickets", "users"
   add_foreign_key "policies", "conferences"
+  add_foreign_key "refinery_sponsors", "sponsorship_levels"
   add_foreign_key "sponsorship_infos", "conferences"
   add_foreign_key "sponsorships", "conferences"
   add_foreign_key "sponsorships", "sponsors"

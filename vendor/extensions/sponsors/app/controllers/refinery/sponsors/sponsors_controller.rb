@@ -3,6 +3,7 @@ module Refinery
     class SponsorsController < ::ApplicationController
 
       before_action :find_all_sponsors
+      before_action :find_all_sponsorship_levels
       before_action :find_page
 
       def index

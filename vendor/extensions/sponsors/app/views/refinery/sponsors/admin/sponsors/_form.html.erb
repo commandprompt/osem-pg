@@ -9,6 +9,11 @@
   </div>
 
   <div class='field'>
+    <%= f.label :sponsorship_level -%>
+    <%= f.select(:sponsorship_level_id, @sponsorship_levels.collect {|d| [d.name, d.id] }, include_blank: true)%>
+  </div>
+
+  <div class='field'>
     <%= f.label :url -%>
     <%= f.text_field :url -%>
   </div>
