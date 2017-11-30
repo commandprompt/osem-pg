@@ -55,7 +55,7 @@ class PaymentsController < ApplicationController
         @unpaid_quantity = Ticket.total_quantity(@conference, current_user, paid: false)
         @unpaid_ticket_purchases = current_user.ticket_purchases.unpaid.by_conference(@conference)
         @error_messages = result.errors.map { |error| "Error: #{error.code}: #{error.message}" }
-        flash[:error] = @error_messages 
+        flash[:error] = result.message 
         render "new"
       end
 
