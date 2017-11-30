@@ -144,6 +144,20 @@
         - if can? :update, @conference.targets.build
           %li{:class=> "#{active_nav_li(admin_conference_targets_path(@conference.short_title))}"}
             = link_to 'Goals', admin_conference_targets_path(@conference.short_title)
+
+  - if can? :show, @conference
+    %li
+      %a
+        %span.fa.fa-list
+        Reports
+      %ul
+        %li{class: active_nav_li(admin_conference_reports_attendees_path(@conference.short_title))}
+          = link_to 'Attendees', admin_conference_reports_attendees_path(@conference.short_title)
+        %li{class: active_nav_li(admin_conference_reports_tickets_path(@conference.short_title))}
+          = link_to 'Tickets', admin_conference_reports_tickets_path(@conference.short_title)
+
+
+
   - if can? :update, @conference.email_settings
     %li{:class=> active_nav_li(admin_conference_emails_path(@conference.short_title))}
       = link_to(admin_conference_emails_path(@conference.short_title)) do
@@ -176,4 +190,3 @@
           = link_to(admin_revision_history_path) do
             %span.fa.fa-history
             Revision History
-
