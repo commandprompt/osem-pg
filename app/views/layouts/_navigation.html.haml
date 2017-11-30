@@ -15,6 +15,25 @@
       - if content_for? :splash_nav
         %ul.nav.navbar-nav#splash-nav
           = content_for :splash_nav
+      - if @conference and controller.class.name.split("::").first!="Admin" and !content_for? :splash_nav
+        %ul.nav.navbar-nav
+          %li
+            = link_to('Home', conference_path(@conference.short_title))
+          - if @conference.tickets.any?
+            %li
+              = link_to('Tickets', conference_tickets_path(@conference.short_title))
+          - if @conference.splashpage.include_program and @conference.program.schedule_public
+            %li
+              = link_to('Schedule', events_conference_schedule_path(@conference.short_title))
+          - if @conference.sponsorships.any? and @conference.splashpage.include_sponsors
+            %li
+              = link_to('Sponsors', conference_path(@conference.short_title, :anchor => "sponsors"))
+          - if @conference.program.cfp_open? and @conference.splashpage.include_cfp
+            %li
+              = link_to('Call For Papers', conference_path(@conference.short_title, :anchor => "callforpapers"))
+          - if @conference.venue and @conference.splashpage.include_venue
+            %li
+              = link_to('Venue', conference_path(@conference.short_title, :anchor => "venue"))
       -if user_signed_in?
         %ul.nav.navbar-nav.navbar-right
           - if can? :index, Comment
@@ -155,14 +174,13 @@
   %nav.navbar.navbar-fixed-top.navbar-custom{:role=>"navigation", :id=>'site-nav'}
     = yield :nav_base
 
-- elsif content_for :conferences_nav
+- elsif content_for? :conferences_nav
   %nav.navbar.navbar-fixed-top.navbar-solid.navbar-custom{:role=>"navigation", :id=>'site-nav'}
     = yield :nav_base
 
 - else
   %nav.navbar.navbar-static-top.navbar-solid{:role=>"navigation", :id=>'site-nav'}
     = yield :nav_base
-  = yield :nav_extended
 
 :javascript
   $(function () {

@@ -19,6 +19,8 @@ class TicketPurchase < ActiveRecord::Base
   delegate :price_cents, to: :ticket
   delegate :price_currency, to: :ticket
 
+  monetize :purchase_price_cents, with_model_currency: :purchase_price_currency
+
   has_many :physical_tickets
 
   scope :paid, -> { where(paid: true) }
@@ -33,7 +35,7 @@ class TicketPurchase < ActiveRecord::Base
     Money.new(total_paid, conference.default_currency)
   end
 
-  def self.purchase(conference, user, purchases, code_id, chosen_events)
+  def self.purchase(conference, user, purchases, code_id, chosen_events, prices)
     errors = []
     ActiveRecord::Base.transaction do
       conference.tickets.each do |ticket|
@@ -47,11 +49,12 @@ class TicketPurchase < ActiveRecord::Base
         end
 
         quantity = purchases[ticket.id.to_s].to_i
+        price = prices[ticket.id.to_s].to_f
         # if the user bought the ticket, just update the quantity
         if ticket.bought?(user) && ticket.unpaid?(user)
           purchase = update_quantity(conference, quantity, ticket, user)
         else
-          purchase = purchase_ticket(conference, quantity, ticket, user, code_id, chosen_event_list)
+          purchase = purchase_ticket(conference, quantity, ticket, user, code_id, chosen_event_list, price)
         end
 
         if purchase && !purchase.save
@@ -62,14 +65,15 @@ class TicketPurchase < ActiveRecord::Base
     errors.join('. ')
   end
 
-  def self.purchase_ticket(conference, quantity, ticket, user, code_id, event_list)
+  def self.purchase_ticket(conference, quantity, ticket, user, code_id, event_list, price)
     if quantity > 0
       purchase = new(ticket_id: ticket.id,
                      conference_id: conference.id,
                      user_id: user.id,
                      quantity: quantity,
                      code_id: code_id,
-                     pending_event_tickets: event_list)
+                     pending_event_tickets: event_list,
+                     purchase_price: price)
       purchase.pay(nil, user) if ticket.price_cents.zero?
     end
     purchase

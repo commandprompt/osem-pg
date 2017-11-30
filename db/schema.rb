@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171112190404) do
+ActiveRecord::Schema.define(version: 20171130172356) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -638,14 +638,16 @@ ActiveRecord::Schema.define(version: 20171112190404) do
   create_table "ticket_purchases", force: :cascade do |t|
     t.integer  "ticket_id"
     t.integer  "conference_id"
-    t.boolean  "paid",                  default: false
+    t.boolean  "paid",                    default: false
     t.datetime "created_at"
-    t.integer  "quantity",              default: 1
+    t.integer  "quantity",                default: 1
     t.integer  "user_id"
     t.integer  "payment_id"
     t.integer  "code_id"
     t.integer  "event_id"
     t.string   "pending_event_tickets"
+    t.integer  "purchase_price_cents",    default: 0,     null: false
+    t.string   "purchase_price_currency", default: "USD", null: false
   end
 
   add_index "ticket_purchases", ["conference_id", "code_id"], name: "index_ticket_purchases_on_conference_id_and_code_id", using: :btree
