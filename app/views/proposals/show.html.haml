@@ -45,8 +45,6 @@
             .col-md-9
               %h4
                 = link_to speaker.name, user_path(speaker.id)
-                .email
-                  = "(#{speaker.email})"
               - if speaker.affiliation?
                 .text-muted
                   = speaker.affiliation
