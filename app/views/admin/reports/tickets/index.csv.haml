@@ -1,10 +1,9 @@
-- headers = ['Last Name',
-             'First Name',
-             'Affiliation',
-             'Job Title',
-             'Email',
-             'Type']
+- headers = ['Purchase Date',
+             'Ticket',
+             'Buyer',
+             'Attendee',
+             'Purchase Price']
 = CSV.generate_line headers
-- @attendees.each do |attendee|
-  = CSV.generate_line([attendee.last_name, attendee.first_name, attendee.affiliation,
-  attendee.title, attendee.email, attendee.type]).html_safe
+- @physical_tickets.each do |pt|
+  = CSV.generate_line([pt.created_at, pt.ticket.title, pt.ticket_purchase.user.name,
+  pt.user.name, pt.ticket_purchase.purchase_price]).html_safe

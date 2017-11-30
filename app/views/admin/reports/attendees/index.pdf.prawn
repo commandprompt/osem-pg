@@ -1,4 +1,4 @@
-prawn_document(force_download: true, filename: "#{@file_name}.pdf", page_layout: :landscape) do |pdf|
+prawn_document(force_download: true, filename: "attendees.pdf", page_layout: :landscape) do |pdf|
   attendees_array = []
   header_array = ['Last Name', 'First Name', 'Affiliation', 'Job Title', 'Email', 'Type']
   attendees_array << header_array
