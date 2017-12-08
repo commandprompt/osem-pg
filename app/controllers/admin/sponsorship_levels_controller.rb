@@ -59,7 +59,7 @@ module Admin
     private
 
     def sponsorship_level_params
-      params.require(:sponsorship_level).permit(:title, :conference_id)
+      params.require(:sponsorship_level).permit(:title, :conference_id, :benefit_ids => [])
     end
   end
 end

@@ -59,6 +59,9 @@ class User < ActiveRecord::Base
   has_many :subscriptions, dependent: :destroy
   accepts_nested_attributes_for :roles
 
+  has_one :sponsors_user, dependent: :destroy
+  has_one :sponsor, through: :sponsors_user
+
   scope :admin, -> { where(is_admin: true) }
 
   validates :email, presence: true

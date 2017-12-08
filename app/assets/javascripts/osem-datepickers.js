@@ -47,6 +47,12 @@ $(function () {
        $('#registration-arrival-datepicker').data("DateTimePicker").setMaxDate(e.date);
    });
 
+   $("#benefit-duedate-datepicker").datetimepicker({
+       pickTime: false,
+       useCurrent: false,
+       format: "YYYY-MM-DD",
+   });
+
    $("#conference-start-datepicker").datetimepicker({
        pickTime: false,
        useCurrent: false,

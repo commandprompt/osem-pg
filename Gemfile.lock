@@ -483,6 +483,8 @@ GEM
     selectize-rails (0.12.4)
     shoulda-matchers (2.6.1)
       activesupport (>= 3.0.0)
+    simple_calendar (2.2.7)
+      rails (>= 3.0)
     simplecov (0.11.2)
       docile (~> 1.1.0)
       json (~> 1.8)
@@ -653,6 +655,7 @@ DEPENDENCIES
   sass-rails (>= 4.0.2)
   selectize-rails
   shoulda-matchers
+  simple_calendar (~> 2.2, >= 2.2.7)
   spring-commands-rspec
   sqlite3
   stripe

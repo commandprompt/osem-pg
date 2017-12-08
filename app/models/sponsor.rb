@@ -1,9 +1,12 @@
 class Sponsor < ActiveRecord::Base
   rolify
 
-  belongs_to :conference
+  has_and_belongs_to_many :users
 
-  has_paper_trail ignore: [:updated_at], meta: { conference_id: :conference_id }
+  has_many :sponsorships
+  has_many :sponsors_users
+  has_many :users, through: :sponsors_users, dependent: :destroy
+  has_many :sponsorship_events
 
   mount_uploader :picture, PictureUploader, mount_on: :logo_file_name
 
@@ -14,4 +17,7 @@ class Sponsor < ActiveRecord::Base
     sponsors
   end
 
+  def upcoming_sponsorships
+    self.sponsorships.joins(:conference).where("DATE(conferences.end_date) >= ?", Date.today).order("conferences.end_date")
+  end
 end
