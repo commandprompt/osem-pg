@@ -103,6 +103,14 @@ class User < ActiveRecord::Base
     ticket_purchases.find_by(conference_id: conference.id).present?
   end
 
+  def is_speaker? conference
+    self.presented_events.where(state: 'confirmed').joins(:program).where('programs.conference_id = ?', conference.id).present?
+  end
+
+  def is_sponsor? conference
+    TicketPurchase.where(conference_id: conference.id).joins(:physical_tickets).where('physical_tickets.user_id = ?', self.id).joins(:code).where('codes.code_type_id = 2 AND codes.sponsor_id IS NOT NULL').present?
+  end
+
   def self.for_ichain_username(username, attributes)
     user = find_by(username: username)
 

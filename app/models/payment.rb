@@ -21,6 +21,10 @@ class Payment < ActiveRecord::Base
     Ticket.total_price(conference, user, paid: false).cents
   end
 
+  def amount_as_money
+    Money.new(amount, conference.default_currency)
+  end
+
   def purchase
     if amount_to_pay > 0
       gateway_response = Stripe::Charge.create source: stripe_customer_token,

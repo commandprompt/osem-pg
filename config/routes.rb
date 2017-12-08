@@ -131,6 +131,12 @@ Osem::Application.routes.draw do
           patch :update_conference
         end
       end
+
+      namespace :reports do
+        resources :attendees, only: [:index]
+        resources :payments, only: [:index]
+        resources :tickets, only: [:index]
+      end
     end
 
     get '/revision_history' => 'versions#index'

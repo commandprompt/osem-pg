@@ -351,6 +351,50 @@ td.ticket {
   height: 220px;
   width: 400px;
 }
+.calendar-title {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.simple-calendar {
+  .day {
+    background: #527FA4;
+    color: #fff;
+  }
+
+  .wday-0 {}
+  .wday-1 {}
+  .wday-2 {}
+  .wday-3 {}
+  .wday-4 {}
+  .wday-5 {}
+  .wday-6 {}
+
+  .today {
+    background: #346690;
+    color: #fff;
+  }
+  .past {}
+  .future {}
+
+  .start-date {}
+
+  .prev-month {
+    background: #1C5380;
+    color: #fff;
+  }
+
+  .next-month {
+    background: #1C5380;
+    color: #fff;
+  }
+
+  .current-month {}
+
+  .has-events {
+    background: #052D4E;
+  }
+}
 
 .calendar-title {
   font-size: 18px;
