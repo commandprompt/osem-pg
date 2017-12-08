@@ -60,31 +60,30 @@ class Mailbot < ActionMailer::Base
          subject: "#{@conference.title} | Ticket Assignment")
   end
 
-  def acceptance_mail(event)
+  def acceptance_mail(event, recipient)
     conference = event.program.conference
-
-    mail(to: event.submitter.email,
+    mail(to: recipient.email,
          from: conference.contact.email,
-         subject: conference.email_settings.expand_event_template(event, conference.email_settings.accepted_subject),
-         body: conference.email_settings.expand_event_template(event, conference.email_settings.accepted_body))
+         subject: conference.email_settings.expand_event_template(event, recipient, conference.email_settings.accepted_subject),
+         body: conference.email_settings.expand_event_template(event, recipient, conference.email_settings.accepted_body))
   end
 
-  def rejection_mail(event)
+  def rejection_mail(event, recipient)
     conference = event.program.conference
 
-    mail(to: event.submitter.email,
+    mail(to: recipient.email,
          from: conference.contact.email,
-         subject: conference.email_settings.expand_event_template(event, conference.email_settings.rejected_subject),
-         body: conference.email_settings.expand_event_template(event, conference.email_settings.rejected_body))
+         subject: conference.email_settings.expand_event_template(event, recipient, conference.email_settings.rejected_subject),
+         body: conference.email_settings.expand_event_template(event, recipient, conference.email_settings.rejected_body))
   end
 
-  def confirm_reminder_mail(event)
+  def confirm_reminder_mail(event, recipient)
     conference = event.program.conference
 
-    mail(to: event.submitter.email,
+    mail(to: recipient.email,
          from: conference.contact.email,
-         subject: conference.email_settings.expand_event_template(event, conference.email_settings.confirmed_without_registration_subject),
-         body: conference.email_settings.expand_event_template(event,
+         subject: conference.email_settings.expand_event_template(event, recipient, conference.email_settings.confirmed_without_registration_subject),
+         body: conference.email_settings.expand_event_template(event, recipient,
                                                                conference.email_settings.confirmed_without_registration_body))
   end
 

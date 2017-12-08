@@ -2,15 +2,21 @@
   %ul.nav.nav-tabs
     %li.active
       = link_to "Proposal", "#proposal-content", "data-toggle"=>"tab"
-      - if @program.show_voting?
-        %li
-          = link_to "History", "#history-content", "data-toggle"=>"tab"
+    - if @program.show_voting?
+      %li
+        = link_to "History", "#history-content", "data-toggle"=>"tab"
     %li
       %a{href: '#proposal-tasks', "data-toggle"=>"tab"}
         Tasks
         %span.label.label-danger{style: 'border-radius: 1em;'}
           - progress_status = @event.progress_status
           = progress_status.reject{ |_key, value| value || value.nil? }.length
+    - if @event.require_registration?
+      %li
+        = link_to "#event-attendees" do
+          Attendees
+          %span.label.label-info{style: 'border-radius: 1em;'}
+            = @attendees.size
 
   .tab-content
     #proposal-content.tab-pane.active
@@ -50,6 +56,39 @@
                   = render partial: 'shared/object_changes', locals: { version: version }
                 %td
                   = render partial: 'shared/changelog_actions', locals: { version: version }
+
+    #event-attendees.tab-pane
+      - if can? :read, Event
+        .col-md-12
+          .btn-group.pull-right.export-buttons
+            = link_to 'Export PDF', attendees_admin_conference_program_event_path(@conference.short_title, @event, format: :pdf), class: 'btn btn-success'
+            = link_to 'Export CSV', attendees_admin_conference_program_event_path(@conference.short_title, @event, format: :csv), class: 'btn btn-success'
+            = link_to 'Export XLS', attendees_admin_conference_program_event_path(@conference.short_title, @event, format: :xlsx), class: 'btn btn-success'
+      .col-md-12
+        %table.table.table-striped.table-bordered.table-hover.datatable
+          %thead
+            %th User
+            %th First Name
+            %th Last Name
+            %th Email
+            %th Affiliation
+            %th Job Title
+          %tbody
+            - @attendees.each do |attendee|
+              %tr
+                %td
+                  = link_to_user(attendee)
+                %td
+                  = attendee.first_name
+                %td
+                  = attendee.last_name
+
+                %td
+                  = attendee.email
+                %td
+                  = attendee.affiliation
+                %td
+                  = attendee.title
 
     #proposal-tasks.tab-pane
       - progress_percentage = @event.calculate_progress

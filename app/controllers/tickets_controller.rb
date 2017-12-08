@@ -1,4 +1,5 @@
 class TicketsController < ApplicationController
+  before_action :store_user_location!
   before_filter :authenticate_user!
   load_resource :conference, find_by: :short_title
   load_resource :ticket, through: :conference
@@ -38,6 +39,10 @@ class TicketsController < ApplicationController
   end
 
   private
+
+  def store_user_location!
+    session[:previous_url] = request.fullpath
+  end
 
   def ticket_params
     params.permit(promo_code: [:pcode])

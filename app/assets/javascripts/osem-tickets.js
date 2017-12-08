@@ -36,11 +36,35 @@ function update_event(sb, ticket_id){
     for (var i = 0; i < evs.length; ++i) {
       tt = +tt + +evs[i].value;
     }
-    
+
     document.getElementById('tickets__' + ticket_id).value = tt;
     $('#ticket_label_' + ticket_id).text(tt);
-    
-    document.getElementById('tickets__' + ticket_id).dispatchEvent(new Event('change'));    
+
+    document.getElementById('tickets__' + ticket_id).dispatchEvent(new Event('change'));
+}
+
+function save_state() {
+    form_inputs = $('select')
+    var input_states = []
+    $.each(form_inputs, function(i, v){
+        input_states.push([v.id, v.value]);
+    });
+    sessionStorage.setItem('input_states', JSON.stringify(input_states));
+}
+
+
+function restore_state () {
+    var input_states = sessionStorage.getItem('input_states')
+    if (input_states) {
+        var parsed = JSON.parse(input_states)
+        parsed.forEach(function(element) {
+            $('#'+element[0]).val(element[1])
+        });
+        parsed.forEach(function(element) {
+            $('#'+element).trigger('change');
+        });
+        sessionStorage.removeItem('input_states')
+    }
 }
 
 $( document ).ready(function() {
@@ -54,4 +78,7 @@ $( document ).ready(function() {
     $(function () {
       $('[data-toggle="tooltip"]').tooltip();
     });
+
+    $('#apply_code').on('click', save_state)
+    restore_state();
 });

@@ -52,6 +52,7 @@ module Admin
       @ratings = @event.votes.includes(:user)
       @difficulty_levels = @program.difficulty_levels
       @tickets = @conference.tickets
+      @attendees = @event.attendees
       @versions = @event.versions |
        PaperTrail::Version.where(item_type: 'Commercial').where_object(commercialable_id: @event.id, commercialable_type: 'Event') |
        PaperTrail::Version.where(item_type: 'Commercial').where_object_changes(commercialable_id: @event.id, commercialable_type: 'Event')
@@ -78,6 +79,24 @@ module Admin
       end
 
       redirect_to admin_conference_program_event_path(@conference.short_title, @event)
+    end
+
+
+    def attendees
+      @file_name = "attendees_for_#{@event.friendly_id}"
+      @attendees = @event.attendees.order(:first_name, :last_name)
+      respond_to do |format|
+        # format.html
+        format.xlsx do
+          response.headers['Content-Disposition'] = "attachment; filename=\"#{@file_name}.xlsx\""
+          render 'attendees'
+        end
+        format.pdf {render 'attendees'}
+        format.csv do
+          response.headers['Content-Disposition'] = "attachment; filename=\"#{@file_name}.csv\""
+          render 'attendees'
+        end
+      end
     end
 
     def update

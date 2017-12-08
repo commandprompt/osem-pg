@@ -351,6 +351,7 @@ td.ticket {
   height: 220px;
   width: 400px;
 }
+
 .calendar-title {
   font-size: 18px;
   font-weight: 500;
@@ -394,4 +395,8 @@ td.ticket {
   .has-events {
     background: #052D4E;
   }
+}
+
+.export-buttons {
+  margin-bottom: 10px;
 }

@@ -18,7 +18,11 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def after_sign_up_path_for(resource)
-    edit_user_registration_path(resource)
+    if session[:previous_url].blank?
+      edit_user_registration_path(resource)
+    else
+      session[:previous_url] || root_path
+    end
   end
 
   def configure_permitted_parameters
