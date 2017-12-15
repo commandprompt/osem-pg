@@ -91,6 +91,6 @@ Rails.application.config.middleware.use ExceptionNotification::Rack,
   :email => {
     :deliver_with => :deliver, # Rails >= 4.2.1 do not need this option since it defaults to :deliver_now
     :email_prefix => "[EXCEPTION @ #{ENV['OSEM_HOSTNAME']}]",
-    :sender_address => %{"OSEM Exceptions" <exceptions@pgconf.us>},
-    :exception_recipients => %w{websupport@pgconf.us}
+    :sender_address => %{"OSEM Exceptions" <exceptions@postgresconf.org>},
+    :exception_recipients => %w{websupport@postgresconf.org}
   }
