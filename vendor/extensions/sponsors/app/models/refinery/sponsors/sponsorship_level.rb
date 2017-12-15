@@ -11,7 +11,7 @@ module Refinery
       #   acts_as_indexed :fields => [:title]
 
       def logo_size
-      	logo_sizes = ['100000@','25000@','10000@']
+        logo_sizes = ['70000@','35000@','12000@', '10000@']
       	logo_sizes[self.position] || '10000@'
       end
     end
