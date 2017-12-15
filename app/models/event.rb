@@ -47,6 +47,8 @@ class Event < ActiveRecord::Base
 
   validate :max_attendees_no_more_than_room_size
 
+  mount_uploader :document, DocumentUploader
+
   scope :confirmed, -> { where(state: 'confirmed') }
   scope :canceled, -> { where(state: 'canceled') }
   scope :withdrawn, -> { where(state: 'withdrawn') }
