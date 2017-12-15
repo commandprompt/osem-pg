@@ -189,6 +189,12 @@
           %b Description
         %td= simple_format(@event.description)
 
+      - if @event.document?
+        %tr
+          %td
+            %b Presentation Slides
+          %td= link_to @event.document.filename, @event.document_url
+
       - if @conference.program && @conference.program.rating && @conference.program.rating > 0
         = render partial: 'voting'
 
