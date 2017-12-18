@@ -145,6 +145,19 @@ body {
   width: 85%;
 }
 
+.nav.portal-sidebar {
+  height:100%;
+  background: #336691;
+}
+
+.nav.portal-sidebar > li > a {
+  width: 85%;
+}
+
+.nav.portal-sidebar a {
+  color: fff;
+}
+
 .qr-image{
   margin-left: 120px;
 }
@@ -255,6 +268,69 @@ p.comment-body {
   display: none;
 }
 
+#inside_header {
+    margin-top: -20px;
+    padding-top: 20px;
+    border-bottom: 0;
+    background: repeating-linear-gradient(to bottom, #0E3E65, #0E3E65 5px, #1C5380 5px, #1C5380 6px, #0E3E65 6px, #0E3E65 10px );
+}
+
+#inside_header h2, #inside_header h3 {
+  color: #FFFFFF
+}
+
+#inside_nav {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin: 0;
+    border-bottom: 0;
+    background: #336691;
+    transition: all 0.2s linear 0s;
+}
+
+#inside_nav li {
+  position: relative;
+  display: inline-block;
+  margin: 0;
+
+}
+
+#inside_nav li > a {
+  border-bottom: 3px solid transparent;
+  text-shadow: 1px 1px 3px #000;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  text-decoration: none;
+  display: block;
+  padding: 10px;
+}
+
+#inside_nav a:hover {
+    outline: 0;
+    background-color: #1C5380;
+}
+
+#logo_container {
+  background-color: #fff;
+  border-radius: 50%;
+  color: white;
+  display: table;
+  font-size: 1.6em;
+  height: 100px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 150px;
+}
+
+#logo_container img {
+  display: table-cell;
+  vertical-align: middle;
+  max-width: 70%;
+  margin-top: 20px;
+}
+
 .content_row {
     max-width: 910px;
     width: 100%;
@@ -274,6 +350,95 @@ tr.ticket {
 td.ticket {
   height: 220px;
   width: 400px;
+}
+.calendar-title {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.simple-calendar {
+  .day {
+    background: #527FA4;
+    color: #fff;
+  }
+
+  .wday-0 {}
+  .wday-1 {}
+  .wday-2 {}
+  .wday-3 {}
+  .wday-4 {}
+  .wday-5 {}
+  .wday-6 {}
+
+  .today {
+    background: #346690;
+    color: #fff;
+  }
+  .past {}
+  .future {}
+
+  .start-date {}
+
+  .prev-month {
+    background: #1C5380;
+    color: #fff;
+  }
+
+  .next-month {
+    background: #1C5380;
+    color: #fff;
+  }
+
+  .current-month {}
+
+  .has-events {
+    background: #052D4E;
+  }
+}
+
+.calendar-title {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.simple-calendar {
+  .day {
+    background: #527FA4;
+    color: #fff;
+  }
+
+  .wday-0 {}
+  .wday-1 {}
+  .wday-2 {}
+  .wday-3 {}
+  .wday-4 {}
+  .wday-5 {}
+  .wday-6 {}
+
+  .today {
+    background: #346690;
+    color: #fff;
+  }
+  .past {}
+  .future {}
+
+  .start-date {}
+
+  .prev-month {
+    background: #1C5380;
+    color: #fff;
+  }
+
+  .next-month {
+    background: #1C5380;
+    color: #fff;
+  }
+
+  .current-month {}
+
+  .has-events {
+    background: #052D4E;
+  }
 }
 
 .export-buttons {

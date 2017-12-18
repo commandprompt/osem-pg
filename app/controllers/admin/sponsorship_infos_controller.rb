@@ -32,7 +32,7 @@ module Admin
     private
 
     def sponsorship_info_params
-      params.require(:sponsorship_info).permit(:description, :prospectus)
+      params.require(:sponsorship_info).permit(:description, :prospectus, :liaison_email, :manual)
     end
   end
 end

@@ -118,6 +118,7 @@ class Ability
 
     # for users with any role
     can :access, Admin
+    can :access, Portal
     can [:show], Conference
     can :index, Commercial, commercialable_type: 'Conference'
     cannot [:edit, :update, :destroy], Question, global: true

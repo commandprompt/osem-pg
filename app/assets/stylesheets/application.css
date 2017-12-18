@@ -2,6 +2,7 @@
  *= require strap-on
  *= require formtastic-bootstrap
  *= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
+ *= require simple_calendar
  *= require osem
  *= require osem-rating
  *= require osem-schedule

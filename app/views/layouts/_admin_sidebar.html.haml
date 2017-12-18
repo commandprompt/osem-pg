@@ -111,12 +111,17 @@
     %li
       %a
         %span.fa.fa-usd
-        Donations
+        Contributions
       %ul
         - if can? :update, @conference.sponsorship_levels.build
           %li{:class=> "#{active_nav_li(admin_conference_sponsorship_levels_path(@conference.short_title))}" }
             = link_to 'Sponsorship Levels', admin_conference_sponsorship_levels_path(@conference.short_title)
         - if !@conference.sponsorship_levels.empty?  && @conference.sponsorship_levels.first.persisted? && (can? :update, @conference.sponsorships.build)
+          %li{:class=> active_nav_li(admin_conference_benefits_path(@conference.short_title))}
+            = link_to 'Benefits', admin_conference_benefits_path(@conference.short_title)
+        - if !@conference.sponsorship_levels.empty?  && @conference.sponsorship_levels.first.persisted? && (can? :update, @conference.sponsorships.build)
+          %li{:class=> active_nav_li(admin_conference_sponsorship_levels_benefits_path(@conference.short_title))}
+            = link_to 'Sponsorship Level Benefits', admin_conference_sponsorship_levels_benefits_path(@conference.short_title)
           %li{:class=> active_nav_li(admin_conference_sponsorships_path(@conference.short_title))}
             = link_to 'Sponsorships', admin_conference_sponsorships_path(@conference.short_title)
         - if can? :update, @conference.tickets.build
@@ -139,6 +144,22 @@
         - if can? :update, @conference.targets.build
           %li{:class=> "#{active_nav_li(admin_conference_targets_path(@conference.short_title))}"}
             = link_to 'Goals', admin_conference_targets_path(@conference.short_title)
+
+  - if can? :show, @conference
+    %li
+      %a
+        %span.fa.fa-list
+        Reports
+      %ul
+        %li{class: active_nav_li(admin_conference_reports_attendees_path(@conference.short_title))}
+          = link_to 'Attendees', admin_conference_reports_attendees_path(@conference.short_title)
+        %li{class: active_nav_li(admin_conference_reports_payments_path(@conference.short_title))}
+          = link_to 'Payments', admin_conference_reports_payments_path(@conference.short_title)
+        %li{class: active_nav_li(admin_conference_reports_tickets_path(@conference.short_title))}
+          = link_to 'Tickets', admin_conference_reports_tickets_path(@conference.short_title)
+
+
+
   - if can? :update, @conference.email_settings
     %li{:class=> active_nav_li(admin_conference_emails_path(@conference.short_title))}
       = link_to(admin_conference_emails_path(@conference.short_title)) do
@@ -171,4 +192,3 @@
           = link_to(admin_revision_history_path) do
             %span.fa.fa-history
             Revision History
-

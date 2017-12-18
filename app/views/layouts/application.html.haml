@@ -25,7 +25,9 @@
     -# Admin area
     - if controller.class.name.split("::").first=="Admin"
       = render 'layouts/admin'
-    -else
+    - elsif controller.class.name.split("::").first=="Portal"
+      = render 'layouts/portal'
+    - else
       - unless content_for? :splash_nav
         #messages
           .container

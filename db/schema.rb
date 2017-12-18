@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171127155628) do
+ActiveRecord::Schema.define(version: 20171130172356) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,32 @@ ActiveRecord::Schema.define(version: 20171127155628) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "benefit_responses", force: :cascade do |t|
+    t.integer  "conference_id"
+    t.integer  "sponsorship_id"
+    t.integer  "benefit_id"
+    t.text     "text_response"
+    t.string   "file_response"
+    t.boolean  "bool_response"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "benefit_responses", ["conference_id", "sponsorship_id", "benefit_id"], name: "conf_sponsorship_benefit_idx", unique: true, using: :btree
+
+  create_table "benefits", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "conference_id"
+    t.integer  "category"
+    t.integer  "value_type"
+    t.text     "description"
+    t.datetime "due_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "benefits", ["conference_id"], name: "index_benefits_on_conference_id", using: :btree
 
   create_table "campaigns", force: :cascade do |t|
     t.integer  "conference_id"
@@ -919,14 +945,16 @@ ActiveRecord::Schema.define(version: 20171127155628) do
   create_table "ticket_purchases", force: :cascade do |t|
     t.integer  "ticket_id"
     t.integer  "conference_id"
-    t.boolean  "paid",                  default: false
+    t.boolean  "paid",                    default: false
     t.datetime "created_at"
-    t.integer  "quantity",              default: 1
+    t.integer  "quantity",                default: 1
     t.integer  "user_id"
     t.integer  "payment_id"
     t.integer  "code_id"
     t.integer  "event_id"
     t.string   "pending_event_tickets"
+    t.integer  "purchase_price_cents",    default: 0,     null: false
+    t.string   "purchase_price_currency", default: "USD", null: false
   end
 
   add_index "ticket_purchases", ["conference_id", "code_id"], name: "index_ticket_purchases_on_conference_id_and_code_id", using: :btree
@@ -1098,6 +1126,10 @@ ActiveRecord::Schema.define(version: 20171127155628) do
     t.datetime "updated_at"
   end
 
+  add_foreign_key "benefit_responses", "benefits"
+  add_foreign_key "benefit_responses", "conferences"
+  add_foreign_key "benefit_responses", "sponsorships"
+  add_foreign_key "benefits", "conferences"
   add_foreign_key "codes", "code_types"
   add_foreign_key "codes", "conferences"
   add_foreign_key "codes", "sponsors"

@@ -10,6 +10,12 @@ class TicketPurchasesController < ApplicationController
         tkts = params[:tickets]
     end
     
+    if params[:purchase_prices].nil?
+      prices = Array.new
+    else
+      prices = params[:purchase_prices]
+    end
+
     max_qty = 0
     tkts[0].each do |tkt, qty|
       if qty.to_i > max_qty.to_i
@@ -32,7 +38,7 @@ class TicketPurchasesController < ApplicationController
     end
 
     message = TicketPurchase.purchase(@conference, current_user, tkts[0],
-                                      code_id, chosen_events)
+                                      code_id, chosen_events, prices[0])
     if message.blank?
       if current_user.ticket_purchases.by_conference(@conference).unpaid.any?
         redirect_to new_conference_payment_path,

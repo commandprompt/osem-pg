@@ -19,7 +19,7 @@ class Registration < ActiveRecord::Base
   delegate :nickname, to: :user
   delegate :affiliation, to: :user
   delegate :username, to: :user
-  delegate :fist_name, to: :user
+  delegate :first_name, to: :user
   delegate :last_name, to: :user
   delegate :title, to: :user
   delegate :mobile, to: :user
@@ -46,6 +46,16 @@ class Registration < ActiveRecord::Base
 
   def week
     created_at.strftime('%W').to_i
+  end
+
+  def type
+    if user.is_speaker? conference
+      return "Speaker"
+    elsif user.is_sponsor? conference
+      return "Sponsor"
+    else
+      return "Attendee"
+    end
   end
 
   private

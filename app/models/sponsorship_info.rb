@@ -4,4 +4,5 @@ class SponsorshipInfo < ActiveRecord::Base
   validates :description, presence: true
 
   mount_uploader :prospectus, DocumentUploader
+  mount_uploader :manual, DocumentUploader
 end
