@@ -34,6 +34,8 @@
           - if @conference.venue and @conference.splashpage.include_venue
             %li
               = link_to('Venue', conference_path(@conference.short_title, :anchor => "venue"))
+          %li
+            = link_to('About', conference_about_path(@conference.short_title))
       -if user_signed_in?
         %ul.nav.navbar-nav.navbar-right
           - if can? :index, Comment
@@ -148,6 +150,9 @@
               - if @conference.venue
                 %li
                   = link_to('Venue', conference_path(@conference.short_title, :anchor => "venue"))
+              %li
+                = link_to('About', conference_about_path(@conference.short_title))
+
   - if controller.class.name.split("::").first=="Portal"
     #inside_header
       .content_row

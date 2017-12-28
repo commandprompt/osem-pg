@@ -175,6 +175,7 @@ Osem::Application.routes.draw do
 
     resource :subscriptions, only: [:create, :destroy]
     resource :sponsorships, only: [:show]
+    resource :about, only: [:show], :controller => 'about'
 
     resource :schedule, only: [:show] do
       member do
