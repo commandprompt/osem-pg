@@ -1,5 +1,6 @@
 class Ticket < ActiveRecord::Base
   belongs_to :conference
+  belongs_to :ticket_group
   acts_as_list scope: :conference
 
   has_many :ticket_purchases, dependent: :destroy
@@ -104,6 +105,10 @@ class Ticket < ActiveRecord::Base
   # TODO: The max should be configurable at the ticket level
   def purchase_quantity_available
     10
+  end
+
+  def self.visible_group_tickets(ticket_group)
+    Ticket.where(ticket_group_id: ticket_group.id, hidden: false).order(:position)
   end
 
   private

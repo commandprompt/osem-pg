@@ -1,43 +1,4 @@
 = content_for :splash_nav do
   %li
-    %a.smoothscroll.hidden-xs{ href: '#tickets' } Tickets
-    %a.smoothscroll.visible-xs{ href: '#tickets', data: {toggle: "collapse", target:".navbar-collapse" } } Tickets
-
-.container
-  .row
-    .col-md-12.text-center
-      %h2
-        Tickets.
-  - unless @conference.tickets_sold_out?
-    .row
-      .col-md-12.text-center
-        %h2
-          Support
-          =@conference.short_title
-          %p.lead
-            To attend the event tickets are available
-    - @conference.tickets.visible.each_slice(4) do |slice|
-      .row.row-centered
-        - slice.each do |ticket|
-          .col-md-3.col-centered.col-top.col-sm-3
-            .thumbnail
-              %p.text-center
-                %i.fa.fa-ticket.fa-5x
-              .caption
-                %h3.text-center
-                  = ticket.title
-                -if ticket.description.present?
-                  = markdown(ticket.description)
-                %p.text-center
-                  = humanized_money_with_symbol ticket.price
-      .row
-        .col-md-12.text-center
-          = link_to(conference_tickets_path(@conference.short_title), class: 'btn btn-warning') do
-            Get Tickets
-
-  - else
-    .row
-      .col-md-12.text-center
-        %h3
-          Sorry, no places left.
-
+    = link_to('Tickets', conference_buytickets_path(@conference.short_title), :class=>"smoothscroll hidden-xs")
+    = link_to('Tickets', conference_buytickets_path(@conference.short_title), :class=>"smoothscroll visible-xs", 'data-target'=>".navbar-collapse", 'data-toggle'=>"collapse")

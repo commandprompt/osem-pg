@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171219162151) do
+ActiveRecord::Schema.define(version: 20171229180148) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1560,6 +1560,18 @@ ActiveRecord::Schema.define(version: 20171219162151) do
     t.datetime "updated_at"
   end
 
+  create_table "ticket_groups", force: :cascade do |t|
+    t.integer  "conference_id"
+    t.string   "name"
+    t.string   "description"
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "additional_details"
+  end
+
+  add_index "ticket_groups", ["conference_id"], name: "index_ticket_groups_on_conference_id", using: :btree
+
   create_table "ticket_purchases", force: :cascade do |t|
     t.integer  "ticket_id"
     t.integer  "conference_id"
@@ -1608,23 +1620,31 @@ ActiveRecord::Schema.define(version: 20171219162151) do
 
   create_table "tickets", force: :cascade do |t|
     t.integer "conference_id"
-    t.string  "title",                          null: false
+    t.string  "title",                           null: false
     t.text    "description"
-    t.integer "price_cents",    default: 0,     null: false
-    t.string  "price_currency", default: "USD", null: false
-    t.boolean "hidden",         default: false
+    t.integer "price_cents",     default: 0,     null: false
+    t.string  "price_currency",  default: "USD", null: false
+    t.boolean "hidden",          default: false
     t.integer "position"
+    t.integer "ticket_group_id"
+    t.string  "short_title"
   end
+
+  add_index "tickets", ["ticket_group_id"], name: "index_tickets_on_ticket_group_id", using: :btree
 
   create_table "tickets", force: :cascade do |t|
     t.integer "conference_id"
-    t.string  "title",                          null: false
+    t.string  "title",                           null: false
     t.text    "description"
-    t.integer "price_cents",    default: 0,     null: false
-    t.string  "price_currency", default: "USD", null: false
-    t.boolean "hidden",         default: false
+    t.integer "price_cents",     default: 0,     null: false
+    t.string  "price_currency",  default: "USD", null: false
+    t.boolean "hidden",          default: false
     t.integer "position"
+    t.integer "ticket_group_id"
+    t.string  "short_title"
   end
+
+  add_index "tickets", ["ticket_group_id"], name: "index_tickets_on_ticket_group_id", using: :btree
 
   create_table "tracks", force: :cascade do |t|
     t.string   "guid",        null: false
@@ -1937,6 +1957,7 @@ ActiveRecord::Schema.define(version: 20171219162151) do
   add_foreign_key "sponsorships", "conferences"
   add_foreign_key "sponsorships", "sponsors"
   add_foreign_key "sponsorships", "sponsorship_levels"
+  add_foreign_key "ticket_groups", "conferences"
   add_foreign_key "ticket_purchases", "codes"
   add_foreign_key "ticket_purchases", "events"
   add_foreign_key "ticket_purchases", "public.codes", column: "code_id"
@@ -1945,4 +1966,6 @@ ActiveRecord::Schema.define(version: 20171219162151) do
   add_foreign_key "ticket_purchases", "events"
   add_foreign_key "ticket_purchases", "public.codes", column: "code_id"
   add_foreign_key "ticket_purchases", "public.events", column: "event_id"
+  add_foreign_key "tickets", "ticket_groups"
+  add_foreign_key "tickets", "ticket_groups"
 end

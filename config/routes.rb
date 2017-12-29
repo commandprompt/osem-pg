@@ -107,6 +107,13 @@ Osem::Application.routes.draw do
         end
       end
 
+      resources :ticket_groups, except: [:show] do
+        member do
+          patch :up
+          patch :down
+        end
+      end
+
       resources :sponsorship_levels, except: [:show] do
         member do
           patch :up
@@ -176,6 +183,7 @@ Osem::Application.routes.draw do
     resource :subscriptions, only: [:create, :destroy]
     resource :sponsorships, only: [:show]
     resource :about, only: [:show], :controller => 'about'
+    resource :buytickets, only: [:show], :controller => 'ticket_groups'
 
     resource :schedule, only: [:show] do
       member do

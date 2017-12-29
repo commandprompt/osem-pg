@@ -21,7 +21,7 @@
             = link_to('Home', conference_path(@conference.short_title))
           - if @conference.tickets.any?
             %li
-              = link_to('Tickets', conference_tickets_path(@conference.short_title))
+              = link_to('Tickets', conference_buytickets_path(@conference.short_title))
           - if @conference.splashpage.include_program and @conference.program.schedule_public
             %li
               = link_to('Schedule', events_conference_schedule_path(@conference.short_title))
