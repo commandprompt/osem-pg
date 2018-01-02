@@ -137,6 +137,19 @@ class Conference < ActiveRecord::Base
   end
 
   ##
+  # Checks if the Early Bird period is open
+  #
+  # ====Returns
+  # * +false+ -> If today is less than early_bird_date
+  # * +true+ -> If today is greater than early_bird_date
+  def early_bird_open?
+    registration_period.present? &&
+      registration_open? &&
+      registration_period.early_bird_date.present? &&
+      Time.find_zone(timezone).today <= registration_period.early_bird_date
+  end
+
+  ##
   # Returns an array with the summarized event submissions per week.
   #
   # ====Returns

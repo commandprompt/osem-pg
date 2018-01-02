@@ -51,7 +51,7 @@ module Admin
     private
 
     def registration_period_params
-      params.require(:registration_period).permit(:start_date, :end_date)
+      params.require(:registration_period).permit(:start_date, :end_date, :early_bird_date)
     end
   end
 end

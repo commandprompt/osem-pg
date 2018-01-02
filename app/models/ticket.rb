@@ -15,6 +15,7 @@ class Ticket < ActiveRecord::Base
   has_paper_trail meta: { conference_id: :conference_id }
 
   monetize :price_cents, with_model_currency: :price_currency
+  monetize :early_bird_price_cents, with_model_currency: :early_bird_price_currency
 
   # This validation is for the sake of simplicity.
   # If we would allow different currencies per conference we also have to handle convertions between currencies!
@@ -72,15 +73,24 @@ class Ticket < ActiveRecord::Base
     ticket_purchases.sum(:quantity)
   end
 
+  def current_price
+    conference = Conference.find(conference_id)
+    cur_price = price
+    if conference.early_bird_open? && early_bird_price_cents > 0
+      cur_price = early_bird_price
+    end
+    cur_price
+  end
+
   def adjusted_price
     if applied_code.present?
       if Ticket.where(id: id).joins(:codes).where("codes.id = ?", applied_code.id).count > 0
-        adj_price = price - (price * ((applied_code.discount.to_f) / 100.0))
+        adj_price = current_price - (current_price * ((applied_code.discount.to_f) / 100.0))
       else
-        adj_price = price
+        adj_price = current_price
       end
     else
-      adj_price = price
+      adj_price = current_price
     end
     adj_price
   end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171229180148) do
+ActiveRecord::Schema.define(version: 20171230125017) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1237,6 +1237,7 @@ ActiveRecord::Schema.define(version: 20171229180148) do
     t.date     "end_date"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "early_bird_date"
   end
 
   create_table "registration_periods", force: :cascade do |t|
@@ -1245,6 +1246,7 @@ ActiveRecord::Schema.define(version: 20171229180148) do
     t.date     "end_date"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "early_bird_date"
   end
 
   create_table "registrations", force: :cascade do |t|
@@ -1620,28 +1622,32 @@ ActiveRecord::Schema.define(version: 20171229180148) do
 
   create_table "tickets", force: :cascade do |t|
     t.integer "conference_id"
-    t.string  "title",                           null: false
+    t.string  "title",                                     null: false
     t.text    "description"
-    t.integer "price_cents",     default: 0,     null: false
-    t.string  "price_currency",  default: "USD", null: false
-    t.boolean "hidden",          default: false
+    t.integer "price_cents",               default: 0,     null: false
+    t.string  "price_currency",            default: "USD", null: false
+    t.boolean "hidden",                    default: false
     t.integer "position"
     t.integer "ticket_group_id"
     t.string  "short_title"
+    t.integer "early_bird_price_cents",    default: 0,     null: false
+    t.string  "early_bird_price_currency", default: "USD", null: false
   end
 
   add_index "tickets", ["ticket_group_id"], name: "index_tickets_on_ticket_group_id", using: :btree
 
   create_table "tickets", force: :cascade do |t|
     t.integer "conference_id"
-    t.string  "title",                           null: false
+    t.string  "title",                                     null: false
     t.text    "description"
-    t.integer "price_cents",     default: 0,     null: false
-    t.string  "price_currency",  default: "USD", null: false
-    t.boolean "hidden",          default: false
+    t.integer "price_cents",               default: 0,     null: false
+    t.string  "price_currency",            default: "USD", null: false
+    t.boolean "hidden",                    default: false
     t.integer "position"
     t.integer "ticket_group_id"
     t.string  "short_title"
+    t.integer "early_bird_price_cents",    default: 0,     null: false
+    t.string  "early_bird_price_currency", default: "USD", null: false
   end
 
   add_index "tickets", ["ticket_group_id"], name: "index_tickets_on_ticket_group_id", using: :btree

@@ -27,10 +27,14 @@
                     %h2
                       = ticket.short_title
                       %a.package_link{ href: url_for(conference_tickets_path(@conference.short_title)) }
-                        = ticket.price.symbol
-                        =  humanized_money ticket.price
+                        = ticket.current_price.symbol
+                        =  humanized_money ticket.current_price
                         %span.cta
                           Register Now
+                    - if @conference.early_bird_open? && ticket.current_price != ticket.price
+                      %p.deadline
+                        Early Price ends
+                        = @conference.registration_period.early_bird_date.strftime('%b %d')
                   .pass-perks
                     = ticket.description
 

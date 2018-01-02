@@ -33,6 +33,19 @@
   overflow-wrap: break-word;
 }
 
+.pass-block .pass-type p {
+   font-size: 1.4rem;
+   margin: 0;
+   padding: 0;
+ }
+
+.pass-block .pass-type p.deadline {
+  height:1.6rem;
+  font-size: 1.2rem;
+  line-height: 1.6rem;
+  white-space: nowrap;
+}
+
 .pass-block .pass-type a.package_link {
   text-decoration: none;
   padding: 1.2rem .3rem 1rem .3rem;

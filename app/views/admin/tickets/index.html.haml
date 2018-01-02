@@ -12,6 +12,7 @@
           %th Position
           %th Title
           %th Price
+          %th Early Bird
           %th Sold
           %th Turnover
           %th Actions
@@ -30,6 +31,8 @@
                   = ticket.title
               %td
                 = humanized_money_with_symbol ticket.price
+              %td
+                = humanized_money_with_symbol ticket.early_bird_price
               %td
                 = ticket.tickets_sold
               %td

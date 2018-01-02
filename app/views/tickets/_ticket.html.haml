@@ -41,7 +41,7 @@
                             = render partial: 'event_listing', locals: { event: event }
 
   %td.col-sm-1.col-md-1.text-center
-    = ticket.price.symbol
+    = ticket.current_price.symbol
     %span{id: "price_#{ticket.id}"}
       = humanized_money ticket.adjusted_price
   %td.col-sm-1.col-md-1.text-center
