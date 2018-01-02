@@ -6,7 +6,9 @@ module Admin
       authorize! :index, Sponsor.new
     end
 
-    def edit; end
+    def edit
+      @users = User.order(:first_name, :last_name) 
+    end
 
     def create
       if @sponsor.save
@@ -42,7 +44,7 @@ module Admin
     private
 
     def sponsor_params
-      params.require(:sponsor).permit(:name, :description, :website_url, :picture, :picture_cache)
+      params.require(:sponsor).permit(:name, :description, :website_url, :picture, :picture_cache, :short_name, :user_ids => [])
     end
   end
 end
