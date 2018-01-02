@@ -5,7 +5,7 @@ module Portal
     load_resource :sponsorship_levels_benefits, through: :sponsorship_level
 
     before_action :authenticate_user!
-    before_action :check_user_privs
+    before_action :check_user_privs, except: [:index]
 
     def index
       redirect_to portal_sponsor_path(current_user.sponsor.short_name)
