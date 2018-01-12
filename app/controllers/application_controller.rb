@@ -8,7 +8,6 @@ end
 class ApplicationController < ActionController::Base
   before_filter :set_paper_trail_whodunnit
   include ApplicationHelper
-  helper  Refinery::Core::Engine.routes.url_helpers
   add_flash_types :error
   protect_from_forgery with: :exception
   before_filter :get_conferences
