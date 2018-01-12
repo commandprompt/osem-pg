@@ -31,6 +31,11 @@ class EventSchedule < ActiveRecord::Base
     room.event_schedules.where(start_time: start_time, schedule: schedule).where.not(id: id)
   end
 
+  def self.event_at_time(room, at_time, step_minutes)
+    interval_end = at_time + step_minutes
+    room.event_schedules.where('start_time >= ? and start_time < ?', at_time, interval_end).first
+  end
+
   private
 
   def conference_id

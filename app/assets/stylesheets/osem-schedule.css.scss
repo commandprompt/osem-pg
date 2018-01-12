@@ -208,6 +208,11 @@ a.unstyled-link {
   overflow: hidden;
 }
 
+th.room{
+  font-size: 12px !important;
+  padding: 2px 0px 2px 1px !important;
+}
+
 td.room{
   width: 15%;
   padding: 3px !important;
@@ -215,8 +220,30 @@ td.room{
 }
 
 th.date{
+   font-size: 12px !important;
+   padding: 2px 0px 2px 1px !important;
+}
+
+td.date{
   font-size: 12px !important;
   padding: 2px 0px 2px 1px !important;
+  width: 100px;
+  height: 80px;
+}
+
+td.date-layout{
+  font-size: 12px !important;
+  padding: 2px 0px 2px 1px !important;
+  width: 100px;
+  height: 40px;
+}
+
+tr.schedule{
+  height: 80px;
+}
+
+tr.schedule-layout{
+  height: 40px;
 }
 
 .speaker-pic{
@@ -226,6 +253,12 @@ th.date{
 
 .schedule-table{
   width: 100%;
+  margin:0px;
+  padding:0px;
+}
+
+.schedule-tablei-layout{
+  height: 100%;
   margin:0px;
   padding:0px;
 }

@@ -10,6 +10,10 @@ class Room < ActiveRecord::Base
 
   validates :size, numericality: { only_integer: true, greater_than: 0 }, allow_nil: true
 
+  def self.day_rooms(conference_id, day)
+    Room.find_by_sql("SELECT unnest(array_agg(room_id)) as room_id FROM day_rooms(#{conference_id}, '#{day}'::timestamp)")
+  end
+
   private
 
   def generate_guid

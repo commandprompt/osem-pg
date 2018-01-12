@@ -1,5 +1,5 @@
 .container
-  = render partial: 'schedule_tabs',  locals: { active: 'schedule' }
+  = render partial: 'schedule_tabs',  locals: { active: 'mobile_schedule' }
 
   #schedule-content
     %h1.text-center
@@ -38,7 +38,15 @@
               = track.name
       - @dates.each do |date|
         %div{ class: "tab-pane #{ 'active' if @day == date }", id: "#{ date }" }
-          = render partial: 'layout', locals: { date: date }
+
+          .visible-xs-inline
+            = render partial: 'carousel', locals: { date: date, hrs_per_slide: 1 }
+
+          .visible-sm-inline
+            = render partial: 'carousel', locals: { date: date, hrs_per_slide: 2 }
+
+          .visible-md-inline.visible-lg-inline
+            = render partial: 'carousel', locals: { date: date, hrs_per_slide: 3 }
 
 :javascript
   function filter_events(trackid) {

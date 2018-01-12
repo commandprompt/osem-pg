@@ -350,22 +350,43 @@ module ApplicationHelper
     td_height < 82 ? 82 : td_height
   end
 
-  def room_height(rooms)
-    room_lines(rooms) * 17
+  def td_width(rooms)
+    td_width = 668 / rooms.length
+    # we want all least 3 lines in events and td padding = 3px, speaker picture height >= 25px
+    # and line-height = 17px => (17 * 3) + 6 + 25 = 82
+    td_width < 102 ? 102 : td_width
   end
 
-  def room_lines(rooms)
-    # line-height = 17px, td padding = 3px
-    (td_height(rooms) - 6) / 17
+  def room_size(rooms, horizontal = true)
+    room_lines(rooms, horizontal) * 17
+  end
+
+  def room_lines(rooms, horizontal = true)
+    if horizontal
+      size = td_height(rooms) 
+    else
+      size = td_width(rooms)
+    end
+    # line-width = 17px, td padding = 3px
+    (size - 6) / 17
   end
 
   def event_height(rooms)
-    event_lines(rooms) * 17
+    event_lines(rooms, true) * 17
   end
 
-  def event_lines(rooms)
+  def event_width_layout(rooms)
+    event_lines(rooms, false) * 30
+  end
+
+  def event_lines(rooms, horizontal = true)
+    if horizontal
+      size = td_height(rooms)
+    else
+      size = td_width(rooms)
+    end
     # line-height = 17px, td padding = 3px, speaker picture height >= 25px
-    (td_height(rooms) - 31) / 17
+    (size - 31) / 17
   end
 
   def speaker_height(rooms)
@@ -378,6 +399,18 @@ module ApplicationHelper
   def speaker_width(rooms)
     # speaker picture padding: 4px 2px; and we want the picture to be a circle
     speaker_height(rooms) - 4
+  end
+
+  def layout_speaker_width(rooms)
+    # td padding = 3px
+    layout_speaker_width = td_width(rooms) - 6 - event_width_layout(rooms)
+    # The speaker picture is a circle and the height must be <= 37 to avoid making the cell higher
+    layout_speaker_width >= 75 ? 75 : layout_speaker_width
+  end
+
+  def layout_speaker_height(rooms)
+    # speaker picture padding: 4px 2px; and we want the picture to be a circle
+    layout_speaker_width(rooms) - 4
   end
 
   def carousel_item_class(number, carousel_number, num_cols, col)
