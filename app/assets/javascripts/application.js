@@ -49,6 +49,7 @@
 //= require unobtrusive_flash_bootstrap
 //= require accounting.min
 //= require selectize
+//= require jquery.slick
 
 $(document).ready(function() {
     $('a[disabled=disabled]').click(function(event){

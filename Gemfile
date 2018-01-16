@@ -217,6 +217,9 @@ gem 'friendly_id', '~> 5.1.0'
 # for calendars
 gem 'simple_calendar', '~> 2.2', '>= 2.2.7'
 
+#for carousel
+gem 'jquery-slick-rails'
+
 # Use guard and spring for testing in development
 group :development do
   # to launch specs when files are modified
