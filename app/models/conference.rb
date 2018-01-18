@@ -691,6 +691,12 @@ class Conference < ActiveRecord::Base
     currencies
   end
 
+  def highlighted_speakers
+    User.joins(:event_users => :event)
+        .where(:event_users => {is_highlight: true}, :events => {program_id: program.id})
+        .distinct
+  end
+
   private
 
   # Returns a different html colour for every i and consecutive colors are

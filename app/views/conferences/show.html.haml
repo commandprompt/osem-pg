@@ -41,6 +41,10 @@
       %section#registration
         = render 'registration'
 
+    - if @conference.highlighted_speakers.any?
+      %section#speakers
+        = render 'speakers'
+
     - if @conference.splashpage.include_program
       - if @conference.program.events.highlights.any?
         %section#highlights

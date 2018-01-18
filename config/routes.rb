@@ -70,6 +70,7 @@ Osem::Application.routes.draw do
         resources :tracks
         resources :event_types
         resources :difficulty_levels
+        resources :speakers, only: [:index, :update]
         resources :events do
           member do
             patch :toggle_attendance
