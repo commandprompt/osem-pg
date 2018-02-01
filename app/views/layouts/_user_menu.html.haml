@@ -45,7 +45,7 @@
         Manage
         %span.notranslate
           = @conference.short_title
-  -if Refinery
+  -if Refinery and current_user.is_admin?
     %li
       = link_to refinery.admin_root_path do
         %span.fa.fa-wrench
