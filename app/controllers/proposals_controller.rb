@@ -11,6 +11,7 @@ class ProposalsController < ApplicationController
     @event = @program.events.new
     @event.event_users.new(user: current_user, event_role: 'submitter')
     @events = current_user.proposals(@conference)
+    @participated_events = current_user.participated_events(@conference) - @events
   end
 
   def show

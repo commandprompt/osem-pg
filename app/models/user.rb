@@ -210,6 +210,10 @@ class User < ActiveRecord::Base
     events.where('program_id = ? AND event_users.event_role=?', conference.program.id, 'submitter')
   end
 
+  def participated_events(conference)
+    events.where('program_id = ? AND event_users.event_role=?', conference.program.id, 'speaker')
+  end
+
   def proposal_count(conference)
     proposals(conference).count
   end
