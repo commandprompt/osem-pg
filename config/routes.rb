@@ -65,6 +65,9 @@ Osem::Application.routes.draw do
       end
       resource :registration_period
       resource :sponsorship_info
+      resource :poll do
+        resource :survey
+      end
       resource :program do
         resource :cfp
         resources :tracks
@@ -185,6 +188,9 @@ Osem::Application.routes.draw do
     resource :sponsorships, only: [:show]
     resource :about, only: [:show], :controller => 'about'
     resource :buytickets, only: [:show], :controller => 'ticket_groups'
+    resource :poll do
+      resource :attempts, only: [:create, :new, :show]
+    end
 
     resource :schedule, only: [:show] do
       member do

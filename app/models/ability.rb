@@ -43,6 +43,10 @@ class Ability
       event.state == 'confirmed'
     end
 
+    can [:new, :show], Poll
+    can [:show], Survey::Survey
+    can [:new, :create], Survey::Attempt
+
     # can view Commercials of confirmed Events
     can :show, Commercial, commercialable_type: 'Event', commercialable_id: Event.where(state: 'confirmed').pluck(:id)
     can [:show, :create], User

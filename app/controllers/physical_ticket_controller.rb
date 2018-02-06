@@ -11,7 +11,7 @@ class PhysicalTicketController < ApplicationController
     attendee = User.where(email: assigned_attendee).first
 
     if attendee.present?
-      PhysicalTicket.assign(:ticket_purchase, attendee, @physical_ticket.token, @physical_ticket.event_id)
+      PhysicalTicket.assign(@physical_ticket.ticket_purchase, attendee, @physical_ticket.token, @physical_ticket.event_id)
       Mailbot.assign_ticket_mail(@physical_ticket, attendee).deliver_now
       redirect_to conference_physical_ticket_index_path, notice: 'The ticket has been assigned to ' + attendee.name + '.'
     else
