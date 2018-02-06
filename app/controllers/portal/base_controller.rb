@@ -14,7 +14,7 @@ module Portal
     end
 
     def check_user_privs
-      return unless @sponsor.id != current_user.sponsor.id
+      return unless @sponsor.id != current_user.sponsor.id and !current_user.is_admin
       redirect_to portal_sponsor_path(current_user.sponsor.short_name),
                   alert: 'You are not permitted to view that page'
     end
