@@ -53,6 +53,10 @@
         - if can? :update, Policy.new(conference_id: @conference.id)
           %li{ class: active_nav_li(admin_conference_policies_path(@conference.short_title)) }
             = link_to 'Policies', admin_conference_policies_path(@conference.short_title)
+        - if can? :update, Poll.new(conference_id: @conference.id)
+          %li{ class: active_nav_li(admin_conference_poll_path(@conference.short_title)) }
+            = link_to 'Poll', admin_conference_poll_path(@conference.short_title)
+
   - if can? :show, Venue.new(conference_id: @conference.id)
     %li{:class=> "#{active_nav_li(admin_conference_venue_path(@conference.short_title))}"}
       = link_to(admin_conference_venue_path(@conference.short_title)) do

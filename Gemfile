@@ -220,6 +220,9 @@ gem 'simple_calendar', '~> 2.2', '>= 2.2.7'
 #for carousel
 gem 'jquery-slick-rails'
 
+#for survey
+gem 'survey'
+
 # Use guard and spring for testing in development
 group :development do
   # to launch specs when files are modified
