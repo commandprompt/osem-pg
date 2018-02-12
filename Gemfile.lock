@@ -790,6 +790,7 @@ DEPENDENCIES
   refinerycms-team_members!
   refinerycms-tinymce!
   responders (~> 2.0)
+  rest-client
   rolify
   rqrcode
   rspec-activemodel-mocks
