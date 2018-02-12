@@ -223,6 +223,9 @@ gem 'jquery-slick-rails'
 #for survey
 gem 'survey'
 
+#for REST calls to external sources
+gem 'rest-client'
+
 # Use guard and spring for testing in development
 group :development do
   # to launch specs when files are modified
