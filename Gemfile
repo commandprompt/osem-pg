@@ -226,6 +226,9 @@ gem 'survey'
 #for iCal schedules
 gem 'icalendar'
 
+#for REST calls to external sources
+gem 'rest-client'
+
 # Use guard and spring for testing in development
 group :development do
   # to launch specs when files are modified

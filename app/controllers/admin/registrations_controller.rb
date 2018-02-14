@@ -2,7 +2,7 @@ module Admin
   class RegistrationsController < Admin::BaseController
     load_and_authorize_resource :conference, find_by: :short_title
     load_and_authorize_resource :registration, through: :conference
-    before_filter :set_user, except: [:index]
+    before_filter :set_user, except: [:index, :sync_all]
 
     def index
       authorize! :show, Registration.new(conference_id: @conference.id)
@@ -48,6 +48,18 @@ module Admin
       else
         head :unprocessable_entity
       end
+    end
+
+    def sync_all
+      @registrations = @conference.registrations.includes(:user).order('registrations.created_at ASC')
+
+      @registrations.each do |r|
+        EventheroAttendeeRegisterJob.perform_later(r)
+      end
+
+      redirect_to admin_conference_registrations_path(@conference.short_title),
+                  notice: "All registrations queued to sync to the lead tracker service"
+
     end
 
     private

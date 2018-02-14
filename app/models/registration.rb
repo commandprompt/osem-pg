@@ -32,7 +32,7 @@ class Registration < ActiveRecord::Base
   validate :registration_limit_not_exceed, on: :create
   validate :registration_to_events_only_if_present
 
-  after_create :set_week, :subscribe_to_conference, :send_registration_mail
+  after_create :set_week, :subscribe_to_conference, :send_registration_mail, :register_with_lead_retrieval
 
   ##
   # Makes a list of events that includes (in that order):
@@ -93,6 +93,12 @@ class Registration < ActiveRecord::Base
   def registration_limit_not_exceed
     if conference.registration_limit > 0 && conference.registrations(:reload).count >= conference.registration_limit
       errors.add(:base, 'Registration limit exceeded')
+    end
+  end
+
+  def register_with_lead_retrieval
+    unless Rails.application.secrets.eventhero_access_key.blank?
+      EventheroAttendeeRegisterJob.perform_later(self)
     end
   end
 end

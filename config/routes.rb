@@ -52,7 +52,9 @@ Osem::Application.routes.draw do
       resources :registrations, except: [:create, :new] do
         member do
           patch :toggle_attendance
-
+        end
+        collection do
+          patch :sync_all
         end
       end
 
