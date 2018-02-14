@@ -197,6 +197,7 @@ Osem::Application.routes.draw do
         get :events
         get :today_events
         get :mobile
+        get :ical
       end
     end
   end

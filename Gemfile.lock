@@ -300,6 +300,7 @@ GEM
       domain_name (~> 0.5)
     i18n (0.7.0)
     i18n_data (0.7.0)
+    icalendar (2.4.1)
     inversion (0.12.3)
       loggability (~> 0.4)
     iso-639 (0.2.5)
@@ -740,6 +741,7 @@ DEPENDENCIES
   guard-rspec (~> 4.2.8)
   haml-rails
   hoptoad_notifier (~> 2.3)
+  icalendar
   iso-639
   jquery-datatables-rails (~> 2.2.1)
   jquery-rails

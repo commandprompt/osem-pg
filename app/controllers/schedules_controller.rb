@@ -84,6 +84,33 @@ class SchedulesController < ApplicationController
     @tag = day.strftime('%Y-%m-%d') if day
   end
 
+  def ical
+    schedules = @program.selected_event_schedules
+
+    @cal = Icalendar::Calendar.new
+    @cal.prodid = Icalendar::Values::Text.new(@conference.title)
+
+    schedules.each do |schedule|
+      e = schedule.event
+      event = Icalendar::Event.new
+      event.dtstart = Icalendar::Values::DateTime.new(e.time, 'tzid' => 'UTC')
+      event.dtend = Icalendar::Values::DateTime.new(e.end_time, 'tzid' => 'UTC')
+
+      if e.event_type.internal_event
+        event.summary = Icalendar::Values::Text.new(e.title)
+      else
+        event.summary = Icalendar::Values::Text.new(e.title + " (" + e.speaker_names + ")")
+      end
+
+      event.location = Icalendar::Values::Text.new(e.room.name)
+      event.url = Icalendar::Values::Uri.new(url_for(conference_program_proposal_url(@conference.short_title, e.id)))
+
+      @cal.add_event(event)
+    end
+
+    send_data @cal.to_ical, :filename => @conference.short_title + '.ical'
+  end
+
   private
 
   def respond_to_options
