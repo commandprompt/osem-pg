@@ -3,6 +3,7 @@ class SchedulesController < ApplicationController
   before_action :respond_to_options
   load_and_authorize_resource :conference, find_by: :short_title
   load_resource :program, through: :conference, singleton: true, except: :index
+  load_resource :room, find_by: :id, only: :room
 
   def show
     @rooms = @conference.venue.rooms if @conference.venue
@@ -65,6 +66,50 @@ class SchedulesController < ApplicationController
     @today_event_schedules = @program.selected_event_schedules.where(
       start_time: day + @conference.start_hour.hours..@current_time + 2.hours) if @program.selected_schedule
     render partial: 'today_events'
+  end
+
+  def room
+    if params[:id].nil?
+      redirect_to events_conference_schedule_path(@conference.short_title)
+    else
+      @room = Room.find_by(id: params[:id])
+    end
+
+    if params[:date].nil? || params[:time].nil?
+      @day = Time.find_zone(@conference.timezone).today
+      @current_time = Time.current.in_time_zone(@conference.timezone)
+    else
+      @day = DateTime.parse(params[:date])
+      @current_time = DateTime.parse(params[:date] + ' ' + params[:time])
+    end
+
+    @today_event_schedules = []
+    @today_event_schedules = @program.selected_event_schedules.where(
+      start_time: @day + @conference.start_hour.hours..@day + @conference.end_hour.hours,
+      room_id: @room.id) if @program.selected_schedule
+
+    render layout: "signage"
+
+  end
+
+  def now
+    if params[:id].nil?
+      redirect_to events_conference_schedule_path(@conference.short_title)
+    else
+      @room = Room.find_by(id: params[:id])
+    end
+
+    if params[:date].nil? || params[:time].nil?
+      @day = Time.find_zone(@conference.timezone).today
+      @current_time = Time.current.in_time_zone(@conference.timezone)
+    else
+      @day = DateTime.parse(params[:date])
+      @current_time = DateTime.parse(params[:date] + ' ' + params[:time])
+    end
+
+    @upcoming_events = @program.selected_event_schedules
+      .where('start_time >= ? and room_id = ?', @current_time,@room.id)
+      .order(:start_time) if @program.selected_schedule
   end
 
   def events
