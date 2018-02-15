@@ -88,6 +88,7 @@ class SchedulesController < ApplicationController
       start_time: @day + @conference.start_hour.hours..@day + @conference.end_hour.hours,
       room_id: @room.id) if @program.selected_schedule
 
+    @last_updated = Time.current.in_time_zone(@conference.timezone).strftime('%H:%M:%S')
     render layout: "signage"
 
   end
