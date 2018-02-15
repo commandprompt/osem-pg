@@ -153,7 +153,7 @@ class SchedulesController < ApplicationController
       @cal.add_event(event)
     end
 
-    send_data @cal.to_ical, :filename => @conference.short_title + '.ical'
+    send_data @cal.to_ical, :filename => @conference.short_title + '.ics'
   end
 
   private
