@@ -12,13 +12,15 @@
     %h4
       presented by #{event.speaker_names}
 
-    - if event.commercials.present?
-      %br
-      %span.fa.fa-video-camera
-      = link_to 'video', conference_program_proposal_path(@conference.short_title, event.id)
+    - if !defined? signage
+      - if event.commercials.present?
+        %br
+        %span.fa.fa-video-camera
+        = link_to 'video', conference_program_proposal_path(@conference.short_title, event.id)
     %p
       = markdown(truncate(event.abstract, :length => 400))
-      = link_to 'more', conference_program_proposal_path(@conference.short_title, event.id) if event.abstract.length > 400
+      - if !defined? signage
+        = link_to 'more', conference_program_proposal_path(@conference.short_title, event.id) if event.abstract.length > 400
 
     - if event.state == 'canceled' || event.state == 'withdrawn'
       %span.label.label-danger CANCELED
@@ -41,4 +43,3 @@
         %span.fa.fa-road
         %span.label{ style: "background-color: #{event.track.color}; color: #{ contrast_color(event.track.color) }" }
           = event.track.name
-

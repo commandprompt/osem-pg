@@ -3,7 +3,7 @@ class SchedulesController < ApplicationController
   before_action :respond_to_options
   load_and_authorize_resource :conference, find_by: :short_title
   load_resource :program, through: :conference, singleton: true, except: :index
-  load_resource :room, find_by: :id, only: :room
+  load_resource :room, find_by: :id, only: [:room, :now]
 
   def show
     @rooms = @conference.venue.rooms if @conference.venue
@@ -108,9 +108,12 @@ class SchedulesController < ApplicationController
       @current_time = DateTime.parse(params[:date] + ' ' + params[:time])
     end
 
-    @upcoming_events = @program.selected_event_schedules
+    @upcoming_event = @program.selected_event_schedules
       .where('start_time >= ? and room_id = ?', @current_time,@room.id)
-      .order(:start_time) if @program.selected_schedule
+      .order(:start_time).first if @program.selected_schedule
+
+    @last_updated = Time.current.in_time_zone(@conference.timezone).strftime('%H:%M:%S')
+    render layout: "signage"
   end
 
   def events

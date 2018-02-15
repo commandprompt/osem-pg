@@ -201,6 +201,7 @@ Osem::Application.routes.draw do
         get :mobile
         get :ical
         get :room
+        get :now
       end
     end
   end
