@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180205174755) do
+ActiveRecord::Schema.define(version: 20180221044932) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "tablefunc"
 
   create_table "activities", force: :cascade do |t|
     t.string   "name"
@@ -1543,6 +1544,8 @@ ActiveRecord::Schema.define(version: 20180205174755) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "survey_answers", ["question_id", "option_id"], name: "survey_answers_question_option_id_idx", using: :btree
 
   create_table "survey_attempts", force: :cascade do |t|
     t.integer "participant_id"
