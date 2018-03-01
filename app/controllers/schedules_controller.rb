@@ -88,6 +88,7 @@ class SchedulesController < ApplicationController
       start_time: @day + @conference.start_hour.hours..@day + @conference.end_hour.hours,
       room_id: @room.id) if @program.selected_schedule
 
+    response.headers.delete "X-Frame-Options"
     render layout: "signage"
 
   end
@@ -111,6 +112,7 @@ class SchedulesController < ApplicationController
       .where('start_time >= ? and room_id = ?', @current_time,@room.id)
       .order(:start_time).first if @program.selected_schedule
 
+    response.headers.delete "X-Frame-Options"
     render layout: "signage"
   end
 
