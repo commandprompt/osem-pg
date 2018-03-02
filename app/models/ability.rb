@@ -108,6 +108,10 @@ class Ability
     can :leave_feedback, Event do |event|
       true
     end
+
+    can :access, Portal
+    can [:show, :edit, :update], Sponsor
+    can [:show], Code
   end
 
   # Abilities for signed in users with roles
@@ -122,7 +126,6 @@ class Ability
 
     # for users with any role
     can :access, Admin
-    can :access, Portal
     can [:show], Conference
     can :index, Commercial, commercialable_type: 'Conference'
     cannot [:edit, :update, :destroy], Question, global: true
