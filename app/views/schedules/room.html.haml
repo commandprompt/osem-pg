@@ -1,9 +1,6 @@
 = content_for :room_schedule do
   .container
 
-    %h1.text-center
-      = @room.name
-
     %h3.text-center{'style'=>"border-bottom: 4px solid #083550"}
       = @day.strftime('%A, %b %-d')
 
