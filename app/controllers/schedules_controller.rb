@@ -75,17 +75,21 @@ class SchedulesController < ApplicationController
       @room = Room.find_by(id: params[:id])
     end
 
+    offset = ActiveSupport::TimeZone.seconds_to_utc_offset(ActiveSupport::TimeZone[@conference.timezone].utc_offset)
+
     if params[:date].nil? || params[:time].nil?
       @day = Time.find_zone(@conference.timezone).today
       @current_time = Time.current.in_time_zone(@conference.timezone)
     else
       @day = DateTime.parse(params[:date])
-      @current_time = DateTime.parse(params[:date] + ' ' + params[:time])
+      @current_time = DateTime.parse(params[:date] + ' ' + params[:time] + ' ' + offset)
     end
 
+    conf_start_utc = DateTime.new(@day.year, @day.mon, @day.day, @conference.start_hour, 0, 0, offset) 
+    conf_end_utc = DateTime.new(@day.year, @day.mon, @day.day, @conference.end_hour, 0, 0, offset)
     @today_event_schedules = []
     @today_event_schedules = @program.selected_event_schedules.where(
-      start_time: @day + @conference.start_hour.hours..@day + @conference.end_hour.hours,
+      start_time: conf_start_utc..conf_end_utc,
       room_id: @room.id) if @program.selected_schedule
 
     response.headers.delete "X-Frame-Options"
@@ -100,16 +104,18 @@ class SchedulesController < ApplicationController
       @room = Room.find_by(id: params[:id])
     end
 
+    offset = ActiveSupport::TimeZone.seconds_to_utc_offset(ActiveSupport::TimeZone[@conference.timezone].utc_offset)
+
     if params[:date].nil? || params[:time].nil?
       @day = Time.find_zone(@conference.timezone).today
       @current_time = Time.current.in_time_zone(@conference.timezone)
     else
       @day = DateTime.parse(params[:date])
-      @current_time = DateTime.parse(params[:date] + ' ' + params[:time])
+      @current_time = DateTime.parse(params[:date] + ' ' + params[:time] + ' ' + offset)
     end
 
     @upcoming_event = @program.selected_event_schedules
-      .where('start_time >= ? and room_id = ?', @current_time,@room.id)
+      .where('get_event_time_range(event_schedules.schedule_id, event_schedules.event_id)  @> ?::timestamp and room_id = ?', @current_time,@room.id)
       .order(:start_time).first if @program.selected_schedule
 
     response.headers.delete "X-Frame-Options"
