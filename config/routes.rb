@@ -147,6 +147,7 @@ Osem::Application.routes.draw do
 
       namespace :reports do
         resources :attendees, only: [:index]
+        resources :codes, only: [:index]
         resources :payments, only: [:index]
         resources :poll_results, only: [:index]
         resources :tickets, only: [:index]
