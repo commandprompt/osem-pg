@@ -85,7 +85,7 @@ class SchedulesController < ApplicationController
       @current_time = DateTime.parse(params[:date] + ' ' + params[:time] + ' ' + offset)
     end
 
-    conf_start_utc = DateTime.new(@day.year, @day.mon, @day.day, @conference.start_hour, 0, 0, offset) 
+    conf_start_utc = DateTime.new(@day.year, @day.mon, @day.day, @conference.start_hour, 0, 0, offset)
     conf_end_utc = DateTime.new(@day.year, @day.mon, @day.day, @conference.end_hour, 0, 0, offset)
     @today_event_schedules = []
     @today_event_schedules = @program.selected_event_schedules.where(
@@ -120,6 +120,39 @@ class SchedulesController < ApplicationController
 
     response.headers.delete "X-Frame-Options"
     render layout: "signage"
+  end
+
+  def today
+    offset = ActiveSupport::TimeZone.seconds_to_utc_offset(ActiveSupport::TimeZone[@conference.timezone].utc_offset)
+
+    if params[:date].nil?
+      @day = Time.find_zone(@conference.timezone).today
+    else
+      @day = DateTime.parse(params[:date])
+    end
+
+    @rooms = @conference.venue.rooms if @conference.venue
+    schedules = @program.selected_event_schedules
+    unless schedules
+      redirect_to events_conference_schedule_path(@conference.short_title)
+    end
+
+    @events_schedules = schedules
+    @dates = @conference.start_date..@conference.end_date
+    @tracks = @conference.program.tracks
+
+    @step_minutes = EventType::LENGTH_STEP.minutes
+    @conf_start = @conference.start_hour
+    @conf_end = @conference.end_hour
+    @conf_period = @conference.end_hour - @conf_start
+
+    # the schedule takes you to today if it is a date of the schedule
+    @current_day = @day
+
+    @events_schedules = schedules
+    response.headers.delete "X-Frame-Options"
+    render layout: "signage"
+
   end
 
   def events

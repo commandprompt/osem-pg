@@ -6,6 +6,7 @@
     = javascript_include_tag "application"
     = javascript_include_tag "turbolinks"
     = content_for(:script_head)
+    = stylesheet_link_tag "signage", :media => "all"
 
   %body#sign
     = yield

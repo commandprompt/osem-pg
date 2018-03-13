@@ -205,6 +205,7 @@ Osem::Application.routes.draw do
         get :ical
         get :room
         get :now
+        get :today
       end
     end
   end

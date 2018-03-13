@@ -363,7 +363,7 @@ module ApplicationHelper
 
   def room_lines(rooms, horizontal = true)
     if horizontal
-      size = td_height(rooms) 
+      size = td_height(rooms)
     else
       size = td_width(rooms)
     end
@@ -376,7 +376,7 @@ module ApplicationHelper
   end
 
   def event_width_layout(rooms)
-    event_lines(rooms, false) * 30
+    event_lines(rooms, false) * 50
   end
 
   def event_lines(rooms, horizontal = true)

@@ -13,7 +13,7 @@
       - elsif event.state == 'confirmed' && (!event_schedule.intersecting_events.canceled.empty? || !event_schedule.intersecting_events.withdrawn.empty?)
         %span.label.label-info.schedule-label REPLACEMENT
 
-      = event.title
+      = truncate(event.title, :length => 60)
 
     %div{ style: "margin-top: 5px;" }
       - event.speakers_ordered.each do |speaker|
