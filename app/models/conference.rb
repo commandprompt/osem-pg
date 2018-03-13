@@ -45,6 +45,8 @@ class Conference < ActiveRecord::Base
   has_many :subscriptions, dependent: :destroy
   has_many :benefits, dependent: :destroy
 
+  has_many :duplicate_tickets
+
   accepts_nested_attributes_for :venue
   accepts_nested_attributes_for :tickets, allow_destroy: true
   accepts_nested_attributes_for :sponsorship_levels, allow_destroy: true

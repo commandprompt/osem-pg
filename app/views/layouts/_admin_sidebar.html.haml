@@ -165,6 +165,8 @@
           = link_to 'Attendees', admin_conference_reports_attendees_path(@conference.short_title)
         %li{class: active_nav_li(admin_conference_reports_codes_path(@conference.short_title))}
           = link_to 'Code Usage Summary', admin_conference_reports_codes_path(@conference.short_title)
+        %li{class: active_nav_li(admin_conference_reports_duplicate_tickets_path(@conference.short_title))}
+          = link_to 'Duplicate Tickets', admin_conference_reports_duplicate_tickets_path(@conference.short_title)
         %li{class: active_nav_li(admin_conference_reports_payments_path(@conference.short_title))}
           = link_to 'Payments', admin_conference_reports_payments_path(@conference.short_title)
         %li{class: active_nav_li(admin_conference_reports_poll_results_path(@conference.short_title))}
