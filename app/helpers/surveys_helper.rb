@@ -38,6 +38,10 @@ module SurveysHelper
   end
 
   def get_attempt_questions attempt, imported
-    attempt.survey.questions.where(imported: imported).order('random()')
+    if imported
+      attempt.survey.questions.where(imported: imported).order('random()').limit(3)
+    else
+      attempt.survey.questions.where(imported: imported).order('random()')
+    end
   end
 end
