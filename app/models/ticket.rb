@@ -117,8 +117,8 @@ class Ticket < ActiveRecord::Base
     10
   end
 
-  def self.visible_group_tickets(ticket_group)
-    Ticket.where(ticket_group_id: ticket_group.id, hidden: false).order(:position)
+  def self.visible_group_tickets(conference, ticket_group)
+    Ticket.where(conference_id: conference.id, ticket_group_id: ticket_group.id, hidden: false).order(:position)
   end
 
   private

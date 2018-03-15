@@ -6,7 +6,7 @@ class TicketGroupsController < ApplicationController
     if @primary_group.blank?
       redirect_to conference_tickets_path(@conference.short_title)
     else
-      @tickets = Ticket.visible_group_tickets(@primary_group)
+      @tickets = Ticket.visible_group_tickets(@conference, @primary_group)
     end
   end
 
