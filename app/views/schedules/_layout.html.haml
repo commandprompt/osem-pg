@@ -1,4 +1,4 @@
-- ds = DaySchedule.new(@conference.id, date, EventType::LENGTH_STEP)
+- ds = DaySchedule.new(@conference.id, date, EventType::LENGTH_STEP, current_time)
 - entries = ds.fetch
 - day_room_ids = Room.day_rooms(@conference.id, date)
 
@@ -19,6 +19,7 @@
             .room.elipsis.break-words{ style: "-webkit-line-clamp: #{ room_lines(@rooms, false) }; width: #{ room_size(@rooms, false) }px;" }
               = room.name
 
-    - entries.values.in_groups_of(day_room_ids.length) do |row|
-      %tr.schedule-layout
-        = render partial: 'schedule_row', locals: {row: row, height: height}
+    - if day_room_ids.length > 0
+      - entries.values.in_groups_of(day_room_ids.length) do |row|
+        %tr.schedule-layout
+          = render partial: 'schedule_row', locals: {row: row, height: height}

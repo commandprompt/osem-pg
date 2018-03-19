@@ -131,6 +131,13 @@ class SchedulesController < ApplicationController
       @day = DateTime.parse(params[:date])
     end
 
+    if params[:time].nil?
+      @current_time = DateTime.parse(@day.strftime('%Y/%m/%d') + ' ' + Time.current.strftime('%X'))
+    else
+      @current_time = DateTime.parse(params[:date] + ' ' + params[:time] + ' ' + offset)
+    end
+
+
     @rooms = @conference.venue.rooms if @conference.venue
     schedules = @program.selected_event_schedules
     unless schedules

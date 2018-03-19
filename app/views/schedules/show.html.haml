@@ -38,7 +38,7 @@
               = track.name
       - @dates.each do |date|
         %div{ class: "tab-pane #{ 'active' if @day == date }", id: "#{ date }" }
-          = render partial: 'layout', locals: { date: date }
+          = render partial: 'layout', locals: { date: date, current_time: nil }
 
 :javascript
   function filter_events(trackid) {

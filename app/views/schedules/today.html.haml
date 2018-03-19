@@ -5,7 +5,7 @@
       = @day.strftime('%A, %b %-d')
 
     .row
-      = render partial: 'layout', locals: { date: @day }
+      = render partial: 'layout', locals: { date: @day, current_time: @current_time }
 
 = yield :today_schedule
 

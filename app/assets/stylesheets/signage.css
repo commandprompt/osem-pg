@@ -4,10 +4,17 @@ tr.schedule-layout {
 
 td.date-layout{
   height: 20px;
+  background: #2D5E7B;
+  color: #FFFFFF;
 }
 
 th.room{
-  background: #C9E6FF;
+  background: #2D5E7B;
+  color: #FFFFFF;
+}
+
+td.current-block{
+  background: #022438;
 }
 
 
