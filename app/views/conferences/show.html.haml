@@ -31,8 +31,11 @@
         .container
           .row
             .col-md-8.col-md-offset-2
-              %h3.text-center
-                = markdown(@conference.description)
+              .col-md-2
+                = image_tag('postgresql_logo.png', class: "img-responsive img-rounded", style: "margin-bottom: 10px;")
+              .col-md-8
+                %h4
+                  = markdown(@conference.description)
     - if @conference.sponsorships.any? and @conference.splashpage.include_sponsors
       %section#sponsors
         = render 'sponsors'
