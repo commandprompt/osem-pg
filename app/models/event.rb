@@ -274,7 +274,12 @@ class Event < ActiveRecord::Base
   # This will return the maximum number of tickets available for a select box maxing out at 10
   # TODO: The max should be configurable at the ticket level
   def purchase_quantity_available
-    10
+    if max_attendees.blank?
+      10
+    else
+      purchased = EventsRegistration.where(event_id: self.id).count
+      max_attendees - purchased 
+    end
   end
 
   def attendees

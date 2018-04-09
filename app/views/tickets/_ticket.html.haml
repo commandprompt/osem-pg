@@ -24,12 +24,24 @@
                   - ticket.ticketed_events.each do |event|
                     %tr
                       %td
-                        %div.styled-select.green.semi-square
-                          = select_tag("chosen_events[#{ticket.id}][#{event.id}]", options_for_select((0..event.purchase_quantity_available).to_a),
-                              onchange: "update_event(this, #{ticket.id});")
+                        - available = event.purchase_quantity_available
+                        - if available > 0
+                          %div.styled-select.green.semi-square
+                            = select_tag("chosen_events[#{ticket.id}][#{event.id}]", options_for_select((0..available).to_a),
+                                onchange: "update_event(this, #{ticket.id});")
+                        - else
+                          %div.styled-span.green.semi-square
+                            %span{id: "ticket_label_#{ticket.id}"}
+                              0
                       %td
-                        %a{ href: '#', data: { toggle: 'modal', target: "#modal_#{event.id}" } }
-                          = event.title
+                        - if available <= 0
+                          %i
+                            (SOLD OUT)
+                          %s
+                            = event.title
+                        - else
+                          %a{ href: '#', data: { toggle: 'modal', target: "#modal_#{event.id}" } }
+                            = event.title
 
                     .modal.fade{ id: "modal_#{event.id}" }
                       .modal-dialog
