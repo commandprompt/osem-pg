@@ -12,3 +12,6 @@
                 = item.published_at.strftime("%B %d, %Y")
             .text-muted
               = truncate(strip_tags(item.body), length: 350)
+      %li.media
+        .media-body.text-center
+          = link_to "More Blog Posts", refinery.blog_root_path
