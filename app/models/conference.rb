@@ -19,6 +19,7 @@ class Conference < ActiveRecord::Base
   has_one :contact, dependent: :destroy
   has_one :registration_period, dependent: :destroy
   has_one :sponsorship_info, dependent: :destroy
+  has_one :payment_method, dependent: :destroy
   has_one :email_settings, dependent: :destroy
   has_one :program, dependent: :destroy
   has_one :poll, dependent: :destroy

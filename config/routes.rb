@@ -67,6 +67,7 @@ Osem::Application.routes.draw do
       end
       resource :registration_period
       resource :sponsorship_info
+      resource :payment_method
       resource :poll do
         resource :survey
       end
