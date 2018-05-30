@@ -2,13 +2,13 @@ module Admin
   class PaymentMethodsController < Admin::BaseController
     load_and_authorize_resource :conference, find_by: :short_title
     load_and_authorize_resource through: :conference, singleton: true
-
+ 
     def show; end
 
     def edit; end
 
     def create
-      @payment_method = @conference.build_conference_payment_method(payment_method_params)
+      @payment_method = @conference.build_payment_method(payment_method_params)
 
       if @payment_method.save
         redirect_to admin_conference_payment_method_path,
@@ -33,7 +33,8 @@ module Admin
     def payment_method_params
       params.require(:payment_method).permit(:gateway, :stripe_publishable_key, :stripe_secret_key,
                                              :braintree_merchant_id, :braintree_public_key,
-                                             :braintree_private_key, :braintree_merchant_account)
+                                             :braintree_private_key, :braintree_merchant_account,
+											 :braintree_environment)
     end
   end
 end

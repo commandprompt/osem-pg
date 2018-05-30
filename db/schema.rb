@@ -15,7 +15,6 @@ ActiveRecord::Schema.define(version: 20180426202651) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "tablefunc"
 
   create_table "activities", force: :cascade do |t|
     t.string   "name"
@@ -790,6 +789,7 @@ ActiveRecord::Schema.define(version: 20180426202651) do
     t.integer  "conference_id",              null: false
     t.string   "environment",                null: false
     t.string   "gateway",                    null: false
+    t.string   "braintree_environment"
     t.string   "braintree_merchant_id"
     t.string   "braintree_public_key"
     t.string   "braintree_private_key"

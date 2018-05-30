@@ -39,6 +39,7 @@
     = semantic_form_for(@payment_method, url: admin_conference_payment_method_path(@conference.short_title)) do |f|
       = f.input :gateway, :as => :select, :collection => PaymentMethod::GATEWAYS, :input_html => { :onchange => "hide_fields();"}
       %div#braintree
+        = f.input :braintree_environment, :as => :select, :collection => PaymentMethod::BRAINTREE_ENVS
         = f.input :braintree_merchant_id, label: 'Merchant ID'
         = f.input :braintree_public_key, label: 'Public Key'
         = f.input :braintree_private_key, label: 'Private Key'

@@ -4,6 +4,7 @@ class CreatePaymentMethods < ActiveRecord::Migration
       t.references :conference, null: false
       t.string :environment, null: false
       t.string :gateway, null: false
+	  t.string :braintree_environment
       t.string :braintree_merchant_id
       t.string :braintree_public_key
       t.string :braintree_private_key

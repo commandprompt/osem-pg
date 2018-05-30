@@ -14,7 +14,7 @@
       %p.text-muted.text-center
         %small
           All payments are handled securely by our payment processor,
-        -if Rails.configuration.use_braintree
-          = link_to 'Braintree', 'https://braintree.com', target: '_blank'
-        -else
+        -if @conference.payment_method.gateway == 'braintree'
+          = link_to 'Braintree', 'https://www.braintreepayments.com', target: '_blank'
+        -elsif @conference.payment_method.gateway == 'stripe'
           = link_to 'Stripe', 'https://stripe.com', target: '_blank'

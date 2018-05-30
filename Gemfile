@@ -6,7 +6,7 @@ if Gem::Version.new(Bundler::VERSION) < Gem::Version.new('1.8.4')
 end
 
 # as web framework
-gem 'rails', '~> 4.2'
+gem 'rails', '~> 4.2.8'
 gem 'refinerycms', '~> 3.0.0'
 gem 'refinerycms-search', github: 'refinery/refinerycms-search', branch: 'master'
 gem 'refinerycms-blog', git: 'https://github.com/refinery/refinerycms-blog', branch: 'master'
@@ -163,8 +163,10 @@ gem 'font-awesome-rails'
 # for markdown
 gem 'redcarpet'
 
+gem 'yajl-ruby', '~> 1.2', '>= 1.2.1'
+
 # as rdoc generator
-gem 'rdoc-generator-fivefish'
+gem 'rdoc-generator-fivefish', '~> 0.1.0'
 
 # for visitor tracking
 gem 'ahoy_matey'
@@ -204,6 +206,9 @@ gem 'factory_girl_rails'
 
 # for integrating Stripe payment gateway
 gem 'stripe'
+
+# for integrating PayU payment gateway
+gem 'payu'
 
 # for multiple speakers select on proposal/event forms
 gem 'selectize-rails'
