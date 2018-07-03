@@ -4,13 +4,17 @@ class CreatePaymentMethods < ActiveRecord::Migration
       t.references :conference, null: false
       t.string :environment, null: false
       t.string :gateway, null: false
-	  t.string :braintree_environment
+      t.string :braintree_environment
       t.string :braintree_merchant_id
       t.string :braintree_public_key
       t.string :braintree_private_key
       t.string :braintree_merchant_account
-      t.string :payu_merchant_pos_id
+      t.string :payu_store_name
+      t.string :payu_store_id
+      t.string :payu_webservice_name
+      t.string :payu_webservice_password
       t.string :payu_signature_key
+      t.string :payu_service_domain
       t.string :stripe_publishable_key
       t.string :stripe_secret_key
 

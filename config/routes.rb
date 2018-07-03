@@ -182,7 +182,13 @@ Osem::Application.routes.draw do
     resource :conference_registration, path: 'register'
     resources :tickets, only: [:index]
     resources :ticket_purchases, only: [:create, :destroy]
-    resources :payments, only: [:index, :new, :create]
+    resources :payments, only: [:index, :new, :create] do
+      collection do
+        get :cancel
+        get :confirm
+      end
+    end
+
     resources :physical_ticket, only: [:index, :show, :update] do
       member do
         get :claim

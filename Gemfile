@@ -207,9 +207,6 @@ gem 'factory_girl_rails'
 # for integrating Stripe payment gateway
 gem 'stripe'
 
-# for integrating PayU payment gateway
-gem 'payu'
-
 # for multiple speakers select on proposal/event forms
 gem 'selectize-rails'
 
@@ -233,6 +230,11 @@ gem 'icalendar'
 
 #for REST calls to external sources
 gem 'rest-client'
+
+#To make SOAP calls to the PayU API
+gem 'httpclient', '~> 2.8', '>= 2.8.3'
+gem 'lolsoap', '~> 0.9.0'
+gem 'akami', '~> 1.3', '>= 1.3.1'
 
 # Use guard and spring for testing in development
 group :development do

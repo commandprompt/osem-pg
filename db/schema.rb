@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180426202651) do
+ActiveRecord::Schema.define(version: 20180702213234) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -794,8 +794,12 @@ ActiveRecord::Schema.define(version: 20180426202651) do
     t.string   "braintree_public_key"
     t.string   "braintree_private_key"
     t.string   "braintree_merchant_account"
-    t.string   "payu_merchant_pos_id"
+    t.string   "payu_store_name"
+    t.string   "payu_store_id"
+    t.string   "payu_webservice_name"
+    t.string   "payu_webservice_password"
     t.string   "payu_signature_key"
+    t.string   "payu_service_domain"
     t.string   "stripe_publishable_key"
     t.string   "stripe_secret_key"
     t.datetime "created_at"
@@ -813,7 +817,10 @@ ActiveRecord::Schema.define(version: 20180426202651) do
     t.integer  "conference_id",                  null: false
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
+    t.string   "reference"
   end
+
+  add_index "payments", ["reference"], name: "index_payments_on_reference", unique: true, using: :btree
 
   create_table "payments", force: :cascade do |t|
     t.string   "last4"
@@ -824,7 +831,10 @@ ActiveRecord::Schema.define(version: 20180426202651) do
     t.integer  "conference_id",                  null: false
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
+    t.string   "reference"
   end
+
+  add_index "payments", ["reference"], name: "index_payments_on_reference", unique: true, using: :btree
 
   create_table "physical_tickets", force: :cascade do |t|
     t.integer  "ticket_purchase_id", null: false
