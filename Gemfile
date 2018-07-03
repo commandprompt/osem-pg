@@ -6,7 +6,7 @@ if Gem::Version.new(Bundler::VERSION) < Gem::Version.new('1.8.4')
 end
 
 # as web framework
-gem 'rails', '~> 4.2'
+gem 'rails', '~> 4.2.8'
 gem 'refinerycms', '~> 3.0.0'
 gem 'refinerycms-search', github: 'refinery/refinerycms-search', branch: 'master'
 gem 'refinerycms-blog', git: 'https://github.com/refinery/refinerycms-blog', branch: 'master'
@@ -163,8 +163,10 @@ gem 'font-awesome-rails'
 # for markdown
 gem 'redcarpet'
 
+gem 'yajl-ruby', '~> 1.2', '>= 1.2.1'
+
 # as rdoc generator
-gem 'rdoc-generator-fivefish'
+gem 'rdoc-generator-fivefish', '~> 0.1.0'
 
 # for visitor tracking
 gem 'ahoy_matey'
@@ -228,6 +230,11 @@ gem 'icalendar'
 
 #for REST calls to external sources
 gem 'rest-client'
+
+#To make SOAP calls to the PayU API
+gem 'httpclient', '~> 2.8', '>= 2.8.3'
+gem 'lolsoap', '~> 0.9.0'
+gem 'akami', '~> 1.3', '>= 1.3.1'
 
 # Use guard and spring for testing in development
 group :development do

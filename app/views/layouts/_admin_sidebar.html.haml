@@ -44,18 +44,21 @@
         - if can? :index, @conference.commercials.build
           %li{:class=> "#{active_nav_li(admin_conference_commercials_path(@conference.short_title))}"}
             = link_to 'Commercials', admin_conference_commercials_path(@conference.short_title)
+        - if can? :update, Policy.new(conference_id: @conference.id)
+          %li{ class: active_nav_li(admin_conference_policies_path(@conference.short_title)) }
+            = link_to 'Policies', admin_conference_policies_path(@conference.short_title)
+        - if can? :update, @conference
+          %li{:class=> active_nav_li(admin_conference_payment_method_path(@conference.short_title))}
+            = link_to 'Payment Method', admin_conference_payment_method_path(@conference.short_title)
+        - if can? :update, Poll.new(conference_id: @conference.id)
+          %li{ class: active_nav_li(admin_conference_poll_path(@conference.short_title)) }
+            = link_to 'Poll', admin_conference_poll_path(@conference.short_title)
         - if can? :update, @conference
           %li{:class=> active_nav_li(edit_admin_conference_splashpage_path(@conference.short_title))}
             = link_to 'Splashpage', admin_conference_splashpage_path(@conference.short_title)
         - if can? :update, @conference
           %li{:class=> active_nav_li(admin_conference_sponsorship_info_path(@conference.short_title))}
             = link_to 'Sponsorship Information', admin_conference_sponsorship_info_path(@conference.short_title)
-        - if can? :update, Policy.new(conference_id: @conference.id)
-          %li{ class: active_nav_li(admin_conference_policies_path(@conference.short_title)) }
-            = link_to 'Policies', admin_conference_policies_path(@conference.short_title)
-        - if can? :update, Poll.new(conference_id: @conference.id)
-          %li{ class: active_nav_li(admin_conference_poll_path(@conference.short_title)) }
-            = link_to 'Poll', admin_conference_poll_path(@conference.short_title)
 
   - if can? :show, Venue.new(conference_id: @conference.id)
     %li{:class=> "#{active_nav_li(admin_conference_venue_path(@conference.short_title))}"}

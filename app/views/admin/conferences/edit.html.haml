@@ -38,5 +38,4 @@
         = f.input :registration_limit, as: :number, in: 0..9999, hint: "Limit the number of registrations to the conference (0 no limit)"
         = f.input :require_itinerary, label: "Require the attendee's itinerary at registrion time"
       %br
-      = f.inputs :braintree_merchant_account
       = f.action :submit, :as => :button, :button_html => {:class => "btn btn-primary"}

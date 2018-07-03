@@ -11,11 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180313154012) do
+ActiveRecord::Schema.define(version: 20180702213234) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "tablefunc"
 
   create_table "activities", force: :cascade do |t|
     t.string   "name"
@@ -786,16 +785,28 @@ ActiveRecord::Schema.define(version: 20180313154012) do
     t.datetime "updated_at"
   end
 
-  create_table "payments", force: :cascade do |t|
-    t.string   "last4"
-    t.integer  "amount"
-    t.string   "authorization_code"
-    t.integer  "status",             default: 0, null: false
-    t.integer  "user_id",                        null: false
-    t.integer  "conference_id",                  null: false
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+  create_table "payment_methods", force: :cascade do |t|
+    t.integer  "conference_id",              null: false
+    t.string   "environment",                null: false
+    t.string   "gateway",                    null: false
+    t.string   "braintree_environment"
+    t.string   "braintree_merchant_id"
+    t.string   "braintree_public_key"
+    t.string   "braintree_private_key"
+    t.string   "braintree_merchant_account"
+    t.string   "payu_store_name"
+    t.string   "payu_store_id"
+    t.string   "payu_webservice_name"
+    t.string   "payu_webservice_password"
+    t.string   "payu_signature_key"
+    t.string   "payu_service_domain"
+    t.string   "stripe_publishable_key"
+    t.string   "stripe_secret_key"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
+
+  add_index "payment_methods", ["conference_id", "environment"], name: "index_payment_methods_on_conference_id_and_environment", unique: true, using: :btree
 
   create_table "payments", force: :cascade do |t|
     t.string   "last4"
@@ -806,7 +817,24 @@ ActiveRecord::Schema.define(version: 20180313154012) do
     t.integer  "conference_id",                  null: false
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
+    t.string   "reference"
   end
+
+  add_index "payments", ["reference"], name: "index_payments_on_reference", unique: true, using: :btree
+
+  create_table "payments", force: :cascade do |t|
+    t.string   "last4"
+    t.integer  "amount"
+    t.string   "authorization_code"
+    t.integer  "status",             default: 0, null: false
+    t.integer  "user_id",                        null: false
+    t.integer  "conference_id",                  null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.string   "reference"
+  end
+
+  add_index "payments", ["reference"], name: "index_payments_on_reference", unique: true, using: :btree
 
   create_table "physical_tickets", force: :cascade do |t|
     t.integer  "ticket_purchase_id", null: false
@@ -2008,6 +2036,7 @@ ActiveRecord::Schema.define(version: 20180313154012) do
   add_foreign_key "events", "tickets"
   add_foreign_key "events", "public.tickets", column: "ticket_id"
   add_foreign_key "events", "tickets"
+  add_foreign_key "payment_methods", "conferences"
   add_foreign_key "physical_tickets", "events"
   add_foreign_key "physical_tickets", "registrations"
   add_foreign_key "policies", "conferences"
