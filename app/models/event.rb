@@ -15,6 +15,8 @@ class Event < ActiveRecord::Base
   has_one :submitter_event_user, -> { where(event_role: 'submitter') }, class_name: 'EventUser'
   has_one  :submitter, through: :submitter_event_user, source: :user
 
+  has_many :involved, -> { distinct }, through: :event_users, source: :user
+
   has_many :ticket_purchases
   has_many :votes, dependent: :destroy
   has_many :voters, through: :votes, source: :user
@@ -148,8 +150,8 @@ class Event < ActiveRecord::Base
     if program.conference.email_settings.send_on_confirmed_without_registration? &&
         program.conference.email_settings.confirmed_without_registration_body  &&
         program.conference.email_settings.confirmed_without_registration_subject
-      speakers.each do |speaker|
-        if program.conference.registrations.where(user_id: speaker.id).first.nil?
+      involved.each do |recipient|
+        if program.conference.registrations.where(user_id: recipient.id).first.nil?
           Mailbot.confirm_reminder_mail(self, speaker).deliver_later
         end
       end
@@ -161,7 +163,7 @@ class Event < ActiveRecord::Base
         program.conference.email_settings.accepted_body &&
         program.conference.email_settings.accepted_subject &&
         !options[:send_mail].blank?
-      speakers.each do |recipient|
+      involved.each do |recipient|
         Mailbot.acceptance_mail(self, recipient).deliver_later
       end
     end
@@ -172,7 +174,7 @@ class Event < ActiveRecord::Base
         program.conference.email_settings.rejected_body &&
         program.conference.email_settings.rejected_subject &&
         !options[:send_mail].blank?
-      speakers.each do |recipient|
+      involved.each do |recipient|
         Mailbot.rejection_mail(self, recipient).deliver_later
       end
     end
