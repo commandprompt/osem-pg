@@ -12,6 +12,7 @@
       = f.input :description, hint: markdown_hint('A description of the conference.'), input_html: { rows: 5, data: { provide: 'markdown-editable' } }
       = f.input :extended_description, hint: markdown_hint('An extended description of the conference that will show up on the About page.'), input_html: { rows: 8, data: { provide: 'markdown-editable' } }
       = f.input :color, :hint => "The color will be used eg for the dashboard.", :input_html => {:size => 6, :type => "color"}
+      = f.input :conference_group, include_blank: true
       = f.label 'Conference Logo'
       %br
       - if @conference.picture?

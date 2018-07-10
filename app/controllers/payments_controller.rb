@@ -73,7 +73,7 @@ class PaymentsController < ApplicationController
        b.TransactionType 'PAYMENT'
        b.AdditionalInformation do |ai|
          ai.merchantReference @conference.payment_method.payu_store_name
-         ai.supportedPaymentMethods 'CREDITCARD'
+         ai.supportedPaymentMethods 'CREDITCARD,MASTERPASS,EFT,EFT_PRO'
          ai.returnUrl url_for :controller => 'payments', :action => 'confirm'
          ai.cancelUrl url_for :controller => 'payments', :action => 'cancel'
        end

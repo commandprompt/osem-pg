@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180702213234) do
+ActiveRecord::Schema.define(version: 20180709224810) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -284,34 +284,10 @@ ActiveRecord::Schema.define(version: 20180702213234) do
     t.string   "url"
   end
 
-  create_table "conferences", force: :cascade do |t|
-    t.string   "guid",                                       null: false
-    t.string   "title",                                      null: false
-    t.string   "short_title",                                null: false
-    t.string   "timezone",                                   null: false
-    t.date     "start_date",                                 null: false
-    t.date     "end_date",                                   null: false
+  create_table "conference_groups", force: :cascade do |t|
+    t.string   "name",       null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "logo_file_name"
-    t.integer  "revision"
-    t.boolean  "use_vpositions",             default: false
-    t.boolean  "use_vdays",                  default: false
-    t.boolean  "use_volunteers"
-    t.string   "color"
-    t.text     "events_per_week"
-    t.text     "description"
-    t.integer  "registration_limit",         default: 0
-    t.string   "picture"
-    t.integer  "start_hour",                 default: 9
-    t.integer  "end_hour",                   default: 20
-    t.boolean  "require_itinerary"
-    t.boolean  "use_pg_flow",                default: true
-    t.string   "background_file_name"
-    t.string   "default_currency",           default: "USD"
-    t.string   "braintree_merchant_account"
-    t.integer  "ticket_layout",              default: 0
-    t.text     "extended_description"
   end
 
   create_table "conferences", force: :cascade do |t|
@@ -342,6 +318,38 @@ ActiveRecord::Schema.define(version: 20180702213234) do
     t.string   "braintree_merchant_account"
     t.integer  "ticket_layout",              default: 0
     t.text     "extended_description"
+    t.integer  "conference_group_id"
+  end
+
+  create_table "conferences", force: :cascade do |t|
+    t.string   "guid",                                       null: false
+    t.string   "title",                                      null: false
+    t.string   "short_title",                                null: false
+    t.string   "timezone",                                   null: false
+    t.date     "start_date",                                 null: false
+    t.date     "end_date",                                   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "logo_file_name"
+    t.integer  "revision"
+    t.boolean  "use_vpositions",             default: false
+    t.boolean  "use_vdays",                  default: false
+    t.boolean  "use_volunteers"
+    t.string   "color"
+    t.text     "events_per_week"
+    t.text     "description"
+    t.integer  "registration_limit",         default: 0
+    t.string   "picture"
+    t.integer  "start_hour",                 default: 9
+    t.integer  "end_hour",                   default: 20
+    t.boolean  "require_itinerary"
+    t.boolean  "use_pg_flow",                default: true
+    t.string   "background_file_name"
+    t.string   "default_currency",           default: "USD"
+    t.string   "braintree_merchant_account"
+    t.integer  "ticket_layout",              default: 0
+    t.text     "extended_description"
+    t.integer  "conference_group_id"
   end
 
   create_table "conferences_codes", id: false, force: :cascade do |t|
@@ -2022,6 +2030,8 @@ ActiveRecord::Schema.define(version: 20180702213234) do
   add_foreign_key "codes_tickets", "public.codes", column: "code_id"
   add_foreign_key "codes_tickets", "public.tickets", column: "ticket_id"
   add_foreign_key "codes_tickets", "tickets"
+  add_foreign_key "conferences", "conference_groups"
+  add_foreign_key "conferences", "conference_groups"
   add_foreign_key "conferences_codes", "codes"
   add_foreign_key "conferences_codes", "conferences"
   add_foreign_key "conferences_codes", "public.codes", column: "code_id"

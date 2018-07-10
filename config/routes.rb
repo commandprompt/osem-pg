@@ -37,6 +37,7 @@ Osem::Application.routes.draw do
         patch :toggle_confirmation
       end
     end
+    resources :conference_groups
     resources :sponsors
     resources :comments, only: [:index]
     resources :conferences do

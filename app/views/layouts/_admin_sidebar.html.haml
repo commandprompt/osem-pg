@@ -206,6 +206,12 @@
           = link_to(admin_sponsors_path) do
             %span.fa.fa-users
             Sponsors
+      - if (current_user.is_admin) || (current_user.has_role? :organizer, :any)
+        %li
+          = link_to(new_admin_conference_groups_path) do
+            %span.fa.fa-plus
+            New Conference Group
+
       - if can? :index, PaperTrail::Version.new(item_type: 'User')
         %li
           = link_to(admin_revision_history_path) do

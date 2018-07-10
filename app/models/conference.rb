@@ -11,6 +11,8 @@ class Conference < ActiveRecord::Base
 
   has_paper_trail ignore: [:updated_at, :guid, :revision, :events_per_week], meta: { conference_id: :id }
 
+  belongs_to :conference_group
+
   has_and_belongs_to_many :questions
   has_and_belongs_to_many :policies
   has_and_belongs_to_many :codes, :join_table => :conferences_codes
