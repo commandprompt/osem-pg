@@ -18,7 +18,7 @@
           Conference Prospectus
         %p.text-muted
           The prospectus file will be available for view and download on the sponsors information page
-        = link_to @sponsorship_info.prospectus.filename, @sponsorship_info.prospectus_url
+        = link_to @sponsorship_info.prospectus.filename, conference_prospectus_path
 .row
   .col-md-12.text-right
     - if @sponsorship_info
