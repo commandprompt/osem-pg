@@ -8,4 +8,5 @@ class ConferenceGroup < ActiveRecord::Base
   def conference_count
     conferences.count
   end
+  
 end

@@ -20,6 +20,26 @@
                 %h3
                   = markdown(@conference.extended_description)
 
+    - if @conference.previous_conferences.any?
+      %section#about-previous
+        .container
+          .row.description
+            .h2.text-center
+              Previous Conferences
+
+          - @conference.previous_conferences.each_slice(3) do |slice|
+            .row.row-centered
+              - slice.each do |conf|
+                .col-md-4.col-centered.col-top.text-center
+                  .thumbnail
+                    - if conf.background?
+                      = link_to(conference_path(conf.short_title), class: 'thumbnail') do
+                        = image_tag conf.background.thumb.url, class: 'img-responsive img-lodging'
+                    .caption
+                      %h3.text-center
+                        = conf.title
+
+
     = render :file => 'refinery/pages/about', locals: {subpage: true}
 
     - if @conference.contact.has_social_media? and @conference.splashpage.include_social_media

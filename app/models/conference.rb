@@ -703,6 +703,10 @@ class Conference < ActiveRecord::Base
         .distinct
   end
 
+  def previous_conferences
+    Conference.where("conference_group_id = ? AND start_date < ?", conference_group_id, start_date).order('start_date')
+  end
+  
   private
 
   # Returns a different html colour for every i and consecutive colors are
