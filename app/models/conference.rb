@@ -47,6 +47,7 @@ class Conference < ActiveRecord::Base
   has_many :commercials, as: :commercialable, dependent: :destroy
   has_many :subscriptions, dependent: :destroy
   has_many :benefits, dependent: :destroy
+  has_many :conference_team_members
 
   has_many :duplicate_tickets
 

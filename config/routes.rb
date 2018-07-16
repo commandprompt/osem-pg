@@ -115,6 +115,13 @@ Osem::Application.routes.draw do
         end
       end
 
+      resources :conference_team_members, except: [:show, :update] do
+        member do
+          patch :up
+          patch :down
+        end
+      end
+
       resources :ticket_groups, except: [:show] do
         member do
           patch :up

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180709224810) do
+ActiveRecord::Schema.define(version: 20180715232711) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -289,6 +289,14 @@ ActiveRecord::Schema.define(version: 20180709224810) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "conference_team_members", force: :cascade do |t|
+    t.integer "conference_id",           null: false
+    t.integer "refinery_team_member_id", null: false
+    t.integer "position",                null: false
+  end
+
+  add_index "conference_team_members", ["conference_id"], name: "index_conference_team_members_on_conference_id", using: :btree
 
   create_table "conferences", force: :cascade do |t|
     t.string   "guid",                                       null: false
@@ -2030,6 +2038,8 @@ ActiveRecord::Schema.define(version: 20180709224810) do
   add_foreign_key "codes_tickets", "public.codes", column: "code_id"
   add_foreign_key "codes_tickets", "public.tickets", column: "ticket_id"
   add_foreign_key "codes_tickets", "tickets"
+  add_foreign_key "conference_team_members", "conferences"
+  add_foreign_key "conference_team_members", "refinery_team_members"
   add_foreign_key "conferences", "conference_groups"
   add_foreign_key "conferences", "conference_groups"
   add_foreign_key "conferences_codes", "codes"
