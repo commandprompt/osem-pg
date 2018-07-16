@@ -31,7 +31,7 @@
               /     View
 
               .col-md-2.col-md-offset-5.form-group
-                = link_to @conference.sponsorship_info.prospectus_url, class: 'btn btn-info btn-block btn-lg' do
+                = link_to conference_prospectus_path, class: 'btn btn-info btn-block btn-lg' do
                   %span.fa.fa-download{aria: {hidden: true}}
                   Download
 

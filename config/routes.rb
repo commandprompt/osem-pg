@@ -206,6 +206,7 @@ Osem::Application.routes.draw do
 
     resource :subscriptions, only: [:create, :destroy]
     resource :sponsorships, only: [:show]
+    resource :prospectus, only: [:show]
     resource :about, only: [:show], :controller => 'about'
     resource :buytickets, only: [:show], :controller => 'ticket_groups'
     resource :poll do
