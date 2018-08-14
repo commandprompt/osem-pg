@@ -4,11 +4,15 @@
       %h1
         Proposals for
         %span.notranslate
-          = @conference.title
+          -if @conference
+            = @conference.title
+          -else
+            all conferences
 
-  .row
-    .col-md-12
-      = render partial: 'encouragement_text'
+  - if @conference
+    .row
+      .col-md-12
+        = render partial: 'encouragement_text'
   - if @events.any?
     - if @events.highlighted.any?
       .row
@@ -65,7 +69,9 @@
     %table.table.table-striped
       - @participated_events.each do |event|
         = render partial: 'event', locals: {event: event}
-  .row
-    .col-md-12
-      - if can? :create, @event
-        = link_to "New Proposal", new_conference_program_proposal_path(@conference.short_title), :class => "btn btn-success pull-right"
+
+  - if @conference
+    .row
+      .col-md-12
+        - if can? :create, @event
+          = link_to "New Proposal", new_conference_program_proposal_path(@conference.short_title), :class => "btn btn-success pull-right"

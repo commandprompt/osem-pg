@@ -206,12 +206,20 @@ class User < ActiveRecord::Base
     !confirmed_at.nil?
   end
 
-  def proposals(conference)
-    events.where('program_id = ? AND event_users.event_role=?', conference.program.id, 'submitter')
+  def proposals(conference=nil)
+    if conference
+      events.where('program_id = ? AND event_users.event_role=?', conference.program.id, 'submitter')
+    else
+      events.where('event_users.event_role=?', 'submitter')
+    end
   end
 
-  def participated_events(conference)
-    events.where('program_id = ? AND event_users.event_role=?', conference.program.id, 'speaker')
+  def participated_events(conference=nil)
+    if conference
+      events.where('program_id = ? AND event_users.event_role=?', conference.program.id, 'speaker')
+    else
+      events.where('event_users.event_role=?', 'speaker')
+    end
   end
 
   def proposal_count(conference)

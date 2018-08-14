@@ -17,7 +17,13 @@
   %li
     = link_to(main_app.conference_program_proposals_path(@conference.short_title)) do
       %span.fa.fa-comment
-      My Submissions
+      My Proposals for #{@conference.short_title}
+-else
+  %li
+    = link_to(main_app.my_proposals_path) do
+      %span.fa.fa-comment
+      My Proposals
+
 %li
   - if ENV['OSEM_ICHAIN_ENABLED'] == 'true'
     = link_to(main_app.destroy_user_ichain_session_path, :method=>'delete') do
