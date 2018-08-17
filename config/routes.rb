@@ -204,6 +204,7 @@ Osem::Application.routes.draw do
       end
     end
 
+    resources :purchases, only: [:index, :show]
     resource :subscriptions, only: [:create, :destroy]
     resource :sponsorships, only: [:show]
     resource :prospectus, only: [:show]

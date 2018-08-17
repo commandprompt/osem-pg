@@ -17,4 +17,17 @@ class Code < ActiveRecord::Base
     Code.where(conference_id: conference.id, sponsor_id: sponsor.id)
   end
 
+  def self.get_discount(code_id, ticket_id)
+    code = Code.find(code_id)
+    if code.code_type_id = 1
+      if code.tickets.where('codes_tickets.ticket_id = ?', ticket_id).exists?
+        discount = code.discount.to_s + '%'
+      else
+        discount = ''
+      end
+    else
+      discount = ''
+    end
+    discount
+  end
 end

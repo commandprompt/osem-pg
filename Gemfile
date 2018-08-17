@@ -141,9 +141,11 @@ gem 'gravtastic'
 gem 'country_select'
 
 # as PDF generator
+gem 'prawn', '~> 1.3.0'
 gem 'prawn_rails'
 gem 'rqrcode'
 gem 'prawn-qrcode', '~> 0.2.2.1'
+gem 'invoice_printer'
 
 # to render XLS spreadsheets
 gem 'axlsx_rails'

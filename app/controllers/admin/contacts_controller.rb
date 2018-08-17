@@ -22,7 +22,8 @@ module Admin
 
     # Only allow a trusted parameter "white list" through.
     def contact_params
-      params.require(:contact).permit(:social_tag, :email, :facebook, :googleplus, :twitter, :instagram, :public, :sponsor_email)
+      params.require(:contact).permit(:social_tag, :email, :facebook, :googleplus, :twitter, :instagram, :public, :sponsor_email,
+                                      :name, :street1, :street2, :city, :state, :country, :postal_code)
     end
   end
 end

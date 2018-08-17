@@ -28,6 +28,11 @@ class TicketPurchase < ActiveRecord::Base
   scope :by_conference, -> (conference) { where(conference_id: conference.id) }
   scope :by_user, -> (user) { where(user_id: user.id) }
 
+  def total_purchase_price
+    tpp = purchase_price_cents * quantity
+    Money.new(tpp, conference.default_currency)
+  end
+
   def self.total_payments(conference, ticket)
     total_paid = TicketPurchase.where(ticket_id: ticket.id, paid: true,
                          conference_id: conference.id).joins(:payment).sum(:amount)
