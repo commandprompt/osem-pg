@@ -83,46 +83,56 @@
               - unless @conference.use_pg_flow
                 = '(' + registered_text(event) + ')'
 
-  - if @conference.tickets.any?
-    .row
-      .col-md-12
-        -if @tickets.any?
-          %h4
-            %span.fa-stack
-              %i.fa.fa-square-o.fa-stack-2x
-              %i.fa.fa-ticket.fa-stack-1x
-            Ticket Purchases
-            = "(#{@tickets.first.price.symbol}#{humanized_money @total_price})"
-        %ul
-          .col-md-12
-            - @ticket_payments.each_pair do |ticket_id, tickets|
-              %li
-                = @total_quantity[ticket_id]
-                = tickets.first.title
-                = word_pluralize(@total_quantity[ticket_id], 'Ticket')
-                for
-                = tickets.first.price.symbol
-                = humanized_money tickets.first.adjusted_price
-            %br
-        - if @tickets.any?
-          = link_to 'Get more tickets', conference_tickets_path(@conference.short_title), class: "btn btn-default"
-        - else
-          You haven't bought any tickets.
-          = link_to 'Please get some tickets to support us!', conference_tickets_path(@conference.short_title)
-          %p
-            (Your participation won't be valid without getting a ticket)
+  .row
+    .col-md-4
+
+      - if @conference.tickets.any?
+        .col-md-12
+          -if @tickets.any?
+            %h4
+              %span.fa-stack
+                %i.fa.fa-square-o.fa-stack-2x
+                %i.fa.fa-ticket.fa-stack-1x
+              Tickets
+          %ul
+            .col-md-12
+              - @ticket_payments.each_pair do |ticket_id, tickets|
+                %li
+                  = @total_quantity[ticket_id]
+                  = tickets.first.title
+                  = word_pluralize(@total_quantity[ticket_id], 'Ticket')
+              %br
+
+    .col-md-4
+      - if @conference.payments.any?
+        .col-md-12
+          -if @payments.any?
+            %h4
+              %span.fa-stack
+                %i.fa.fa-square-o.fa-stack-2x
+                %i.fa.fa-money.fa-stack-1x
+              Payments
+          %ul
+            .col-md-12
+              %br
+                %li
+                  = @payment_quantity
+                  = word_pluralize(@payment_quantity, 'Payment')
+              %br
 
   .row
-    .col-md-12
-      -if @registration
-        .btn-group-vertical.pull-right
-          = link_to 'Edit your Registration', edit_conference_conference_registration_path(@conference.short_title), class: 'btn btn-success', disabled: @conference.end_date < Date.today
+    .col-md-4
+      - if @conference.tickets.any?
+        .col-md-6.text-center
           - if @tickets.any?
-            = link_to 'Unregister', conference_conference_registration_path(@conference.short_title), method: :delete, class: 'btn btn-danger btn-xs',
-              data: { confirm: "Your ticket purchases won't be refunded. Are you sure you want to unregister?" }, disabled: @conference.end_date < Date.today
+            = link_to 'Tickets', conference_physical_ticket_index_path, class: "btn btn-default btn-info"
           - else
-            = link_to 'Unregister', conference_conference_registration_path(@conference.short_title), method: :delete, class: 'btn btn-danger btn-xs',
-              data: { confirm: "You haven't purchased any ticket. Are you sure you want to unregister?" }, disabled: @conference.end_date < Date.today
-      - else
-        = link_to 'Register', new_conference_conference_registration_path(@conference.short_title), class: 'btn btn-success btn-lg pull-right'
-
+            You do not have a ticket.
+            = link_to 'Purchase tickets', conference_tickets_path(@conference.short_title)
+            %p
+              (Your participation won't be valid without getting a ticket)
+    .col-md-4
+      - if @conference.payments.any?
+        .col-md-6.text-center
+          - if @payments.any?
+            = link_to 'Payments', conference_purchases_path, class: "btn btn-default btn-info"

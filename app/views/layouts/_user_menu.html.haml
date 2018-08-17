@@ -13,6 +13,12 @@
       %span.fa.fa-ticket
       My Tickets
 
+- if @conference && Payment.purchases(@conference, current_user).any?
+  %li
+    = link_to(conference_purchases_path(@conference.short_title)) do
+      %span.fa.fa-money
+      My Purchases
+
 -if @conference and @conference.program
   %li
     = link_to(main_app.conference_program_proposals_path(@conference.short_title)) do
