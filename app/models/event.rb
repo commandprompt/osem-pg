@@ -152,7 +152,7 @@ class Event < ActiveRecord::Base
         program.conference.email_settings.confirmed_without_registration_subject
       involved.each do |recipient|
         if program.conference.registrations.where(user_id: recipient.id).first.nil?
-          Mailbot.confirm_reminder_mail(self, speaker).deliver_later
+          Mailbot.confirm_reminder_mail(self, recipient).deliver_later
         end
       end
     end
