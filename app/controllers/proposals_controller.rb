@@ -1,17 +1,23 @@
 class ProposalsController < ApplicationController
   before_action :authenticate_user!, except: [:show, :new, :create]
   load_resource :conference, find_by: :short_title
-  load_resource :program, through: :conference, singleton: true
-  load_and_authorize_resource :event, parent: false, through: :program
+  load_resource :program, through: :conference, singleton: true, except: :my_proposals
+  load_and_authorize_resource :event, parent: false, through: :program, except: :my_proposals
   # We authorize manually in these actions
   skip_authorize_resource :event, only: [:confirm, :restart, :withdraw, :comment, :vote]
-  skip_authorization_check :only => [:comment, :vote]
+  skip_authorization_check :only => [:comment, :vote, :my_proposals]
 
   def index
     @event = @program.events.new
     @event.event_users.new(user: current_user, event_role: 'submitter')
     @events = current_user.proposals(@conference)
     @participated_events = current_user.participated_events(@conference) - @events
+  end
+
+  def my_proposals
+    @events = current_user.proposals
+    @participated_events = current_user.participated_events - @events
+    render action: 'index'
   end
 
   def show
