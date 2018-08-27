@@ -10,6 +10,22 @@ class Mailbot < ActionMailer::Base
                                                               conference.email_settings.registration_body))
   end
 
+  def purchase_confirmation_mail(payment)
+    @payment = payment
+    @lines = TicketPurchase.where(payment_id: @payment.id)
+    @user = payment.user
+    @conference = payment.conference
+
+    filename = @conference.short_title + '_payment-' + @payment.id.to_s + '.pdf'
+    pdf = ReceiptPdf.new(@conference, @user, @payment, @lines)
+    attachments[filename] = InvoicePrinter.render(document: pdf, logo: File.expand_path('app/assets/images/PPD_logo.png'))
+
+    mail(to: @user.email,
+         from: @conference.contact.email,
+         template_name: 'purchase_confirmation_template.text.erb',
+         subject: "#{@conference.title} | Purchase Confirmation")
+  end
+
   def ticket_confirmation_mail(ticket_purchase)
     @ticket_purchase = ticket_purchase
     @conference = ticket_purchase.conference

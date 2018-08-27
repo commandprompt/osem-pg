@@ -46,6 +46,7 @@ class PaymentsController < ApplicationController
 
         if @payment.save
           update_purchased_ticket_purchases
+          Mailbot.purchase_confirmation_mail(@payment).deliver_later
           redirect_to conference_physical_ticket_index_path,
                      notice: 'Thanks! Your ticket is booked successfully.'
         end
@@ -138,6 +139,7 @@ class PaymentsController < ApplicationController
 
      if @payment.purchase && @payment.save
        update_purchased_ticket_purchases
+       Mailbot.purchase_confirmation_mail(@payment).deliver_later
        redirect_to conference_physical_ticket_index_path, 
                    notice: 'Thanks! Your ticket is booked successfully.'
      else
@@ -205,6 +207,7 @@ class PaymentsController < ApplicationController
      @payment.authorization_code = auth_code
      if @payment.save
        update_purchased_ticket_purchases
+       Mailbot.purchase_confirmation_mail(@payment).deliver_later
        redirect_to conference_physical_ticket_index_path,
                 notice: 'Thanks! Your ticket is booked successfully.'
      end
