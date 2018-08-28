@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 20180815133124) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "tablefunc"
 
   create_table "activities", force: :cascade do |t|
     t.string   "name"
@@ -98,6 +99,21 @@ ActiveRecord::Schema.define(version: 20180815133124) do
   end
 
   add_index "benefit_responses", ["conference_id", "sponsorship_id", "benefit_id"], name: "conf_sponsorship_benefit_idx", unique: true, using: :btree
+  add_index "benefit_responses", ["conference_id", "sponsorship_id", "benefit_id"], name: "conf_sponsorship_benefit_idx", unique: true, using: :btree
+
+  create_table "benefit_responses", force: :cascade do |t|
+    t.integer  "conference_id"
+    t.integer  "sponsorship_id"
+    t.integer  "benefit_id"
+    t.text     "text_response"
+    t.string   "file_response"
+    t.boolean  "bool_response"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "benefit_responses", ["conference_id", "sponsorship_id", "benefit_id"], name: "conf_sponsorship_benefit_idx", unique: true, using: :btree
+  add_index "benefit_responses", ["conference_id", "sponsorship_id", "benefit_id"], name: "conf_sponsorship_benefit_idx", unique: true, using: :btree
 
   create_table "benefits", force: :cascade do |t|
     t.string   "name"
@@ -110,6 +126,21 @@ ActiveRecord::Schema.define(version: 20180815133124) do
     t.datetime "updated_at"
   end
 
+  add_index "benefits", ["conference_id"], name: "index_benefits_on_conference_id", using: :btree
+  add_index "benefits", ["conference_id"], name: "index_benefits_on_conference_id", using: :btree
+
+  create_table "benefits", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "conference_id"
+    t.integer  "category"
+    t.integer  "value_type"
+    t.text     "description"
+    t.datetime "due_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "benefits", ["conference_id"], name: "index_benefits_on_conference_id", using: :btree
   add_index "benefits", ["conference_id"], name: "index_benefits_on_conference_id", using: :btree
 
   create_table "campaigns", force: :cascade do |t|
@@ -381,6 +412,15 @@ ActiveRecord::Schema.define(version: 20180815133124) do
     t.integer "policy_id"
   end
 
+  add_index "conferences_policies", ["conference_id", "policy_id"], name: "index_conferences_policies_on_conference_id_and_policy_id", unique: true, using: :btree
+  add_index "conferences_policies", ["conference_id", "policy_id"], name: "index_conferences_policies_on_conference_id_and_policy_id", unique: true, using: :btree
+
+  create_table "conferences_policies", id: false, force: :cascade do |t|
+    t.integer "conference_id"
+    t.integer "policy_id"
+  end
+
+  add_index "conferences_policies", ["conference_id", "policy_id"], name: "index_conferences_policies_on_conference_id_and_policy_id", unique: true, using: :btree
   add_index "conferences_policies", ["conference_id", "policy_id"], name: "index_conferences_policies_on_conference_id_and_policy_id", unique: true, using: :btree
 
   create_table "conferences_questions", id: false, force: :cascade do |t|
@@ -878,8 +918,38 @@ ActiveRecord::Schema.define(version: 20180815133124) do
   end
 
   add_index "physical_tickets", ["registration_id"], name: "index_physical_tickets_on_registration_id", using: :btree
+  add_index "physical_tickets", ["registration_id"], name: "index_physical_tickets_on_registration_id", using: :btree
+  add_index "physical_tickets", ["token"], name: "index_physical_tickets_on_token", unique: true, using: :btree
   add_index "physical_tickets", ["token"], name: "index_physical_tickets_on_token", unique: true, using: :btree
   add_index "physical_tickets", ["user_id"], name: "index_physical_tickets_on_user_id", using: :btree
+  add_index "physical_tickets", ["user_id"], name: "index_physical_tickets_on_user_id", using: :btree
+
+  create_table "physical_tickets", force: :cascade do |t|
+    t.integer  "ticket_purchase_id", null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "token"
+    t.integer  "user_id",            null: false
+    t.integer  "event_id"
+    t.integer  "registration_id",    null: false
+    t.string   "pending_assignment"
+  end
+
+  add_index "physical_tickets", ["registration_id"], name: "index_physical_tickets_on_registration_id", using: :btree
+  add_index "physical_tickets", ["registration_id"], name: "index_physical_tickets_on_registration_id", using: :btree
+  add_index "physical_tickets", ["token"], name: "index_physical_tickets_on_token", unique: true, using: :btree
+  add_index "physical_tickets", ["token"], name: "index_physical_tickets_on_token", unique: true, using: :btree
+  add_index "physical_tickets", ["user_id"], name: "index_physical_tickets_on_user_id", using: :btree
+  add_index "physical_tickets", ["user_id"], name: "index_physical_tickets_on_user_id", using: :btree
+
+  create_table "policies", force: :cascade do |t|
+    t.string   "title"
+    t.integer  "conference_id"
+    t.boolean  "global"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "policies", force: :cascade do |t|
     t.string   "title"
@@ -1482,6 +1552,7 @@ ActiveRecord::Schema.define(version: 20180815133124) do
   end
 
   add_index "sponsors", ["short_name"], name: "index_sponsors_on_short_name", unique: true, using: :btree
+  add_index "sponsors", ["short_name"], name: "index_sponsors_on_short_name", unique: true, using: :btree
 
   create_table "sponsors", force: :cascade do |t|
     t.string   "name"
@@ -1494,6 +1565,7 @@ ActiveRecord::Schema.define(version: 20180815133124) do
     t.string   "short_name"
   end
 
+  add_index "sponsors", ["short_name"], name: "index_sponsors_on_short_name", unique: true, using: :btree
   add_index "sponsors", ["short_name"], name: "index_sponsors_on_short_name", unique: true, using: :btree
 
   create_table "sponsors_backup", id: false, force: :cascade do |t|
@@ -1514,6 +1586,15 @@ ActiveRecord::Schema.define(version: 20180815133124) do
     t.integer "user_id"
   end
 
+  add_index "sponsors_users", ["user_id"], name: "index_sponsors_users_on_user_id", unique: true, using: :btree
+  add_index "sponsors_users", ["user_id"], name: "index_sponsors_users_on_user_id", unique: true, using: :btree
+
+  create_table "sponsors_users", id: false, force: :cascade do |t|
+    t.integer "sponsor_id"
+    t.integer "user_id"
+  end
+
+  add_index "sponsors_users", ["user_id"], name: "index_sponsors_users_on_user_id", unique: true, using: :btree
   add_index "sponsors_users", ["user_id"], name: "index_sponsors_users_on_user_id", unique: true, using: :btree
 
   create_table "sponsorship_infos", force: :cascade do |t|
@@ -1569,6 +1650,20 @@ ActiveRecord::Schema.define(version: 20180815133124) do
   end
 
   add_index "sponsorship_levels_benefits", ["sponsorship_level_id"], name: "index_sponsorship_levels_benefits_on_sponsorship_level_id", using: :btree
+  add_index "sponsorship_levels_benefits", ["sponsorship_level_id"], name: "index_sponsorship_levels_benefits_on_sponsorship_level_id", using: :btree
+
+  create_table "sponsorship_levels_benefits", force: :cascade do |t|
+    t.integer  "sponsorship_level_id"
+    t.integer  "benefit_id"
+    t.integer  "code_type_id"
+    t.integer  "max_uses"
+    t.integer  "discount"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sponsorship_levels_benefits", ["sponsorship_level_id"], name: "index_sponsorship_levels_benefits_on_sponsorship_level_id", using: :btree
+  add_index "sponsorship_levels_benefits", ["sponsorship_level_id"], name: "index_sponsorship_levels_benefits_on_sponsorship_level_id", using: :btree
 
   create_table "sponsorships", force: :cascade do |t|
     t.integer  "conference_id",        null: false
@@ -1578,6 +1673,18 @@ ActiveRecord::Schema.define(version: 20180815133124) do
     t.datetime "updated_at"
   end
 
+  add_index "sponsorships", ["conference_id", "sponsor_id"], name: "index_sponsorships_on_conference_id_and_sponsor_id", unique: true, using: :btree
+  add_index "sponsorships", ["conference_id", "sponsor_id"], name: "index_sponsorships_on_conference_id_and_sponsor_id", unique: true, using: :btree
+
+  create_table "sponsorships", force: :cascade do |t|
+    t.integer  "conference_id",        null: false
+    t.integer  "sponsor_id",           null: false
+    t.integer  "sponsorship_level_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sponsorships", ["conference_id", "sponsor_id"], name: "index_sponsorships_on_conference_id_and_sponsor_id", unique: true, using: :btree
   add_index "sponsorships", ["conference_id", "sponsor_id"], name: "index_sponsorships_on_conference_id_and_sponsor_id", unique: true, using: :btree
 
   create_table "subscriptions", force: :cascade do |t|
@@ -1730,6 +1837,12 @@ ActiveRecord::Schema.define(version: 20180815133124) do
   add_index "ticket_purchases", ["conference_id", "code_id"], name: "index_ticket_purchases_on_conference_id_and_code_id", using: :btree
   add_index "ticket_purchases", ["event_id"], name: "index_ticket_purchases_on_event_id", using: :btree
   add_index "ticket_purchases", ["event_id"], name: "index_ticket_purchases_on_event_id", using: :btree
+
+  create_table "ticket_scannings", force: :cascade do |t|
+    t.integer  "physical_ticket_id", null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
 
   create_table "ticket_scannings", force: :cascade do |t|
     t.integer  "physical_ticket_id", null: false
@@ -2030,8 +2143,20 @@ ActiveRecord::Schema.define(version: 20180815133124) do
 
   add_foreign_key "benefit_responses", "benefits"
   add_foreign_key "benefit_responses", "conferences"
+  add_foreign_key "benefit_responses", "public.benefits", column: "benefit_id"
+  add_foreign_key "benefit_responses", "public.conferences", column: "conference_id"
+  add_foreign_key "benefit_responses", "public.sponsorships", column: "sponsorship_id"
+  add_foreign_key "benefit_responses", "sponsorships"
+  add_foreign_key "benefit_responses", "benefits"
+  add_foreign_key "benefit_responses", "conferences"
+  add_foreign_key "benefit_responses", "public.benefits", column: "benefit_id"
+  add_foreign_key "benefit_responses", "public.conferences", column: "conference_id"
+  add_foreign_key "benefit_responses", "public.sponsorships", column: "sponsorship_id"
   add_foreign_key "benefit_responses", "sponsorships"
   add_foreign_key "benefits", "conferences"
+  add_foreign_key "benefits", "public.conferences", column: "conference_id"
+  add_foreign_key "benefits", "conferences"
+  add_foreign_key "benefits", "public.conferences", column: "conference_id"
   add_foreign_key "codes", "code_types"
   add_foreign_key "codes", "conferences"
   add_foreign_key "codes", "public.code_types", column: "code_type_id"
@@ -2066,26 +2191,64 @@ ActiveRecord::Schema.define(version: 20180815133124) do
   add_foreign_key "conferences_codes", "public.conferences", column: "conference_id"
   add_foreign_key "conferences_policies", "conferences"
   add_foreign_key "conferences_policies", "policies"
+  add_foreign_key "conferences_policies", "public.conferences", column: "conference_id"
+  add_foreign_key "conferences_policies", "public.policies", column: "policy_id"
+  add_foreign_key "conferences_policies", "conferences"
+  add_foreign_key "conferences_policies", "policies"
+  add_foreign_key "conferences_policies", "public.conferences", column: "conference_id"
+  add_foreign_key "conferences_policies", "public.policies", column: "policy_id"
   add_foreign_key "events", "public.tickets", column: "ticket_id"
   add_foreign_key "events", "tickets"
   add_foreign_key "events", "public.tickets", column: "ticket_id"
   add_foreign_key "events", "tickets"
   add_foreign_key "payment_methods", "conferences"
   add_foreign_key "physical_tickets", "events"
+  add_foreign_key "physical_tickets", "public.events", column: "event_id"
+  add_foreign_key "physical_tickets", "public.registrations", column: "registration_id"
   add_foreign_key "physical_tickets", "registrations"
+  add_foreign_key "physical_tickets", "users"
+  add_foreign_key "physical_tickets", "events"
+  add_foreign_key "physical_tickets", "public.events", column: "event_id"
+  add_foreign_key "physical_tickets", "public.registrations", column: "registration_id"
+  add_foreign_key "physical_tickets", "registrations"
+  add_foreign_key "physical_tickets", "users"
   add_foreign_key "policies", "conferences"
+  add_foreign_key "policies", "public.conferences", column: "conference_id"
+  add_foreign_key "policies", "conferences"
+  add_foreign_key "policies", "public.conferences", column: "conference_id"
   add_foreign_key "polls", "conferences"
   add_foreign_key "polls", "survey_surveys", column: "survey_id"
   add_foreign_key "refinery_sponsors", "sponsorship_levels"
+  add_foreign_key "sponsors_users", "public.sponsors", column: "sponsor_id"
   add_foreign_key "sponsors_users", "sponsors"
+  add_foreign_key "sponsors_users", "users"
+  add_foreign_key "sponsors_users", "users"
+  add_foreign_key "sponsors_users", "public.sponsors", column: "sponsor_id"
+  add_foreign_key "sponsors_users", "sponsors"
+  add_foreign_key "sponsors_users", "users"
   add_foreign_key "sponsors_users", "users"
   add_foreign_key "sponsorship_infos", "conferences"
   add_foreign_key "sponsorship_infos", "public.conferences", column: "conference_id"
   add_foreign_key "sponsorship_infos", "conferences"
   add_foreign_key "sponsorship_infos", "public.conferences", column: "conference_id"
   add_foreign_key "sponsorship_levels_benefits", "benefits"
+  add_foreign_key "sponsorship_levels_benefits", "public.benefits", column: "benefit_id"
+  add_foreign_key "sponsorship_levels_benefits", "public.sponsorship_levels", column: "sponsorship_level_id"
+  add_foreign_key "sponsorship_levels_benefits", "sponsorship_levels"
+  add_foreign_key "sponsorship_levels_benefits", "benefits"
+  add_foreign_key "sponsorship_levels_benefits", "public.benefits", column: "benefit_id"
+  add_foreign_key "sponsorship_levels_benefits", "public.sponsorship_levels", column: "sponsorship_level_id"
   add_foreign_key "sponsorship_levels_benefits", "sponsorship_levels"
   add_foreign_key "sponsorships", "conferences"
+  add_foreign_key "sponsorships", "public.conferences", column: "conference_id"
+  add_foreign_key "sponsorships", "public.sponsors", column: "sponsor_id"
+  add_foreign_key "sponsorships", "public.sponsorship_levels", column: "sponsorship_level_id"
+  add_foreign_key "sponsorships", "sponsors"
+  add_foreign_key "sponsorships", "sponsorship_levels"
+  add_foreign_key "sponsorships", "conferences"
+  add_foreign_key "sponsorships", "public.conferences", column: "conference_id"
+  add_foreign_key "sponsorships", "public.sponsors", column: "sponsor_id"
+  add_foreign_key "sponsorships", "public.sponsorship_levels", column: "sponsorship_level_id"
   add_foreign_key "sponsorships", "sponsors"
   add_foreign_key "sponsorships", "sponsorship_levels"
   add_foreign_key "ticket_groups", "conferences"
