@@ -14,7 +14,7 @@ module Admin
     end
 
     def create
-      @ticket_group = @conference.ticket_groups.new(code_params)
+      @ticket_group = @conference.ticket_groups.new(ticket_group_params)
       @ticket_group.conference_id = @conference.id
       authorize! :create, @ticket_group
 

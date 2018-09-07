@@ -14,7 +14,7 @@
       .col-md-12
         = render partial: 'encouragement_text'
   - if @events.any?
-    - if @events.highlighted.any?
+    - if @events.highlighted.any? and @conference
       .row
         .col-md-12
 
