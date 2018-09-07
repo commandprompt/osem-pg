@@ -100,6 +100,9 @@ gem 'iso-639'
 #website pagination
 gem 'will_paginate-bootstrap'
 
+#for automated RSS blog impoprt
+gem 'feedjira'
+
 # frontend javascripts
 source 'https://rails-assets.org' do
   # for placeholder images
