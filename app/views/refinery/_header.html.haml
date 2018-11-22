@@ -7,7 +7,7 @@
         %span.icon-bar
         %span.icon-bar
         %span.icon-bar
-      = link_to image_tag(ENV['OSEM_NAVBAR_LOGO'].presence || 'brand.png'), root_path, class: 'navbar-brand', title: 'Postgres Conference'
+      = link_to image_tag(ENV['OSEM_NAVBAR_LOGO'].presence || 'brand.png'), refinery.root_path, class: 'navbar-brand', title: 'Postgres Conference'
       = link_to Refinery::Core.site_name, refinery.root_path, {class:'navbar-brand' }
     .collapse.navbar-collapse
       = navigation_menu.to_html
