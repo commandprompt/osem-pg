@@ -129,6 +129,13 @@ Osem::Application.routes.draw do
         end
       end
 
+      resources :ticket_group_benefits, except: [:show] do
+        member do
+          patch :up
+          patch :down
+        end
+      end
+
       resources :sponsorship_levels, except: [:show] do
         member do
           patch :up
