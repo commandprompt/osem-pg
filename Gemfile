@@ -6,7 +6,7 @@ if Gem::Version.new(Bundler::VERSION) < Gem::Version.new('1.8.4')
 end
 
 # as web framework
-gem 'rails', '~> 4.2.8'
+gem 'rails', '~> 4.2.10'
 gem 'refinerycms', '~> 3.0.0'
 gem 'refinerycms-search', github: 'refinery/refinerycms-search', branch: 'master'
 gem 'refinerycms-blog', git: 'https://github.com/refinery/refinerycms-blog', branch: 'master'
@@ -100,6 +100,9 @@ gem 'iso-639'
 #website pagination
 gem 'will_paginate-bootstrap'
 
+#for automated RSS blog impoprt
+gem 'feedjira'
+
 # frontend javascripts
 source 'https://rails-assets.org' do
   # for placeholder images
@@ -168,7 +171,7 @@ gem 'redcarpet'
 gem 'yajl-ruby', '~> 1.2', '>= 1.2.1'
 
 # as rdoc generator
-gem 'rdoc-generator-fivefish', '~> 0.1.0'
+gem 'rdoc-generator-fivefish', '~> 0.4.0'
 
 # for visitor tracking
 gem 'ahoy_matey'
